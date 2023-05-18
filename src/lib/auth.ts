@@ -1,7 +1,9 @@
 import { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "@/env.mjs";
+import prisma from "./prisma";
 
 export const authOptions: AuthOptions = {
   callbacks: {
@@ -12,7 +14,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  // adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,

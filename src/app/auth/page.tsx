@@ -22,47 +22,6 @@ const Auth = async () => {
           </SignInButton>
           <SignOutButton />
         </div>
-        <form>
-          <div>
-            <label
-              htmlFor="email"
-              className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-              focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-              dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-              placeholder="you@example.com"
-              required
-            />
-            <label
-              htmlFor="password"
-              className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-              focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-              dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-              placeholder="*****"
-              required
-            />
-            <button
-              type="button"
-              className="text-white bg-sky-500 hover:bg-sky-700 font-medium rounded-lg 
-            text-sm px-5 py-2.5 mt-4 dark:bg-sky-600 dark:hover:bg-sky-700"
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
       </div>
     </main>
   );
