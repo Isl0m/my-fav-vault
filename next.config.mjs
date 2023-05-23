@@ -1,6 +1,10 @@
-import "./src/env.mjs";
+import './src/env.mjs'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  },
+}
 
 export default nextConfig
