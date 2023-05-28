@@ -1,9 +1,12 @@
 import { NextRequest } from 'next/server'
 
 import prisma from '@/lib/prisma'
+import { usernameUpdateRequestSchema } from '@/schemas/username.schema'
 
 export async function POST(request: NextRequest) {
-  const { email, username } = await request.json()
+  const req = await request.json()
+
+  const { username, email } = usernameUpdateRequestSchema.parse(req)
 
   const existingUser = await prisma.user.findFirst({
     where: { username },

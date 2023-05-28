@@ -9,6 +9,7 @@ const Header = () => {
           src='/myfavvault.svg'
           height={48}
           width={48}
+          style={{ width: 48, height: 48 }}
           alt='links store logo'
         />
         <span className='whitespace-nowrap text-xl font-semibold dark:text-white'>

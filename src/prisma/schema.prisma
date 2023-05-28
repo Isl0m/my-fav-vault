@@ -46,8 +46,10 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  
   accounts      Account[]
   sessions      Session[]
+  userMovie     UserMovie[]
 }
 
 model VerificationToken {
@@ -56,4 +58,17 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model UserMovie {
+  id          String  @id @default(cuid())
+  tmdbId      String  @unique
+  title       String
+  posterPath  String?
+  releaseDate String?
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
 }

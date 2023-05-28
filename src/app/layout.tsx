@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google'
 
-import Header from '@/components/header.component'
+import Header from '@/components/header'
 
 import './globals.css'
 import { NextAuthProvider } from './providers'

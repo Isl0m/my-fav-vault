@@ -6,8 +6,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/buttons.component'
-import { Input } from '@/components/input.component'
+import { Button } from '@/components/buttons'
+import { HookFormField } from '@/components/input'
+import { UsernameUpdateRequest } from '@/schemas/username.schema'
 
 export type UsernameForm = Pick<User, 'username'>
 
@@ -26,12 +27,13 @@ export const UsernameForm = () => {
     if (!username || !session?.user.email) {
       return null
     }
+    const payload: UsernameUpdateRequest = {
+      username,
+      email: session.user.email,
+    }
     const req = await fetch('/api/auth/username', {
       method: 'POST',
-      body: JSON.stringify({
-        username,
-        email: session?.user.email,
-      }),
+      body: JSON.stringify(payload),
     })
 
     if (!req.ok) {
@@ -48,9 +50,9 @@ export const UsernameForm = () => {
       className='flex w-96 flex-col gap-4'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Input<UsernameForm>
+      <HookFormField<UsernameForm>
         name='User Name'
-        label='username'
+        id='username'
         type='text'
         register={register}
         options={{

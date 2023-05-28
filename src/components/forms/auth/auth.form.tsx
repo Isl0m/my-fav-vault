@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/buttons.component'
+import { Button } from '@/components/buttons'
 
 import { AuthInput } from './auth.input'
 
@@ -61,13 +61,17 @@ export const AuthForm: FC<Props> = ({ usernames }) => {
   return (
     <>
       <form
-        className='flex w-96 flex-col gap-4'
+        className='flex w-full flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
+        <h1 className='text-center text-4xl font-semibold text-slate-900'>
+          {isSignin ? 'Sing in' : 'Sign up'}
+        </h1>
+
         {!isSignin && (
           <AuthInput
             name='User Name'
-            label='username'
+            id='username'
             type='text'
             register={register}
             options={{
@@ -77,14 +81,14 @@ export const AuthForm: FC<Props> = ({ usernames }) => {
                 message: 'This username already occupied',
               },
             }}
-            placeholder='@'
+            placeholder='@username'
             error={errors.username}
           />
         )}
 
         <AuthInput
           name='Email'
-          label='email'
+          id='email'
           type='email'
           register={register}
           options={{
@@ -100,7 +104,7 @@ export const AuthForm: FC<Props> = ({ usernames }) => {
 
         <AuthInput
           name='Password'
-          label='password'
+          id='password'
           type='password'
           register={register}
           options={{

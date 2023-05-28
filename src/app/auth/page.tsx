@@ -1,8 +1,9 @@
+import Image from 'next/image'
+
 import {
   GithubSignInButton,
   GoogleSignInButton,
-  SignOut,
-} from '@/components/buttons.component'
+} from '@/components/buttons'
 import { AuthForm } from '@/components/forms/auth'
 import prisma from '@/lib/prisma'
 
@@ -18,21 +19,24 @@ const Auth = async () => {
     },
   })
   return (
-    <main className='min-h-screen py-12'>
-      <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8'>
-        <div className='text-center'>
-          <h1 className='text-center text-4xl font-semibold text-slate-900'>
-            Get started
-          </h1>
-          <p className='mt-2 text-sm text-slate-500'>Create new accout</p>
+    <main className='max-h-screen py-12'>
+      <div className='container mx-auto flex items-center justify-center gap-8'>
+        <div className='flex flex-col items-center justify-between gap-4 md:basis-1/2 xl:basis-1/3'>
+          <div className='w-full'>
+            <AuthForm usernames={usernames} />
+          </div>
+          <div className='flex w-full flex-col gap-2'>
+            <div className='flex items-center justify-center gap-2 text-slate-500'>
+              <hr className='basis-1/3' />
+              <h4 className='text-sm'>or</h4>
+              <hr className='basis-1/3' />
+            </div>
+            <GoogleSignInButton />
+            <GithubSignInButton />
+          </div>
         </div>
-        <div className='flex flex-col'>
-          <GoogleSignInButton />
-          <GithubSignInButton />
-          <SignOut />
-        </div>
-        <div>
-          <AuthForm usernames={usernames} />
+        <div className='relative hidden h-96 basis-1/2 md:block'>
+          <Image src='/sign_up.svg' alt='sign up' fill={true} />
         </div>
       </div>
     </main>

@@ -1,4 +1,4 @@
-import { UsernameForm } from '@/components/forms/username'
+import { UsernameForm } from '@/components/forms/username.form'
 
 const Username = async () => {
   return (
