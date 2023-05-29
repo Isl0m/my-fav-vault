@@ -25,15 +25,15 @@ type BookInputProps = {
 export const BookInput: FC<BookInputProps> = ({ name, userBook }) => {
   const [bookId, setBookId] = useState(userBook?.id)
   const [isFocus, setIsFocus] = useState(false)
-  const [query, setQuery] = useState(userBook?.title)
+  const [query, setQuery] = useState(userBook?.title || '')
   const [bookOptions, setBookOptions] = useState<GoogleBookResponse[]>()
   const [selectedBook, setSelectedBook] = useState<
     UserBook | GoogleBookResponse | undefined
   >(userBook)
 
   useEffect(() => {
-    if (selectedBook && selectedBook.title !== userBook?.title) {
-      const payload: UserBookRequest = { ...selectedBook, id: userBook?.id }
+    if (selectedBook) {
+      const payload: UserBookRequest = { ...selectedBook, id: bookId }
 
       fetch('/api/user/book', {
         method: 'POST',

@@ -23,7 +23,7 @@ type MovieInputProps = {
 export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
   const [movieId, setMovieId] = useState(userMovie?.id)
   const [isFocus, setIsFocus] = useState(false)
-  const [query, setQuery] = useState(userMovie?.title)
+  const [query, setQuery] = useState(userMovie?.title || '')
   const [movieOptions, setMovieOptions] = useState<TmdbSearchResponse[]>()
   const [selectedMovie, setSelectedMovie] = useState<
     UserMovie | TmdbSearchResponse | undefined

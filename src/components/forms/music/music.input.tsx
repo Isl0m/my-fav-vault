@@ -25,7 +25,7 @@ type MusicInputProps = {
 export const MusicInput: FC<MusicInputProps> = ({ name, userMusic }) => {
   const [musicId, setMusicId] = useState(userMusic?.id)
   const [isFocus, setIsFocus] = useState(false)
-  const [query, setQuery] = useState(userMusic?.title)
+  const [query, setQuery] = useState(userMusic?.title || '')
   const [musicOptions, setMusicOptions] = useState<DeezerSearchResponse[]>()
   const [selectedMusic, setSelectedMusic] = useState<
     UserMusic | DeezerSearchResponse | undefined
