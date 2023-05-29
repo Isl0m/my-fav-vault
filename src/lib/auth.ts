@@ -7,8 +7,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
-// import { useSession } from 'next-auth/react'
-// import { redirect, useRouter } from 'next/navigation'
 import { env } from '@/env.mjs'
 
 import prisma from './prisma'

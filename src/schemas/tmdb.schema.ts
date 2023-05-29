@@ -27,7 +27,14 @@ export const TmdbMovieSearchSchema = z.object({
 export const TmdbSearchRequestSchema = z.object({
   query: z.string(),
 })
+export const TmdbSearchResponseSchema = z.object({
+  tmdbId: z.string(),
+  title: z.string(),
+  posterPath: z.string().nullable(),
+  releaseDate: z.string().nullable(),
+})
 
 export type TmdbMovie = z.infer<typeof TmdbMovieSchema>
 export type TmdbMovieSearch = z.infer<typeof TmdbMovieSearchSchema>
 export type TmdbSearchRequest = z.infer<typeof TmdbSearchRequestSchema>
+export type TmdbSearchResponse = z.infer<typeof TmdbSearchResponseSchema>

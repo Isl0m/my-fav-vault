@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 import { TextField } from '@/components/input'
 import { getTmdbImageUrl } from '@/lib/tmdb'
-import { TmdbSearchRequest } from '@/schemas/tmdb.schema'
+import { TmdbSearchRequest, TmdbSearchResponse } from '@/schemas/tmdb.schema'
 import { UserMovieRequest } from '@/schemas/user-movie.schema'
 
 const getMovieOptions = (query: string) => {
@@ -21,21 +21,29 @@ type MovieInputProps = {
 }
 
 export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
+  const [movieId, setMovieId] = useState(userMovie?.id)
   const [isFocus, setIsFocus] = useState(false)
   const [query, setQuery] = useState(userMovie?.title)
-  const [movieOptions, setMovieOptions] = useState<UserMovie[]>()
-  const [selectedMovie, setSelectedMovie] = useState<UserMovie | undefined>(
-    userMovie
-  )
+  const [movieOptions, setMovieOptions] = useState<TmdbSearchResponse[]>()
+  const [selectedMovie, setSelectedMovie] = useState<
+    UserMovie | TmdbSearchResponse | undefined
+  >(userMovie)
 
   useEffect(() => {
-    if (selectedMovie && selectedMovie.title !== userMovie?.title) {
-      const payload: UserMovieRequest = { ...selectedMovie, id: userMovie?.id }
+    if (selectedMovie) {
+      const payload: UserMovieRequest = { ...selectedMovie, id: movieId }
 
       fetch('/api/user/movie', {
         method: 'POST',
         body: JSON.stringify(payload),
-      }).then(res => res.ok && setQuery(selectedMovie.title))
+      })
+        .then(res => {
+          if (res.ok) {
+            setQuery(selectedMovie.title)
+          }
+          return res.json()
+        })
+        .then(res => res.id && setMovieId(res.id))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMovie])
@@ -46,7 +54,7 @@ export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
       getMovieOptions(query)
         .then(res => res.json())
         .then(setMovieOptions)
-    }, 400)
+    }, 600)
 
     return () => clearTimeout(timeoutId)
   }, [query, isFocus])
@@ -80,11 +88,11 @@ export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
       </div>
       {movieOptions && (
         <ul>
-          {movieOptions.map((movie, id) => (
+          {movieOptions.map(movie => (
             <li
               className='flex cursor-pointer items-center gap-4 bg-slate-200 p-4 hover:bg-slate-300'
               onMouseDown={() => setSelectedMovie(movie)}
-              key={movie.title + id}
+              key={movie.tmdbId}
             >
               {movie.posterPath ? (
                 <div className='relative aspect-[3/4] h-12 overflow-hidden rounded-md'>
@@ -102,7 +110,8 @@ export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
                 </div>
               )}
               <div>
-                {movie.title.slice(0, 18)}... {movie.releaseDate?.split('-')[0]}
+                <h5 className='font-medium'>{movie.title.slice(0, 18)}...</h5>
+                <p className='text-sm'>{movie.releaseDate?.split('-')[0]}</p>
               </div>
             </li>
           ))}

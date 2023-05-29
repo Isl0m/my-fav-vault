@@ -1,11 +1,8 @@
 import { z } from 'zod'
+import { TmdbSearchResponseSchema } from '@/schemas/tmdb.schema'
 
-export const userMovieSchema = z.object({
+export const userMovieSchema = TmdbSearchResponseSchema.extend({
   id: z.string().optional(),
-  tmdbId: z.string(),
-  title: z.string(),
-  posterPath: z.string().nullable(),
-  releaseDate: z.string().nullable(),
 })
 
 export const userMovieRequestSchema = userMovieSchema

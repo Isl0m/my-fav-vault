@@ -3,8 +3,11 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { Button, SignOut } from '@/components/buttons'
-import { MovieForm } from '@/components/forms/tmdb'
+import { BookForm } from '@/components/forms/book'
+import { MusicForm } from '@/components/forms/music'
 import { authOptions } from '@/lib/auth'
+
+import { MovieForm } from '../../components/forms/movie'
 
 const Profile = async () => {
   const session = await getServerSession(authOptions)
@@ -35,8 +38,13 @@ const Profile = async () => {
           <SignOut />
           {/* <Button>Add Fav</Button> */}
         </div>
-        <div>
+        <div className='flex flex-col gap-4'>
+          {/* @ts-expect-error Async Server Component */}
           <MovieForm />
+          {/* @ts-expect-error Async Server Component */}
+          <MusicForm />
+          {/* @ts-expect-error Async Server Component */}
+          <BookForm />
         </div>
       </div>
     </main>
