@@ -1,19 +1,17 @@
 'use client'
 
 import { UserMovie } from '@prisma/client'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
-import Image from 'next/image'
-
+import { InputImagePreviewMemo } from '@/components/forms/InputImagePreview'
+import { InputOptionItem } from '@/components/forms/InputOptionItem'
+import { useInputQuery } from '@/components/forms/useInputQuery'
+import { useInputSelect } from '@/components/forms/useInputSelect'
 import { TextField } from '@/components/input'
 import { getTmdbImageUrl } from '@/lib/tmdb'
-import { TmdbSearchRequest, TmdbSearchResponse } from '@/schemas/tmdb.schema'
-import { UserMovieRequest } from '@/schemas/user-movie.schema'
+import { TmdbSearchResponse } from '@/schemas/tmdb.schema'
 
-const getMovieOptions = (query: string) => {
-  const payload: TmdbSearchRequest = { query }
-  return fetch('/api/tmdb?' + new URLSearchParams(payload).toString())
-}
+import { getMovieOptions, saveSelectedItem } from './movie.api'
 
 type MovieInputProps = {
   name?: string
@@ -21,99 +19,54 @@ type MovieInputProps = {
 }
 
 export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
-  const [movieId, setMovieId] = useState(userMovie?.id)
   const [isFocus, setIsFocus] = useState(false)
-  const [query, setQuery] = useState(userMovie?.title || '')
-  const [movieOptions, setMovieOptions] = useState<TmdbSearchResponse[]>()
-  const [selectedMovie, setSelectedMovie] = useState<
-    UserMovie | TmdbSearchResponse | undefined
-  >(userMovie)
 
-  useEffect(() => {
-    if (selectedMovie) {
-      const payload: UserMovieRequest = { ...selectedMovie, id: movieId }
+  const { query, inputOptions, handleSetQuery, resetInputOptions } =
+    useInputQuery<UserMovie, TmdbSearchResponse>({
+      userItem: userMovie,
+      isFocus,
+      getInputOptions: getMovieOptions,
+    })
 
-      fetch('/api/user/movie', {
-        method: 'POST',
-        body: JSON.stringify(payload),
-      })
-        .then(res => {
-          if (res.ok) {
-            setQuery(selectedMovie.title)
-          }
-          return res.json()
-        })
-        .then(res => res.id && setMovieId(res.id))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMovie])
-
-  useEffect(() => {
-    if (!query || !isFocus) return
-    const timeoutId = setTimeout(() => {
-      getMovieOptions(query)
-        .then(res => res.json())
-        .then(setMovieOptions)
-    }, 600)
-
-    return () => clearTimeout(timeoutId)
-  }, [query, isFocus])
+  const { selectedItem, handleSelectItem } = useInputSelect<
+    UserMovie,
+    TmdbSearchResponse
+  >({
+    userItem: userMovie,
+    onSelectBook: handleSetQuery,
+    saveSelectedItem,
+  })
 
   return (
     <div>
       <div className='flex items-center'>
-        {selectedMovie?.posterPath ? (
-          <div className='relative mr-3 aspect-[3/4] h-16 overflow-hidden rounded-md'>
-            <Image
-              src={getTmdbImageUrl(selectedMovie.posterPath)}
-              fill
-              style={{ objectFit: 'cover' }}
-              sizes='100px, 100px'
-              alt={selectedMovie.title}
-            />
-          </div>
-        ) : (
-          <div className='mr-3 h-16 w-12 rounded-md border-2 border-dashed border-slate-200 bg-slate-300' />
-        )}
+        <InputImagePreviewMemo
+          imageSrc={
+            selectedItem?.posterPath && getTmdbImageUrl(selectedItem.posterPath)
+          }
+          alt={selectedItem?.title}
+        />
         <TextField
           name={name}
           value={query}
           onFocus={() => setIsFocus(true)}
           onBlur={() => {
             setIsFocus(false)
-            setMovieOptions([])
+            resetInputOptions()
           }}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => handleSetQuery(e.target.value)}
         />
       </div>
-      {movieOptions && (
+      {inputOptions && (
         <ul>
-          {movieOptions.map(movie => (
-            <li
-              className='flex cursor-pointer items-center gap-4 bg-slate-200 p-4 hover:bg-slate-300'
-              onMouseDown={() => setSelectedMovie(movie)}
+          {inputOptions.map(movie => (
+            <InputOptionItem
               key={movie.tmdbId}
-            >
-              {movie.posterPath ? (
-                <div className='relative aspect-[3/4] h-12 overflow-hidden rounded-md'>
-                  <Image
-                    src={getTmdbImageUrl(movie.posterPath)}
-                    fill
-                    sizes='100px, 100px'
-                    style={{ objectFit: 'cover' }}
-                    alt={movie.title}
-                  />
-                </div>
-              ) : (
-                <div className='inline-flex h-12 w-12 items-center justify-center rounded-md bg-slate-300 text-[0.5rem] leading-tight'>
-                  No poster
-                </div>
-              )}
-              <div>
-                <h5 className='font-medium'>{movie.title.slice(0, 18)}...</h5>
-                <p className='text-sm'>{movie.releaseDate?.split('-')[0]}</p>
-              </div>
-            </li>
+              title={movie.title}
+              subTitle={movie.releaseDate || ''}
+              handleMouseDown={() => handleSelectItem(movie)}
+              imageSrc={movie.posterPath && getTmdbImageUrl(movie.posterPath)}
+            />
           ))}
         </ul>
       )}
