@@ -2,7 +2,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { User } from '@prisma/client'
 import { compare, genSalt, hash } from 'bcryptjs'
 
-import { NextAuthOptions, getServerSession } from 'next-auth'
+import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'

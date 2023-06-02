@@ -1,5 +1,4 @@
 import { UserMovie } from '@prisma/client'
-import { useCallback } from 'react'
 
 import { TmdbSearchRequest, TmdbSearchResponse } from '@/schemas/tmdb.schema'
 import { UserMovieRequest } from '@/schemas/user-movie.schema'

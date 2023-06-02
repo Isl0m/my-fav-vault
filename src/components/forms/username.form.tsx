@@ -13,7 +13,7 @@ import { UsernameUpdateRequest } from '@/schemas/username.schema'
 export type UsernameForm = Pick<User, 'username'>
 
 export function UsernameForm() {
-  const { data: session, status, update } = useSession()
+  const { data: session, update } = useSession()
   const {
     register,
     handleSubmit,
