@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma'
 
 import { MusicInput } from './music.input'
 
-const getMusics = async () => {
+async function getMusics() {
   const session = await getServerSession(authOptions)
   if (!session) return
   return await prisma.userMusic.findMany({
@@ -17,7 +17,7 @@ const getMusics = async () => {
   })
 }
 
-export const MusicForm = async () => {
+export async function MusicForm() {
   const musics = await getMusics()
 
   return (

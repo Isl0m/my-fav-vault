@@ -1,7 +1,7 @@
 'use client'
 
 import { UserMovie } from '@prisma/client'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { ImagePreviewMemo } from '@/components/ImagePreview'
 import { InputOptionItem } from '@/components/forms/InputOptionItem'
@@ -19,7 +19,7 @@ type MovieInputProps = {
   userMovie?: UserMovie
 }
 
-export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
+export function MovieInput({ name, userMovie }: MovieInputProps) {
   const [isFocus, setIsFocus] = useState(false)
 
   const { query, inputOptions, handleSetQuery, resetInputOptions } =

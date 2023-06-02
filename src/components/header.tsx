@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link, { LinkProps } from 'next/link'
 
-const Header = () => {
+export default function Header() {
   return (
     <header className='mx-auto w-full max-w-7xl items-center p-3 lg:flex lg:justify-between lg:px-3'>
       <Link href='/' className='flex items-center justify-between gap-2'>
@@ -43,5 +43,3 @@ const NavItem = ({ label, ...rest }: NavItemProps) => {
     </li>
   )
 }
-
-export default Header

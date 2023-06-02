@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma'
 
 import { BookInput } from './book.input'
 
-const getBooks = async () => {
+async function getBooks() {
   const session = await getServerSession(authOptions)
   if (!session) return
   return await prisma.userBook.findMany({
@@ -17,7 +17,7 @@ const getBooks = async () => {
   })
 }
 
-export const BookForm = async () => {
+export async function BookForm() {
   const books = await getBooks()
 
   return (

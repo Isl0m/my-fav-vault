@@ -119,18 +119,3 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 }
-
-// export async function loginIsRequiredServer() {
-//   const session = await getServerSession(authOptions)
-//   if (!session) return redirect('/auth')
-// }
-//
-// export function loginIsRequiredClient() {
-//   if (typeof window !== 'undefined') {
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const session = useSession()
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const router = useRouter()
-//     if (!session) router.push('/auth')
-//   }
-// }

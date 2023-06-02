@@ -1,5 +1,4 @@
 import { User } from '@prisma/client'
-import { FC } from 'react'
 
 import {
   emailRegex,
@@ -10,11 +9,11 @@ import { AuthInputProps } from '@/components/forms/auth/auth.types'
 import { Usernames } from '@/components/forms/auth/auth.types'
 import { HookFormField, HookFormFieldProps } from '@/components/input'
 
-export const AuthInput: FC<HookFormFieldProps<Omit<User, 'id'>>> = props => {
+export function AuthInput(props: HookFormFieldProps<Omit<User, 'id'>>) {
   return <HookFormField {...props} />
 }
 
-export const EmailAuthInput: FC<AuthInputProps> = ({ register, errors }) => {
+export function EmailAuthInput({ register, errors }: AuthInputProps) {
   return (
     <AuthInput
       name='Email'
@@ -34,7 +33,7 @@ export const EmailAuthInput: FC<AuthInputProps> = ({ register, errors }) => {
   )
 }
 
-export const PasswordAuthInput: FC<AuthInputProps> = ({ register, errors }) => {
+export function PasswordAuthInput({ register, errors }: AuthInputProps) {
   return (
     <AuthInput
       name='Password'
@@ -55,9 +54,11 @@ export const PasswordAuthInput: FC<AuthInputProps> = ({ register, errors }) => {
   )
 }
 
-export const UsernameAuthInput: FC<
-  AuthInputProps & { usernames: Usernames }
-> = ({ register, errors, usernames }) => {
+export function UsernameAuthInput({
+  register,
+  errors,
+  usernames,
+}: AuthInputProps & { usernames: Usernames }) {
   return (
     <AuthInput
       name='User Name'

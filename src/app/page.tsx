@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { Button } from '@/components/buttons'
 
-const Home = () => {
+export default function Home() {
   return (
     <main className='hero-page-bg min-h-screen p-24'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
@@ -22,5 +22,3 @@ const Home = () => {
     </main>
   )
 }
-
-export default Home

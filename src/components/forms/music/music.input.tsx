@@ -1,7 +1,7 @@
 'use client'
 
 import { UserMusic } from '@prisma/client'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { ImagePreviewMemo } from '@/components/ImagePreview'
 import { InputOptionItem } from '@/components/forms/InputOptionItem'
@@ -19,7 +19,7 @@ type MusicInputProps = {
   userMusic?: UserMusic
 }
 
-export const MusicInput: FC<MusicInputProps> = ({ name, userMusic }) => {
+export function MusicInput({ name, userMusic }: MusicInputProps) {
   const [isFocus, setIsFocus] = useState(false)
 
   const { query, inputOptions, handleSetQuery, resetInputOptions } =

@@ -1,7 +1,7 @@
 'use client'
 
 import { VariantProps, cva } from 'class-variance-authority'
-import { ComponentProps, type FC, type PropsWithChildren } from 'react'
+import { ComponentProps, type PropsWithChildren } from 'react'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 
 import { signIn, signOut } from 'next-auth/react'
@@ -30,14 +30,14 @@ export type ButtonProps = PropsWithChildren &
   ComponentProps<'button'> &
   VariantProps<typeof buttonVariants>
 
-export const Button: FC<ButtonProps> = ({
+export function Button({
   variant,
   size,
   isIcon,
   className,
   children,
   ...rest
-}) => {
+}: ButtonProps) {
   return (
     <button
       className={buttonVariants({ variant, size, isIcon, className })}
@@ -48,14 +48,14 @@ export const Button: FC<ButtonProps> = ({
   )
 }
 
-export const SignOut = () => {
+export function SignOut() {
   return (
     <Button variant='secondary' onClick={() => signOut()}>
       Sign Out
     </Button>
   )
 }
-export const GoogleSignInButton = () => {
+export function GoogleSignInButton() {
   return (
     <Button
       variant='secondary'
@@ -67,7 +67,7 @@ export const GoogleSignInButton = () => {
   )
 }
 
-export const GithubSignInButton = () => {
+export function GithubSignInButton() {
   return (
     <Button
       isIcon

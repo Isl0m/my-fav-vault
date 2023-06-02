@@ -5,10 +5,10 @@ import { Button, SignOut } from '@/components/buttons'
 import { BookForm } from '@/components/forms/book'
 import { MovieForm } from '@/components/forms/movie'
 import { MusicForm } from '@/components/forms/music'
-import { getSessionOrRedirectServer } from '@/lib/utils-server'
+import { getSessionOrRedirect } from '@/lib/utils-server'
 
-const Profile = async () => {
-  const session = await getSessionOrRedirectServer('/auth')
+export default async function Profile() {
+  const session = await getSessionOrRedirect('/auth')
 
   return (
     <main className='base-page-bg mt-8 min-h-screen'>
@@ -46,5 +46,3 @@ const Profile = async () => {
     </main>
   )
 }
-
-export default Profile

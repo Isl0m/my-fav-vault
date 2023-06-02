@@ -1,6 +1,6 @@
 import { UsernameForm } from '@/components/forms/username.form'
 
-const Username = async () => {
+export async function Username() {
   return (
     <main className='min-h-screen py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8'>
@@ -12,5 +12,3 @@ const Username = async () => {
     </main>
   )
 }
-
-export default Username

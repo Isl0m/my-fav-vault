@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { signIn } from 'next-auth/react'
@@ -18,7 +18,7 @@ import {
   UsernameAuthInput,
 } from './auth.input'
 
-export const AuthForm: FC<AuthFormProps> = ({ usernames }) => {
+export function AuthForm({ usernames }: AuthFormProps) {
   const [authMethod, setAuthMethod] = useState<'signin' | 'signup'>('signin')
   const isSignin = authMethod === 'signin'
   const toggleAuthMethod = () => setAuthMethod(isSignin ? 'signup' : 'signin')

@@ -4,7 +4,7 @@ import { GithubSignInButton, GoogleSignInButton } from '@/components/buttons'
 import { AuthForm } from '@/components/forms/auth'
 import prisma from '@/lib/prisma'
 
-const Auth = async () => {
+export default async function Auth() {
   const usernames = await prisma.user.findMany({
     where: {
       NOT: {
@@ -39,5 +39,3 @@ const Auth = async () => {
     </main>
   )
 }
-
-export default Auth

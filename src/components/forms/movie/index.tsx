@@ -5,7 +5,7 @@ import prisma from '@/lib/prisma'
 
 import { MovieInput } from './movie.input'
 
-const getMovies = async () => {
+async function getMovies() {
   const session = await getServerSession(authOptions)
   if (!session) return
   return await prisma.userMovie.findMany({
@@ -17,7 +17,7 @@ const getMovies = async () => {
   })
 }
 
-export const MovieForm = async () => {
+export async function MovieForm() {
   const movies = await getMovies()
 
   return (

@@ -11,7 +11,7 @@ type Props = {
   params: { username: string }
 }
 
-const getUserByUsername = async (username: string) => {
+async function getUserByUsername(username: string) {
   const user = await prisma.user.findUnique({
     where: { username },
     include: {
@@ -32,7 +32,7 @@ type UserFavItemProps = {
   imageSrc: string | null
 }
 
-const UserFavItem = ({ title, subTitle, imageSrc }: UserFavItemProps) => {
+function UserFavItem({ title, subTitle, imageSrc }: UserFavItemProps) {
   return (
     <li className='max-w-sm'>
       <div className='flex items-center gap-4'>
@@ -61,7 +61,7 @@ function UserFav({ title, children }: UserFavProps) {
   )
 }
 
-const Username = async ({ params }: Props) => {
+export default async function Username({ params }: Props) {
   let username = decodeURIComponent(params.username)
   if (!username.startsWith('@')) return notFound()
 
@@ -130,5 +130,3 @@ const Username = async ({ params }: Props) => {
     </main>
   )
 }
-
-export default Username

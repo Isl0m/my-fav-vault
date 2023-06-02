@@ -6,15 +6,15 @@ import {
 } from '@/schemas/deezer.schema'
 import { UserMusicRequest } from '@/schemas/user-music.schema'
 
-export const getMusicOptions = (query: string) => {
+export function getMusicOptions(query: string) {
   const payload: DeezerSearchRequest = { query }
   return fetch('/api/deezer?' + new URLSearchParams(payload).toString())
 }
 
-export const saveSelectedItem = (
+export function saveSelectedItem(
   selectedItem: UserMusic | DeezerSearchResponse,
   itemId?: string
-) => {
+) {
   const payload: UserMusicRequest = { ...selectedItem, id: itemId }
 
   return fetch('/api/user/music', {

@@ -1,21 +1,17 @@
 'use client'
 
-import { FC, memo } from 'react'
+import { memo } from 'react'
 
 import Image from 'next/image'
 
-import { cn } from '@/lib/utils-server'
+import { cn } from '@/lib/utils'
 
 type ImagePreviewProps = {
   imageSrc?: string | null
   alt?: string
   className?: string
 }
-export const ImagePreview: FC<ImagePreviewProps> = ({
-  imageSrc,
-  alt,
-  className,
-}) => {
+export function ImagePreview({ imageSrc, alt, className }: ImagePreviewProps) {
   return (
     <>
       {imageSrc && alt ? (

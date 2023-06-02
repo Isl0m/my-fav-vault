@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from 'react'
+import { ComponentProps } from 'react'
 import {
   FieldError,
   FieldValues,
@@ -7,20 +7,20 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 
-import { cn } from '@/lib/utils-server'
+import { cn } from '@/lib/utils'
 
 export type TextFieldProps = ComponentProps<'input'> & {
   error?: string
   inputClassName?: string
 }
-export const TextField: FC<TextFieldProps> = ({
+export function TextField({
   id,
   name,
   error,
   className,
   inputClassName,
   ...rest
-}) => {
+}: TextFieldProps) {
   return (
     <div className={className}>
       <label htmlFor={id} className='mb-1 block'>
@@ -49,7 +49,7 @@ export type HookFormFieldProps<T extends FieldValues> = Omit<
   options?: RegisterOptions
   error?: FieldError
 }
-export const HookFormField = <T extends FieldValues>({
+export function HookFormField<T extends FieldValues>({
   name,
   id,
   register,
@@ -58,7 +58,7 @@ export const HookFormField = <T extends FieldValues>({
   className,
   inputClassName,
   ...rest
-}: HookFormFieldProps<T>) => {
+}: HookFormFieldProps<T>) {
   return (
     <div className={className}>
       <label htmlFor={id} className='mb-1 block text-lg'>

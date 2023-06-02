@@ -1,5 +1,3 @@
-import { FC } from 'react'
-
 import { ImagePreviewMemo } from '../ImagePreview'
 
 type Props = {
@@ -8,12 +6,12 @@ type Props = {
   handleMouseDown: () => void
   imageSrc?: string | null
 }
-export const InputOptionItem: FC<Props> = ({
+export function InputOptionItem({
   title,
   subTitle,
   handleMouseDown,
   imageSrc,
-}) => {
+}: Props) {
   return (
     <li
       className='flex cursor-pointer items-center gap-4 bg-slate-200 p-2 hover:bg-slate-300'

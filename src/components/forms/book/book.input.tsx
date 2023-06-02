@@ -1,7 +1,7 @@
 'use client'
 
 import { UserBook } from '@prisma/client'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { ImagePreviewMemo } from '@/components/ImagePreview'
 import { InputOptionItem } from '@/components/forms/InputOptionItem'
@@ -19,7 +19,7 @@ type BookInputProps = {
   userBook?: UserBook
 }
 
-export const BookInput: FC<BookInputProps> = ({ name, userBook }) => {
+export function BookInput({ name, userBook }: BookInputProps) {
   const [isFocus, setIsFocus] = useState(false)
   const { query, inputOptions, handleSetQuery, resetInputOptions } =
     useInputQuery<UserBook, GoogleBookResponse>({
