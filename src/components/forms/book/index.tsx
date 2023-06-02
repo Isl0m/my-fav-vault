@@ -23,7 +23,7 @@ export const BookForm = async () => {
   return (
     <div>
       <h3 className='mb-2 text-lg font-semibold'>Your 3 fav books</h3>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-2 rounded-2xl bg-slate-100 p-4'>
         <BookInput userBook={books?.[0]} />
         <BookInput userBook={books?.[1]} />
         <BookInput userBook={books?.[2]} />

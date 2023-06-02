@@ -53,7 +53,7 @@ export const AuthForm: FC<AuthFormProps> = ({ usernames }) => {
         className='flex w-full flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className='text-center text-4xl font-semibold text-slate-900'>
+        <h1 className='text-center text-4xl font-bold text-slate-900'>
           {isSignin ? 'Sing in' : 'Sign up'}
         </h1>
 
@@ -70,7 +70,7 @@ export const AuthForm: FC<AuthFormProps> = ({ usernames }) => {
 
         <Button>Submit</Button>
       </form>
-      <div className='inline-flex w-full justify-center gap-2 text-sm'>
+      <div className='mt-1 inline-flex w-full justify-center gap-2'>
         <span className='text-slate-400'>
           {isSignin ? "Don't have an account?" : 'Have an account?'}
         </span>

@@ -1,9 +1,6 @@
 import Image from 'next/image'
 
-import {
-  GithubSignInButton,
-  GoogleSignInButton,
-} from '@/components/buttons'
+import { GithubSignInButton, GoogleSignInButton } from '@/components/buttons'
 import { AuthForm } from '@/components/forms/auth'
 import prisma from '@/lib/prisma'
 
@@ -35,7 +32,7 @@ const Auth = async () => {
             <GithubSignInButton />
           </div>
         </div>
-        <div className='relative hidden h-96 basis-1/2 md:block'>
+        <div className='relative hidden h-96 basis-1/2 lg:block'>
           <Image src='/sign_up.svg' alt='sign up' fill={true} />
         </div>
       </div>

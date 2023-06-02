@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
   const tracksResponse: DeezerTrackSearch = await getTrackSearch({
     query,
-    limit: 5,
+    limit: 3,
   })
 
   const tracks: DeezerSearchResponse[] = tracksResponse.data.map(track => ({

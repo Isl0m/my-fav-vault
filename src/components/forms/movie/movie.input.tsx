@@ -3,13 +3,14 @@
 import { UserMovie } from '@prisma/client'
 import { FC, useState } from 'react'
 
-import { InputImagePreviewMemo } from '@/components/forms/InputImagePreview'
+import { ImagePreviewMemo } from '@/components/ImagePreview'
 import { InputOptionItem } from '@/components/forms/InputOptionItem'
 import { useInputQuery } from '@/components/forms/useInputQuery'
 import { useInputSelect } from '@/components/forms/useInputSelect'
 import { TextField } from '@/components/input'
-import { getTmdbImageUrl } from '@/lib/tmdb'
 import { TmdbSearchResponse } from '@/schemas/tmdb.schema'
+
+import { InputOption } from '../InputOption'
 
 import { getMovieOptions, saveSelectedItem } from './movie.api'
 
@@ -38,12 +39,11 @@ export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
   })
 
   return (
-    <div>
-      <div className='flex items-center'>
-        <InputImagePreviewMemo
-          imageSrc={
-            selectedItem?.posterPath && getTmdbImageUrl(selectedItem.posterPath)
-          }
+    <div className='max-w-sm'>
+      <div className='flex items-center gap-4'>
+        <ImagePreviewMemo
+          className='shrink-0'
+          imageSrc={selectedItem?.posterPath}
           alt={selectedItem?.title}
         />
         <TextField
@@ -55,20 +55,21 @@ export const MovieInput: FC<MovieInputProps> = ({ name, userMovie }) => {
             resetInputOptions()
           }}
           onChange={e => handleSetQuery(e.target.value)}
+          className='grow'
         />
       </div>
       {inputOptions && (
-        <ul>
+        <InputOption>
           {inputOptions.map(movie => (
             <InputOptionItem
               key={movie.tmdbId}
               title={movie.title}
               subTitle={movie.releaseDate || ''}
               handleMouseDown={() => handleSelectItem(movie)}
-              imageSrc={movie.posterPath && getTmdbImageUrl(movie.posterPath)}
+              imageSrc={movie.posterPath}
             />
           ))}
-        </ul>
+        </InputOption>
       )}
     </div>
   )

@@ -7,18 +7,30 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 
-export type TextFieldProps = ComponentProps<'input'> & { error?: string }
-export const TextField: FC<TextFieldProps> = ({ id, name, error, ...rest }) => {
+import { cn } from '@/lib/utils-server'
+
+export type TextFieldProps = ComponentProps<'input'> & {
+  error?: string
+  inputClassName?: string
+}
+export const TextField: FC<TextFieldProps> = ({
+  id,
+  name,
+  error,
+  className,
+  inputClassName,
+  ...rest
+}) => {
   return (
-    <div>
-      <label
-        htmlFor={id}
-        className='mb-1 block text-sm font-medium text-gray-900 dark:text-white'
-      >
+    <div className={className}>
+      <label htmlFor={id} className='mb-1 block'>
         {name}
       </label>
       <input
-        className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-blue-500 disabled:cursor-not-allowed dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+        className={cn(
+          'block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed',
+          inputClassName
+        )}
         {...rest}
         id={id}
         name={name}
@@ -43,18 +55,20 @@ export const HookFormField = <T extends FieldValues>({
   register,
   options,
   error,
+  className,
+  inputClassName,
   ...rest
 }: HookFormFieldProps<T>) => {
   return (
-    <div>
-      <label
-        htmlFor={id}
-        className='mb-1 block text-sm font-medium text-gray-900 dark:text-white'
-      >
+    <div className={className}>
+      <label htmlFor={id} className='mb-1 block text-lg'>
         {name}
       </label>
       <input
-        className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-blue-500 disabled:cursor-not-allowed dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+        className={cn(
+          'block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed',
+          inputClassName
+        )}
         {...register(id, options)}
         {...rest}
         id={id}

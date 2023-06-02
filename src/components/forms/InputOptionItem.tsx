@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { InputImagePreviewMemo } from './InputImagePreview'
+import { ImagePreviewMemo } from '../ImagePreview'
 
 type Props = {
   title: string
@@ -16,16 +16,14 @@ export const InputOptionItem: FC<Props> = ({
 }) => {
   return (
     <li
-      className='flex cursor-pointer items-center gap-4 bg-slate-200 p-4 hover:bg-slate-300'
+      className='flex cursor-pointer items-center gap-4 bg-slate-200 p-2 hover:bg-slate-300'
       onMouseDown={handleMouseDown}
     >
-      <div className='relative aspect-[3/4] h-12 overflow-hidden rounded-md'>
-        <InputImagePreviewMemo imageSrc={imageSrc} alt={title} />
-      </div>
+      <ImagePreviewMemo className='shrink-0' imageSrc={imageSrc} alt={title} />
 
       <div>
-        <h5 className='font-medium'>{title.slice(0, 18)}...</h5>
-        <p className='text-sm'>{subTitle.slice(0, 18)}... </p>
+        <h5 className='font-medium'>{title}</h5>
+        <p className='text-sm'>{subTitle} </p>
       </div>
     </li>
   )

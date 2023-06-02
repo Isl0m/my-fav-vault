@@ -6,28 +6,25 @@ import { BsGithub, BsGoogle } from 'react-icons/bs'
 
 import { signIn, signOut } from 'next-auth/react'
 
-const buttonVariants = cva(
-  'mb-2 inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium',
-  {
-    variants: {
-      variant: {
-        primary:
-          'bg-purple-500 text-white hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-700',
-        secondary:
-          'border border-gray-300 bg-white text-gray-900 hover:bg-gray-100  focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700',
-      },
-      size: {
-        sm: 'px-3 py-2',
-        md: 'px-5 py-2.5',
-        lg: 'px-5 py-3',
-      },
+const buttonVariants = cva('mb-2  rounded-lg', {
+  variants: {
+    variant: {
+      primary: 'bg-slate-800 text-white hover:bg-slate-950',
+      secondary: 'bg-slate-100 text-slate-950 hover:bg-slate-200',
     },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
+    size: {
+      sm: 'px-3 py-2',
+      md: 'px-5 py-2.5',
+      lg: 'px-5 py-3',
     },
-  }
-)
+    isIcon: { true: 'inline-flex items-center justify-center gap-2' },
+  },
+  defaultVariants: {
+    variant: 'primary',
+    size: 'md',
+    isIcon: false,
+  },
+})
 
 export type ButtonProps = PropsWithChildren &
   ComponentProps<'button'> &
@@ -36,12 +33,16 @@ export type ButtonProps = PropsWithChildren &
 export const Button: FC<ButtonProps> = ({
   variant,
   size,
+  isIcon,
   className,
   children,
   ...rest
 }) => {
   return (
-    <button className={buttonVariants({ variant, size, className })} {...rest}>
+    <button
+      className={buttonVariants({ variant, size, isIcon, className })}
+      {...rest}
+    >
       {children}
     </button>
   )
@@ -58,6 +59,7 @@ export const GoogleSignInButton = () => {
   return (
     <Button
       variant='secondary'
+      isIcon
       onClick={() => signIn('google', { callbackUrl: '/username' })}
     >
       Continue with Google <BsGoogle />
@@ -68,6 +70,7 @@ export const GoogleSignInButton = () => {
 export const GithubSignInButton = () => {
   return (
     <Button
+      isIcon
       variant='secondary'
       onClick={() => signIn('github', { callbackUrl: '/username' })}
     >

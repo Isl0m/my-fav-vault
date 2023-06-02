@@ -24,7 +24,7 @@ export function useInputQuery<T extends UserItemBase, K>({
       getInputOptions(query)
         .then(res => (res.ok ? res.json() : []))
         .then(setInputOptions)
-    }, 600)
+    }, 1000)
 
     return () => clearTimeout(timeoutId)
   }, [query, isFocus, getInputOptions])

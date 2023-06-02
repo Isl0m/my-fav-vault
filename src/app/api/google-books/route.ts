@@ -14,7 +14,6 @@ export async function GET(request: Request) {
 
   const booksResponse: GoogleBooksSearch = await getBooksSearch({
     query,
-    limit: 5,
   })
 
   if (!booksResponse.items) {
@@ -22,7 +21,7 @@ export async function GET(request: Request) {
   }
 
   const books: GoogleBookResponse[] = booksResponse.items
-    .slice(0, 5)
+    .slice(0, 3)
     .map(book => ({
       googleBooksId: book.id,
       title: book.volumeInfo.title,

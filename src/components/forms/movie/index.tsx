@@ -23,7 +23,7 @@ export const MovieForm = async () => {
   return (
     <div>
       <h3 className='mb-2 text-lg font-semibold'>Your 3 fav movies</h3>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-2 rounded-2xl bg-slate-100 p-4'>
         <MovieInput userMovie={movies?.[0]} />
         <MovieInput userMovie={movies?.[1]} />
         <MovieInput userMovie={movies?.[2]} />

@@ -3,12 +3,14 @@
 import { UserMusic } from '@prisma/client'
 import { FC, useState } from 'react'
 
-import { InputImagePreviewMemo } from '@/components/forms/InputImagePreview'
+import { ImagePreviewMemo } from '@/components/ImagePreview'
 import { InputOptionItem } from '@/components/forms/InputOptionItem'
 import { useInputQuery } from '@/components/forms/useInputQuery'
 import { useInputSelect } from '@/components/forms/useInputSelect'
 import { TextField } from '@/components/input'
 import { DeezerSearchResponse } from '@/schemas/deezer.schema'
+
+import { InputOption } from '../InputOption'
 
 import { getMusicOptions, saveSelectedItem } from './music.api'
 
@@ -37,9 +39,10 @@ export const MusicInput: FC<MusicInputProps> = ({ name, userMusic }) => {
   })
 
   return (
-    <div>
-      <div className='flex items-center'>
-        <InputImagePreviewMemo
+    <div className='max-w-sm'>
+      <div className='flex items-center gap-4'>
+        <ImagePreviewMemo
+          className='shrink-0'
           imageSrc={selectedItem?.cover}
           alt={selectedItem?.title}
         />
@@ -52,10 +55,11 @@ export const MusicInput: FC<MusicInputProps> = ({ name, userMusic }) => {
             resetInputOptions()
           }}
           onChange={e => handleSetQuery(e.target.value)}
+          className='grow'
         />
       </div>
       {inputOptions && (
-        <ul>
+        <InputOption>
           {inputOptions.map(music => (
             <InputOptionItem
               key={music.deezerId}
@@ -65,7 +69,7 @@ export const MusicInput: FC<MusicInputProps> = ({ name, userMusic }) => {
               imageSrc={music.cover}
             />
           ))}
-        </ul>
+        </InputOption>
       )}
     </div>
   )
