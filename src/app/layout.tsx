@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 import { Roboto } from 'next/font/google'
 
-import Header from '@/components/header'
+import Index from '@/components/header'
 
 import './globals.css'
 import { NextAuthProvider } from './providers'
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={clsx(roboto.className, 'noise-bg text-slate-800')}>
-        <Header />
+        <Index />
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>

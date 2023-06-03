@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Button, SignOut } from '@/components/buttons'
+import { Button } from '@/components/buttons'
 import { BookForm } from '@/components/forms/book'
 import { MovieForm } from '@/components/forms/movie'
 import { MusicForm } from '@/components/forms/music'
@@ -29,7 +29,6 @@ export default async function Profile() {
           </div>
         </div>
         <div className='flex gap-4'>
-          <SignOut />
           <Link href={`/@${session.user.username}`}>
             <Button variant={'secondary'}>Preview profile</Button>{' '}
           </Link>

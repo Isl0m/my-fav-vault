@@ -1,5 +1,8 @@
 import Image from 'next/image'
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
+
+import { HeaderAction } from '@/components/header/HeaderAction'
+import { NavItem } from '@/components/header/NavItem'
 
 export default function Header() {
   return (
@@ -23,23 +26,8 @@ export default function Header() {
           <NavItem label='About us' href='/about' prefetch={false} />
         </ul>
       </nav>
-      <Link href={'/auth'} className='text-xl underline hover:text-slate-950'>
-        Sign in
-      </Link>
+      {/* @ts-expect-error Async Server Component */}
+      <HeaderAction />
     </header>
-  )
-}
-
-type NavItemProps = LinkProps & {
-  label: string
-}
-
-const NavItem = ({ label, ...rest }: NavItemProps) => {
-  return (
-    <li>
-      <Link {...rest} className='hover:text-sky-500 dark:hover:text-sky-400'>
-        {label}
-      </Link>
-    </li>
   )
 }

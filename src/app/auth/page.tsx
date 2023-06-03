@@ -3,8 +3,14 @@ import Image from 'next/image'
 import { GithubSignInButton, GoogleSignInButton } from '@/components/buttons'
 import { AuthForm } from '@/components/forms/auth'
 import prisma from '@/lib/prisma'
+import {
+  checkSessionAndRedirect,
+  getUsernameOrRedirect,
+} from '@/lib/utils-server'
 
 export default async function Auth() {
+  await getUsernameOrRedirect()
+  await checkSessionAndRedirect()
   const usernames = await prisma.user.findMany({
     where: {
       NOT: {

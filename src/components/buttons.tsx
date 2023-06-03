@@ -6,11 +6,12 @@ import { BsGithub, BsGoogle } from 'react-icons/bs'
 
 import { signIn, signOut } from 'next-auth/react'
 
-const buttonVariants = cva('mb-2  rounded-lg', {
+const buttonVariants = cva('mb-2', {
   variants: {
     variant: {
-      primary: 'bg-slate-800 text-white hover:bg-slate-950',
-      secondary: 'bg-slate-100 text-slate-950 hover:bg-slate-200',
+      primary: 'bg-slate-800 text-white hover:bg-slate-950 rounded-lg',
+      secondary: 'bg-slate-100 text-slate-950 hover:bg-slate-200 rounded-lg',
+      link: 'text-xl underline hover:text-slate-950',
     },
     size: {
       sm: 'px-3 py-2',
@@ -50,18 +51,14 @@ export function Button({
 
 export function SignOut() {
   return (
-    <Button variant='secondary' onClick={() => signOut()}>
+    <Button variant='link' onClick={() => signOut()}>
       Sign Out
     </Button>
   )
 }
 export function GoogleSignInButton() {
   return (
-    <Button
-      variant='secondary'
-      isIcon
-      onClick={() => signIn('google', { callbackUrl: '/username' })}
-    >
+    <Button variant='secondary' isIcon onClick={() => signIn('google')}>
       Continue with Google <BsGoogle />
     </Button>
   )
@@ -69,11 +66,7 @@ export function GoogleSignInButton() {
 
 export function GithubSignInButton() {
   return (
-    <Button
-      isIcon
-      variant='secondary'
-      onClick={() => signIn('github', { callbackUrl: '/username' })}
-    >
+    <Button isIcon variant='secondary' onClick={() => signIn('github')}>
       Continue with GitHub <BsGithub />
     </Button>
   )
