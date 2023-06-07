@@ -20,7 +20,7 @@ export function InputOptionItem({
       <ImagePreviewMemo className='shrink-0' imageSrc={imageSrc} alt={title} />
 
       <div>
-        <h5 className='font-medium'>{title}</h5>
+        <h5 className='line-clamp-1 font-medium '>{title}</h5>
         <p className='text-sm'>{subTitle} </p>
       </div>
     </li>

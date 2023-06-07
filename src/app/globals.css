@@ -7,9 +7,9 @@
     content: '';
     position: absolute;
     width: 80vw;
-    height: 120vh;
+    height: calc(100% - 20vh);
     left: 10vw;
-    top: 35vh;
+    top: 20vh;
     background: linear-gradient(
       45deg,
       #ef4444 0%,
@@ -41,5 +41,9 @@
     opacity: 0.2;
 
     z-index: -1;
+  }
+
+  .min-h-main {
+    min-height: calc(100vh - 80px);
   }
 }

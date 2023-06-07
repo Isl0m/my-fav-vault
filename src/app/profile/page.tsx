@@ -11,7 +11,7 @@ export default async function Profile() {
   const session = await getSessionOrRedirect('/auth')
 
   return (
-    <main className='base-page-bg mt-8 min-h-screen'>
+    <main className='base-page-bg mt-8 min-h-screen md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
         <div className='flex items-center justify-center gap-4'>
           {session.user.image && session.user.username && (
@@ -25,7 +25,7 @@ export default async function Profile() {
           )}
           <div>
             <h2 className='text-2xl font-bold'>@{session.user.username}</h2>
-            <p className='text-sm text-slate-400'>{session.user.email}</p>
+            <p className='text-sm text-slate-500'>{session.user.email}</p>
           </div>
         </div>
         <div className='flex gap-4'>
@@ -33,7 +33,7 @@ export default async function Profile() {
             <Button variant={'secondary'}>Preview profile</Button>{' '}
           </Link>
         </div>
-        <div className='flex flex-wrap justify-center gap-8'>
+        <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
           {/* @ts-expect-error Async Server Component */}
           <MovieForm />
           {/* @ts-expect-error Async Server Component */}

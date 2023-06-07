@@ -42,7 +42,7 @@ export function ServiceInput<T extends UserService>({
   })
 
   return (
-    <div className='max-w-sm'>
+    <div>
       <div className='flex items-center gap-4'>
         <ImagePreviewMemo
           className='shrink-0'
