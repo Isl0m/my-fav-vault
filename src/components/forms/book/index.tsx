@@ -1,9 +1,8 @@
 import { getServerSession } from 'next-auth'
 
+import { BookInput } from '@/components/forms/book/book.input'
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
-
-import { BookInput } from './book.input'
 
 async function getBooks() {
   const session = await getServerSession(authOptions)

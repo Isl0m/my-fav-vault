@@ -1,8 +1,6 @@
 import { getTrackSearch } from '@/lib/search-from-api'
-import {
-  DeezerSearchResponse,
-  DeezerTrackSearch,
-} from '@/schemas/deezer.schema'
+import { DeezerTrackSearch } from '@/schemas/deezer.schema'
+import { UserService } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -17,11 +15,11 @@ export async function GET(request: Request) {
     limit: 3,
   })
 
-  const tracks: DeezerSearchResponse[] = tracksResponse.data.map(track => ({
-    deezerId: track.id.toString(),
+  const tracks: UserService[] = tracksResponse.data.map(track => ({
+    serviceId: track.id.toString(),
     title: track.title,
-    artist: track.artist.name,
-    cover: track.album.cover_medium,
+    subTitle: track.artist.name,
+    previewImage: track.album.cover_medium,
   }))
 
   return new Response(JSON.stringify(tracks), { status: 200 })

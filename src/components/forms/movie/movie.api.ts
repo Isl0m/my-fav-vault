@@ -1,18 +1,20 @@
 import { UserMovie } from '@prisma/client'
 
-import { TmdbSearchRequest, TmdbSearchResponse } from '@/schemas/tmdb.schema'
-import { UserMovieRequest } from '@/schemas/user-movie.schema'
+import {
+  UserService,
+  UserServiceSearchRequest,
+} from '@/schemas/user-service.schema'
 
 export function getMovieOptions(query: string) {
-  const payload: TmdbSearchRequest = { query }
+  const payload: UserServiceSearchRequest = { query }
   return fetch('/api/tmdb?' + new URLSearchParams(payload).toString())
 }
 
 export function saveSelectedItem(
-  selectedItem: UserMovie | TmdbSearchResponse,
+  selectedItem: UserMovie | UserService,
   itemId?: string
 ) {
-  const payload: UserMovieRequest = { ...selectedItem, id: itemId }
+  const payload: UserService = { ...selectedItem, id: itemId }
 
   return fetch('/api/user/movie', {
     method: 'POST',

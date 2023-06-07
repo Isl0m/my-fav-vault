@@ -7,9 +7,11 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 
+import { Spinner } from '@/components/spinner'
 import { cn } from '@/lib/utils'
 
 export type TextFieldProps = ComponentProps<'input'> & {
+  isLoading?: boolean
   error?: string
   inputClassName?: string
 }
@@ -19,6 +21,7 @@ export function TextField({
   error,
   className,
   inputClassName,
+  isLoading,
   ...rest
 }: TextFieldProps) {
   return (
@@ -26,15 +29,18 @@ export function TextField({
       <label htmlFor={id} className='mb-1 block'>
         {name}
       </label>
+
       <input
         className={cn(
-          'block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed',
+          'relative block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed disabled:bg-slate-300',
           inputClassName
         )}
         {...rest}
         id={id}
         name={name}
+        disabled={isLoading}
       />
+
       {error && <p className='text-sm text-pink-700'>{error}</p>}
     </div>
   )

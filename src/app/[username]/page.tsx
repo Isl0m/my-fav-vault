@@ -3,8 +3,8 @@ import { PropsWithChildren } from 'react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-import { ImagePreview } from '@/components/ImagePreview'
 import { Button } from '@/components/buttons'
+import { ImagePreview } from '@/components/image.preview'
 import prisma from '@/lib/prisma'
 
 type Props = {
@@ -93,10 +93,10 @@ export default async function Username({ params }: Props) {
             <UserFav title='User fav movies'>
               {user.userMovie.map(movie => (
                 <UserFavItem
-                  key={movie.tmdbId}
+                  key={movie.id}
                   title={movie.title}
-                  subTitle={movie.releaseDate}
-                  imageSrc={movie.posterPath}
+                  subTitle={movie.subTitle}
+                  imageSrc={movie.previewImage}
                 />
               ))}
             </UserFav>
@@ -105,10 +105,10 @@ export default async function Username({ params }: Props) {
             <UserFav title='User fav movies'>
               {user.userMusic.map(music => (
                 <UserFavItem
-                  key={music.deezerId}
+                  key={music.id}
                   title={music.title}
-                  subTitle={music.artist}
-                  imageSrc={music.cover}
+                  subTitle={music.subTitle}
+                  imageSrc={music.previewImage}
                 />
               ))}
             </UserFav>
@@ -117,10 +117,10 @@ export default async function Username({ params }: Props) {
             <UserFav title='User fav movies'>
               {user.userBook.map(book => (
                 <UserFavItem
-                  key={book.googleBooksId}
+                  key={book.id}
                   title={book.title}
-                  subTitle={book.authors}
-                  imageSrc={book.thumbnail}
+                  subTitle={book.subTitle}
+                  imageSrc={book.previewImage}
                 />
               ))}
             </UserFav>

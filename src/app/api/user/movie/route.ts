@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server'
 
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
-import { userMovieRequestSchema } from '@/schemas/user-movie.schema'
+import { userServiceSchema } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
   const session = await getServerSession(authOptions)
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
   const req = await request.json()
-  const {id, ...movie} = userMovieRequestSchema.parse(req)
+  const { id, ...movie } = userServiceSchema.parse(req)
 
   const session = await getServerSession(authOptions)
 
