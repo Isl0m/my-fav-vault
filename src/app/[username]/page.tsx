@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import { Button } from '@/components/buttons'
 import { ImagePreview } from '@/components/image.preview'
 import prisma from '@/lib/prisma'
+import { UserService } from '@/schemas/user-service.schema'
 
 type Props = {
   params: { username: string }
@@ -48,14 +49,22 @@ function UserFavItem({ title, subTitle, imageSrc }: UserFavItemProps) {
 
 type UserFavProps = PropsWithChildren & {
   title: string
+  data: UserService[]
 }
 
-function UserFav({ title, children }: UserFavProps) {
+function UserFav({ title, data }: UserFavProps) {
   return (
     <div>
       <h2 className='mb-2 text-lg font-bold'>{title}</h2>
       <ul className='flex flex-col gap-4 rounded-xl bg-slate-200 p-4'>
-        {children}
+        {data.map(item => (
+          <UserFavItem
+            key={item.id}
+            title={item.title}
+            subTitle={item.subTitle}
+            imageSrc={item.previewImage}
+          />
+        ))}
       </ul>
     </div>
   )
@@ -68,7 +77,7 @@ export default async function Username({ params }: Props) {
   username = username.slice(1)
   const user = await getUserByUsername(username)
   return (
-    <main className='base-page-bg min-h-screen md:p-24'>
+    <main className='base-page-bg min-h-screen md:pb-24'>
       <div className='mx-auto flex max-w-[95vw] flex-col items-center justify-between gap-8 md:max-w-2xl'>
         <div className='flex items-center justify-center gap-4'>
           {user.image && user.username && (
@@ -82,7 +91,7 @@ export default async function Username({ params }: Props) {
           )}
           <div>
             <h2 className='text-2xl font-bold'>@{user.username}</h2>
-            <p className='text-sm text-slate-400'>{user.email}</p>
+            <p className='text-sm text-slate-500'>{user.email}</p>
           </div>
         </div>
         <div className='flex gap-4'>
@@ -90,40 +99,13 @@ export default async function Username({ params }: Props) {
         </div>
         <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
           {!!user.userMovie.length && (
-            <UserFav title='User fav movies'>
-              {user.userMovie.map(movie => (
-                <UserFavItem
-                  key={movie.id}
-                  title={movie.title}
-                  subTitle={movie.subTitle}
-                  imageSrc={movie.previewImage}
-                />
-              ))}
-            </UserFav>
+            <UserFav title='User fav movies' data={user.userMovie} />
           )}
           {!!user.userMusic.length && (
-            <UserFav title='User fav movies'>
-              {user.userMusic.map(music => (
-                <UserFavItem
-                  key={music.id}
-                  title={music.title}
-                  subTitle={music.subTitle}
-                  imageSrc={music.previewImage}
-                />
-              ))}
-            </UserFav>
+            <UserFav title='User fav movies' data={user.userMusic} />
           )}
           {!!user.userBook.length && (
-            <UserFav title='User fav movies'>
-              {user.userBook.map(book => (
-                <UserFavItem
-                  key={book.id}
-                  title={book.title}
-                  subTitle={book.subTitle}
-                  imageSrc={book.previewImage}
-                />
-              ))}
-            </UserFav>
+            <UserFav title='User fav movies' data={user.userBook} />
           )}
         </div>
       </div>

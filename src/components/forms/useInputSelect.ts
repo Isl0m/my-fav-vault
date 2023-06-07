@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { UserService } from '@/schemas/user-service.schema'
 
@@ -22,8 +22,14 @@ export function useInputSelect<T extends UserService>({
   const [selectedItem, setSelectedItem] = useState<T | UserService | undefined>(
     userService
   )
+  const isFirstRender = useRef(true)
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
     if (selectedItem) {
       setLoading(true)
       saveSelectedItem(selectedItem, itemId)

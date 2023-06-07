@@ -1,4 +1,5 @@
-import { ComponentProps } from 'react'
+import clsx from 'clsx'
+import React, { ComponentProps } from 'react'
 import {
   FieldError,
   FieldValues,
@@ -25,14 +26,16 @@ export function TextField({
   ...rest
 }: TextFieldProps) {
   return (
-    <div className={className}>
-      <label htmlFor={id} className='mb-1 block'>
-        {name}
-      </label>
+    <div className={clsx('relative', className)}>
+      {!!name && (
+        <label htmlFor={id} className='mb-1 block'>
+          {name}
+        </label>
+      )}
 
       <input
         className={cn(
-          'relative block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed disabled:bg-slate-300',
+          'block w-full rounded-lg border border-slate-200 bg-slate-200 p-2.5 outline-none focus:border-sky-500 disabled:cursor-not-allowed disabled:bg-slate-300',
           inputClassName
         )}
         {...rest}
@@ -40,7 +43,11 @@ export function TextField({
         name={name}
         disabled={isLoading}
       />
-
+      {isLoading && (
+        <div className='absolute right-0 top-0 flex h-full items-center rounded-r-lg  border-y border-r border-slate-200 bg-slate-300 px-2'>
+          <Spinner />
+        </div>
+      )}
       {error && <p className='text-sm text-pink-700'>{error}</p>}
     </div>
   )
