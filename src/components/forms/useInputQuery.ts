@@ -1,22 +1,20 @@
 import { useCallback, useEffect, useState } from 'react'
 
-type UserItemBase = {
-  title: string
-}
+import { UserService } from '@/schemas/user-service.schema'
 
-type UseInputQueryProps<T extends UserItemBase> = {
-  userItem?: T
+type UseInputQueryProps<T extends UserService> = {
+  userService?: T
   isFocus: boolean
   getInputOptions: (query: string) => Promise<Response>
 }
 
-export function useInputQuery<T extends UserItemBase, K>({
-  userItem,
+export function useInputQuery<T extends UserService>({
+  userService,
   isFocus,
   getInputOptions,
 }: UseInputQueryProps<T>) {
-  const [query, setQuery] = useState(userItem?.title || '')
-  const [inputOptions, setInputOptions] = useState<K[]>()
+  const [query, setQuery] = useState(userService?.title || '')
+  const [inputOptions, setInputOptions] = useState<UserService[]>()
 
   useEffect(() => {
     if (!query || !isFocus) return

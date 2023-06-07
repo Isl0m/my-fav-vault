@@ -63,11 +63,11 @@ model VerificationToken {
 }
 
 model UserMovie {
-  id          String  @id @default(cuid())
-  tmdbId      String  @unique
-  title       String
-  posterPath  String?
-  releaseDate String?
+  id           String  @id @default(cuid())
+  serviceId    String  @unique
+  title        String
+  subTitle     String?
+  previewImage String?
 
   userId String
 
@@ -77,11 +77,11 @@ model UserMovie {
 }
 
 model UserMusic {
-  id       String @id @default(cuid())
-  deezerId String @unique
-  title    String
-  artist   String
-  cover    String
+  id           String  @id @default(cuid())
+  serviceId    String  @unique
+  title        String
+  subTitle     String?
+  previewImage String?
 
   userId String
 
@@ -91,12 +91,11 @@ model UserMusic {
 }
 
 model UserBook {
-  id            String  @id @default(cuid())
-  googleBooksId String  @unique
-  title         String
-  authors       String
-  thumbnail     String?
-  publishedDate String
+  id           String  @id @default(cuid())
+  serviceId    String  @unique
+  title        String
+  subTitle     String?
+  previewImage String?
 
   userId String
 

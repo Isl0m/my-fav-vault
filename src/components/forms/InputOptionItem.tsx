@@ -1,8 +1,8 @@
-import { ImagePreviewMemo } from '../ImagePreview'
+import { ImagePreviewMemo } from '../image.preview'
 
 type Props = {
   title: string
-  subTitle: string
+  subTitle?: string | null
   handleMouseDown: () => void
   imageSrc?: string | null
 }

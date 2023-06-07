@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server'
 
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
-import { userMusicRequestSchema } from '@/schemas/user-music.schema'
+import { userServiceSchema } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
   const session = await getServerSession(authOptions)
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
   const req = await request.json()
-  const { id, ...music } = userMusicRequestSchema.parse(req)
+  const { id, ...music } = userServiceSchema.parse(req)
 
   const session = await getServerSession(authOptions)
 

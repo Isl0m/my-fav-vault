@@ -1,32 +1,31 @@
 import { useEffect, useState } from 'react'
 
-type UserItemBase = {
-  title: string
-  id: string
-}
+import { UserService } from '@/schemas/user-service.schema'
 
-type UserItemResponseBase = {
-  title: string
-}
-
-type UseInputSelectProps<
-  T extends UserItemBase,
-  K extends UserItemResponseBase
-> = {
-  userItem?: T
+type UseInputSelectProps<T extends UserService> = {
+  userService?: T
   onSelectBook: (query: string) => void
-  saveSelectedItem: (selectedItem: T | K, itemId?: string) => Promise<Response>
+  saveSelectedItem: (
+    selectedItem: T | UserService,
+    itemId?: string
+  ) => Promise<Response>
+  setLoading: (state: boolean) => void
 }
 
-export function useInputSelect<
-  T extends UserItemBase,
-  K extends UserItemResponseBase
->({ userItem, onSelectBook, saveSelectedItem }: UseInputSelectProps<T, K>) {
-  const [itemId, setItemId] = useState(userItem?.id)
-  const [selectedItem, setSelectedItem] = useState<T | K | undefined>(userItem)
+export function useInputSelect<T extends UserService>({
+  userService,
+  onSelectBook,
+  saveSelectedItem,
+  setLoading,
+}: UseInputSelectProps<T>) {
+  const [itemId, setItemId] = useState(userService?.id)
+  const [selectedItem, setSelectedItem] = useState<T | UserService | undefined>(
+    userService
+  )
 
   useEffect(() => {
     if (selectedItem) {
+      setLoading(true)
       saveSelectedItem(selectedItem, itemId)
         .then(res => {
           if (res.ok) {
@@ -34,12 +33,17 @@ export function useInputSelect<
           }
           return res.json()
         })
-        .then(res => res.id && setItemId(res.id))
+        .then(res => {
+          if (res.id) {
+            setItemId(res.id)
+            setLoading(false)
+          }
+        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem])
 
-  const handleSelectItem = (book?: K) => setSelectedItem(book)
+  const handleSelectItem = (item?: UserService) => setSelectedItem(item)
 
   return { selectedItem, handleSelectItem }
 }
