@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React, { ComponentProps } from 'react'
 import {
   FieldError,
@@ -26,7 +25,7 @@ export function TextField({
   ...rest
 }: TextFieldProps) {
   return (
-    <div className={clsx('relative', className)}>
+    <div className={cn('relative', className)}>
       {!!name && (
         <label htmlFor={id} className='mb-1 block'>
           {name}

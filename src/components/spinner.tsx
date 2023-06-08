@@ -1,11 +1,11 @@
-import clsx from 'clsx'
+import { cn } from '@/lib/utils'
 
 export function Spinner({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden='true'
-      className={clsx(
-        'h-6 w-6 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600',
+      className={cn(
+        'aspect-square h-6 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600',
         className
       )}
       viewBox='0 0 100 101'
