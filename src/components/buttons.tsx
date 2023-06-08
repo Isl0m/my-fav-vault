@@ -2,9 +2,12 @@
 
 import { VariantProps, cva } from 'class-variance-authority'
 import { ComponentProps, type PropsWithChildren } from 'react'
+import toast from 'react-hot-toast'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 
 import { signIn, signOut } from 'next-auth/react'
+
+import copyProfileUrl from '@/lib/copyProfileUrl'
 
 const buttonVariants = cva('mb-2', {
   variants: {
@@ -78,4 +81,12 @@ export const SignInButton = () => {
       Sign In
     </Button>
   )
+}
+
+export const ShareProfileButton = ({ username }: { username: string }) => {
+  const handleClick = async () => {
+    const isSuccess = await copyProfileUrl(username)
+    isSuccess && toast.success('Copied to clipboard')
+  }
+  return <Button onClick={handleClick}>Share Profile</Button>
 }
