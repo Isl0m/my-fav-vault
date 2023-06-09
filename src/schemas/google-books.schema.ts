@@ -62,21 +62,6 @@ export const GoogleBooksSearchSchema = z.object({
   items: z.array(GoogleBookSchema).optional(),
 })
 
-export const GoogleBooksSearchRequestSchema = z.object({
-  query: z.string(),
-})
 
-export const GoogleBookResponseSchema = z.object({
-  googleBooksId: z.string(),
-  title: z.string(),
-  authors: z.string(),
-  thumbnail: z.string().url().nullable(),
-  publishedDate: z.string(),
-})
-
-export type GoogleBook = z.infer<typeof GoogleBookSchema>
 export type GoogleBooksSearch = z.infer<typeof GoogleBooksSearchSchema>
-export type GoogleBooksSearchRequest = z.infer<
-  typeof GoogleBooksSearchRequestSchema
->
-export type GoogleBookResponse = z.infer<typeof GoogleBookResponseSchema>
+

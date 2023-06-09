@@ -4,7 +4,7 @@ import { Button } from '@/components/buttons'
 
 export default function Home() {
   return (
-    <main className='hero-page-bg min-h-main p-24'>
+    <main className='hero-page-bg min-h-without-header p-24'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <h1 className='text-6xl font-bold '>
           Sign up, fill your info, share profile.

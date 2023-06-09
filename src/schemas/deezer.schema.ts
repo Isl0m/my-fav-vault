@@ -44,18 +44,5 @@ export const DeezerTrackSearchSchema = z.object({
   next: z.string().url(),
 })
 
-export const DeezerSearchRequestSchema = z.object({
-  query: z.string(),
-})
 
-export const DeezerSearchResponseSchema = z.object({
-  deezerId: z.string(),
-  title: z.string(),
-  artist: z.string(),
-  cover: z.string().url(),
-})
-
-export type DeezerTrack = z.infer<typeof DeezerTrackSchema>
 export type DeezerTrackSearch = z.infer<typeof DeezerTrackSearchSchema>
-export type DeezerSearchRequest = z.infer<typeof DeezerSearchRequestSchema>
-export type DeezerSearchResponse = z.infer<typeof DeezerSearchResponseSchema>

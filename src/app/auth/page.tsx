@@ -22,8 +22,8 @@ export default async function Auth() {
     },
   })
   return (
-    <main className='max-h-screen py-12'>
-      <div className='container mx-auto flex items-center justify-center gap-8'>
+    <main className='container mx-auto h-without-header py-12'>
+      <div className='flex h-full items-center justify-center gap-8'>
         <div className='flex flex-col items-center justify-between gap-4 md:basis-1/2 xl:basis-1/3'>
           <div className='w-full'>
             <AuthForm usernames={usernames} />
@@ -38,7 +38,7 @@ export default async function Auth() {
             <GithubSignInButton />
           </div>
         </div>
-        <div className='relative hidden h-96 basis-1/2 lg:block'>
+        <div className='relative hidden h-full basis-1/2 lg:block'>
           <Image src='/sign_up.svg' alt='sign up' fill={true} />
         </div>
       </div>

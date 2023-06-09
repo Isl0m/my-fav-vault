@@ -6,7 +6,14 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx,css}',
   ],
   theme: {
-
+    extend: {
+      spacing: {
+        'without-header': 'var(--full-vh-minus-header)',
+      },
+      minHeight: {
+        'without-header': 'var(--full-vh-minus-header)',
+      },
+    },
   },
   plugins: [],
 }
