@@ -17,7 +17,7 @@ export function ImagePreview({ imageSrc, alt, className }: ImagePreviewProps) {
       {imageSrc && alt ? (
         <div
           className={cn(
-            'relative aspect-[3/4] w-16  overflow-hidden rounded-md',
+            'relative aspect-[3/4] w-16 overflow-hidden rounded-md',
             className
           )}
         >
@@ -32,7 +32,7 @@ export function ImagePreview({ imageSrc, alt, className }: ImagePreviewProps) {
       ) : (
         <div
           className={cn(
-            'aspect-[3/4] w-16  rounded-md border-2 border-dashed border-slate-200 bg-slate-300',
+            'aspect-[3/4] w-16 rounded-md border-2 border-dashed border-slate-200 bg-slate-300',
             className
           )}
         />

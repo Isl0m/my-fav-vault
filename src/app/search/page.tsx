@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-import Image from 'next/image'
+import Link from 'next/link'
 
+import { ImagePreview } from '@/components/image.preview'
 import { TextField } from '@/components/input'
 import { SearchRequest } from '@/schemas/search.schema'
 import { UserOption } from '@/schemas/user-option.schema'
@@ -13,7 +14,6 @@ export default function Search() {
   const [userOptions, setUserOptions] = useState<UserOption[]>([])
 
   useEffect(() => {
-    if (!query) return
     const timeoutId = setTimeout(() => {
       const payload: SearchRequest = { query }
       fetch('/api/user/search?' + new URLSearchParams(payload).toString())
@@ -25,36 +25,44 @@ export default function Search() {
   }, [query])
 
   return (
-    <main className='hero-page-bg min-h-without-header p-24'>
+    <main className='hero-page-bg min-h-without-header py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <div>
-          <h2 className='text-2xl font-bold'>Search</h2>
-          <TextField value={query} onChange={e => setQuery(e.target.value)} />
+          <h2 className='mb-2 text-5xl font-bold'>Search</h2>
+          <TextField
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            inputClassName='md:w-80'
+          />
         </div>
-        <div>
+        <ul className='flex flex-col gap-4'>
           {!!userOptions.length &&
             userOptions.map(user => (
-              <div
-                className='flex items-center justify-center gap-4'
-                key={user.username}
-              >
-                {user.image && (
-                  <Image
-                    src={user.image}
-                    width={100}
-                    height={100}
-                    className='rounded-md'
-                    alt={user.username}
-                  />
-                )}
-                <div>
-                  <h2 className='text-2xl font-bold'>@{user.username}</h2>
-                  <p className='text-sm text-slate-500'>{user.email}</p>
-                </div>
-              </div>
+              <SearchOptionItem user={user} key={user.username} />
             ))}
-        </div>
+        </ul>
       </div>
     </main>
+  )
+}
+
+function SearchOptionItem({ user }: { user: UserOption }) {
+  return (
+    <li className='cursor-pointer rounded-xl bg-slate-200 p-4 hover:bg-slate-300'>
+      <Link
+        href={`/@${user.username}`}
+        className='flex items-center gap-4 rounded-xl'
+      >
+        <ImagePreview
+          imageSrc={user.image}
+          alt={user.username}
+          className='aspect-square'
+        />
+        <div>
+          <h2 className='text-2xl font-bold'>@{user.username}</h2>
+          <p className='text-sm text-slate-500'>{user.email}</p>
+        </div>
+      </Link>
+    </li>
   )
 }

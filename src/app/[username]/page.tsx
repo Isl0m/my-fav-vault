@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 import { ShareProfileButton } from '@/components/buttons'
+import { ImagePreview } from '@/components/image.preview'
 import { UserFav } from '@/components/user.fav'
 import prisma from '@/lib/prisma'
 
@@ -34,15 +35,11 @@ export default async function Username({ params }: Props) {
     <main className='base-page-bg mt-8 min-h-screen md:pb-24'>
       <div className='mx-auto flex max-w-[95vw] flex-col items-center justify-between gap-8 md:max-w-2xl'>
         <div className='flex items-center justify-center gap-4'>
-          {user.image && user.username && (
-            <Image
-              src={user.image}
-              width={100}
-              height={100}
-              className='rounded-md'
-              alt={user.username}
-            />
-          )}
+          <ImagePreview
+            imageSrc={user.image}
+            className='aspect-square'
+            alt={user.username || 'user image'}
+          />
           <div>
             <h2 className='text-2xl font-bold'>@{user.username}</h2>
             <p className='text-sm text-slate-500'>{user.email}</p>

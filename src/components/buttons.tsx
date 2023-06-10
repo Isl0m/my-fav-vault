@@ -54,7 +54,7 @@ export function Button({
 
 export function SignOut() {
   return (
-    <Button variant='link' onClick={() => signOut()}>
+    <Button variant='link' onClick={() => signOut({ callbackUrl: '/auth' })}>
       Sign Out
     </Button>
   )

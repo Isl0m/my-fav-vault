@@ -6,7 +6,15 @@ export async function GET(request: Request) {
   const query = searchParams.get('query')
 
   if (!query) {
-    return new Response('No query param', { status: 400 })
+    const users = await prisma.user.findMany({
+      take: 4,
+      select: {
+        username: true,
+        email: true,
+        image: true,
+      },
+    })
+    return new Response(JSON.stringify(users), { status: 200 })
   }
 
   const users = await prisma.user.findMany({
