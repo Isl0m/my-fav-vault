@@ -1,16 +1,17 @@
-import { getServerSession } from 'next-auth'
+'use client'
+
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 import { SignOut } from '@/components/buttons'
-import { authOptions } from '@/lib/auth'
 
-export async function HeaderAction() {
-  const session = await getServerSession(authOptions)
+export function HeaderAction() {
+  const { status } = useSession()
 
-  if (session) return <SignOut />
+  if (status === 'authenticated') return <SignOut />
 
   return (
-    <Link href={'/auth'} className='text-xl underline hover:text-slate-950'>
+    <Link href={'/auth'} className=' text-xl underline hover:text-slate-950'>
       Sign in
     </Link>
   )

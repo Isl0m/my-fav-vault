@@ -28,7 +28,7 @@ export default function Search() {
     <main className='hero-page-bg min-h-without-header py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <div>
-          <h2 className='mb-2 text-5xl font-bold'>Search</h2>
+          <h2 className='mb-2 text-3xl font-bold md:text-5xl'>Search</h2>
           <TextField
             value={query}
             onChange={e => setQuery(e.target.value)}
