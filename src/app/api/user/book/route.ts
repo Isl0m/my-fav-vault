@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth'
-import { NextRequest } from 'next/server'
 
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
@@ -22,7 +21,7 @@ export async function GET(request: Request) {
   return new Response(JSON.stringify(books), { status: 200 })
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   const req = await request.json()
   const { id, ...book } = userServiceSchema.parse(req)
 

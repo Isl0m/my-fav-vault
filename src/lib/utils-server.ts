@@ -8,7 +8,8 @@ import { authOptions } from '@/lib/auth'
 export async function getSessionOrRedirect(redirectUrl = '/') {
   const session = await getServerSession(authOptions)
 
-  if (!session) return redirect(redirectUrl)
+  if (session === null || !session?.user || !session.user.username)
+    return redirect(redirectUrl)
   return session
 }
 

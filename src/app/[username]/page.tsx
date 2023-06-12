@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 import { ShareProfileButton } from '@/components/buttons'

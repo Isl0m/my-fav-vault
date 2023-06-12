@@ -1,9 +1,8 @@
-import { NextRequest } from 'next/server'
 
 import prisma from '@/lib/prisma'
 import { usernameUpdateRequestSchema } from '@/schemas/username.schema'
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   const req = await request.json()
 
   const { username, email } = usernameUpdateRequestSchema.parse(req)

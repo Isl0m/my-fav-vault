@@ -12,7 +12,7 @@ export function NextAuthProvider({ children }: Props) {
   return (
     <>
       <SessionProvider>{children}</SessionProvider>
-      <Toaster position='bottom-center' />
+      <Toaster position='top-right' />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { Button } from '@/components/buttons'
 import { BookForm } from '@/components/forms/book'
 import { MovieForm } from '@/components/forms/movie'
 import { MusicForm } from '@/components/forms/music'
+import { ProfileImage } from '@/components/profile.image'
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export default async function Profile() {
@@ -14,15 +15,11 @@ export default async function Profile() {
     <main className='base-page-bg mt-8 min-h-without-header md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
         <div className='flex items-center justify-center gap-4'>
-          {session.user.image && session.user.username && (
-            <Image
-              src={session.user.image}
-              width={100}
-              height={100}
-              className='rounded-md'
-              alt={session.user.username}
-            />
-          )}
+          <ProfileImage
+            imageSrc={session.user.image}
+            alt={session.user.username || 'profile image'}
+            username={session.user.username}
+          />
           <div>
             <h2 className='text-2xl font-bold'>@{session.user.username}</h2>
             <p className='text-sm text-slate-500'>{session.user.email}</p>
