@@ -1,16 +1,36 @@
 import 'server-only'
 
-import { getServerSession } from 'next-auth'
+import { Session, User, getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 import { authOptions } from '@/lib/auth'
 
-export async function getSessionOrRedirect(redirectUrl = '/') {
+import { NotNullable, Prettify } from './utils'
+
+type ValidatedUser = Required<NotNullable<Pick<User, 'image' | 'username'>>> &
+  Omit<User, 'image' | 'username'>
+
+type ValidatedSession = Session & {
+  user: ValidatedUser
+}
+
+function validateSession(session: Session | null): session is ValidatedSession {
+  return (
+    session !== null &&
+    typeof session.user.username === 'string' &&
+    typeof session.user.image === 'string'
+  )
+}
+
+export async function getSessionOrRedirect(
+  redirectUrl = '/'
+): Promise<ValidatedSession> {
   const session = await getServerSession(authOptions)
 
-  if (session === null || !session?.user || !session.user.username)
-    return redirect(redirectUrl)
-  return session
+  if (validateSession(session)) {
+    return session
+  }
+  return redirect(redirectUrl)
 }
 
 export async function getUsernameOrRedirect() {

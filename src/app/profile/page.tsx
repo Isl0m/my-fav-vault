@@ -1,11 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/buttons'
 import { BookForm } from '@/components/forms/book'
 import { MovieForm } from '@/components/forms/movie'
 import { MusicForm } from '@/components/forms/music'
-import { ProfileImage } from '@/components/profile.image'
+import { ProfileImage } from '@/components/profile-image'
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export default async function Profile() {
@@ -17,7 +16,7 @@ export default async function Profile() {
         <div className='flex items-center justify-center gap-4'>
           <ProfileImage
             imageSrc={session.user.image}
-            alt={session.user.username || 'profile image'}
+            alt={session.user.username}
             username={session.user.username}
           />
           <div>

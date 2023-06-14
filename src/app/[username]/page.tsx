@@ -36,7 +36,7 @@ export default async function Username({ params }: Props) {
         <div className='flex items-center justify-center gap-4'>
           <ImagePreview
             imageSrc={user.image}
-            className='aspect-square'
+            className='aspect-square w-24'
             alt={user.username || 'user image'}
           />
           <div>

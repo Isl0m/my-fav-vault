@@ -4,6 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { ComponentProps, type PropsWithChildren } from 'react'
 import toast from 'react-hot-toast'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
+import { twMerge } from 'tailwind-merge'
 
 import { signIn, signOut } from 'next-auth/react'
 
@@ -22,11 +23,30 @@ const buttonVariants = cva('mb-2', {
       lg: 'px-5 py-3',
     },
     isIcon: { true: 'inline-flex items-center justify-center gap-2' },
+    isSquare: { true: '' },
   },
+  compoundVariants: [
+    {
+      size: 'sm',
+      isSquare: true,
+      class: 'p-2',
+    },
+    {
+      size: 'md',
+      isSquare: true,
+      class: 'p-2.5',
+    },
+    {
+      size: 'lg',
+      isSquare: true,
+      class: 'p-3',
+    },
+  ],
   defaultVariants: {
     variant: 'primary',
     size: 'md',
     isIcon: false,
+    isSquare: false,
   },
 })
 
@@ -38,13 +58,16 @@ export function Button({
   variant,
   size,
   isIcon,
+  isSquare,
   className,
   children,
   ...rest
 }: ButtonProps) {
   return (
     <button
-      className={buttonVariants({ variant, size, isIcon, className })}
+      className={twMerge(
+        buttonVariants({ variant, size, isIcon, isSquare, className })
+      )}
       {...rest}
     >
       {children}
