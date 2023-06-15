@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
       if (token.uid && token.username) {
         session.user.id = token.uid
         session.user.username = token.username
-        session.user.image = token.image
+        session.user.image = token.picture
       }
       return session
     },
@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
         token.username = session.username
       }
       if (trigger === 'update' && session.image) {
-        token.image = session.image
+        token.picture = session.image
       }
       return token
     },

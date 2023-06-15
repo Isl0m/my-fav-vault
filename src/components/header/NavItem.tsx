@@ -7,7 +7,7 @@ type NavItemProps = LinkProps & {
 export function NavItem({ label, ...rest }: NavItemProps) {
   return (
     <li>
-      <Link {...rest} className='hover:text-sky-500 dark:hover:text-sky-400'>
+      <Link {...rest} className='hover:text-sky-500'>
         {label}
       </Link>
     </li>

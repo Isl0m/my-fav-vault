@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -35,15 +36,20 @@ export function AuthForm({ usernames }: AuthFormProps) {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<AuthFormFields> = async value => {
+    const toastId = toast.loading('Submitting...')
     const res = await signIn('credentials', {
       ...value,
       authMethod,
       callbackUrl: '/profile',
       redirect: false,
     })
-    if (!res?.error) {
-      router.replace('/profile')
+    if (res?.error) {
+      toast.dismiss(toastId)
+      toast.error('Authentication failed')
+      return
     }
+    toast.dismiss(toastId)
+    router.replace('/profile')
     reset()
   }
 

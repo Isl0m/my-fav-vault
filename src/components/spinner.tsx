@@ -5,7 +5,7 @@ export function Spinner({ className }: { className?: string }) {
     <svg
       aria-hidden='true'
       className={cn(
-        'aspect-square h-6 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600',
+        'animate-spin aspect-square h-6 fill-sky-600 text-gray-200',
         className
       )}
       viewBox='0 0 100 101'

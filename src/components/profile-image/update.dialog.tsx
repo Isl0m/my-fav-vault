@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 
 import {
   deleteFiles,
+  deleteUnusedFile,
   getAvatarUrl,
   listOfFiles,
   uploadFile,
@@ -71,15 +72,16 @@ export function UpdateProfileImageDialog({
       method: 'POST',
       body: JSON.stringify(payload),
     })
-    if (!updateImage.ok) return
-    await update({ image: imagePath })
+    if (!updateImage.ok) {
+      toast.dismiss(toastId)
+      return
+    }
+    await update({ picture: imagePath })
     updateProfileImage(imagePath)
     dialog.onOpenChange(false)
     toast.dismiss(toastId)
 
-    const { data } = await listOfFiles(username)
-    if (!data?.[0]) return
-    await deleteFiles([`${username}/${data[0].name}`])
+    await deleteUnusedFile(username)
   }
 
   return (
