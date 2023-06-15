@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import Image from 'next/image'
 
 import { GithubSignInButton, GoogleSignInButton } from '@/components/buttons'
@@ -5,11 +6,15 @@ import { AuthForm } from '@/components/forms/auth'
 import prisma from '@/lib/prisma'
 import {
   checkSessionAndRedirect,
-  getUsernameOrRedirect,
+  checkUsernameAndRedirect,
 } from '@/lib/utils-server'
 
+export const metadata: Metadata = {
+  title: 'Auth | MyFavVault',
+}
+
 export default async function Auth() {
-  await getUsernameOrRedirect()
+  await checkUsernameAndRedirect()
   await checkSessionAndRedirect()
   const usernames = await prisma.user.findMany({
     where: {

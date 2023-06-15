@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Button } from '@/components/buttons'
@@ -6,6 +7,10 @@ import { MovieForm } from '@/components/forms/movie'
 import { MusicForm } from '@/components/forms/music'
 import { ProfileImage } from '@/components/profile-image'
 import { getSessionOrRedirect } from '@/lib/utils-server'
+
+export const metadata: Metadata = {
+  title: 'Profile | MyFavVault',
+}
 
 export default async function Profile() {
   const session = await getSessionOrRedirect('/auth')

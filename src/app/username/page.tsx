@@ -1,4 +1,10 @@
+import { Metadata } from 'next'
+
 import { UsernameForm } from '@/components/forms/username.form'
+
+export const metadata: Metadata = {
+  title: 'Username | MyFavVault',
+}
 
 export default async function Username() {
   return (

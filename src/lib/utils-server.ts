@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { authOptions } from '@/lib/auth'
 
-import { NotNullable, Prettify } from './utils'
+import { NotNullable } from './utils'
 
 type ValidatedUser = Required<NotNullable<Pick<User, 'image' | 'username'>>> &
   Omit<User, 'image' | 'username'>
@@ -33,7 +33,7 @@ export async function getSessionOrRedirect(
   return redirect(redirectUrl)
 }
 
-export async function getUsernameOrRedirect() {
+export async function checkUsernameAndRedirect() {
   const session = await getServerSession(authOptions)
   if (session && !session?.user.username) return redirect('/username')
 }

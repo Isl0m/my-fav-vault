@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { ShareProfileButton } from '@/components/buttons'
@@ -8,7 +9,23 @@ import prisma from '@/lib/prisma'
 type Props = {
   params: { username: string }
 }
+export async function generateMetadata(
+  { params }: Props,
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
+  const username = decodeURIComponent(params.username).slice(1)
+  const user = await prisma.user.findUnique({
+    where: { username },
+    select: { image: true },
+  })
 
+  const openGraph = user?.image ? { images: [user.image] } : null
+
+  return {
+    title: `${username} | MyFavVault`,
+    openGraph,
+  }
+}
 async function getUserByUsername(username: string) {
   const user = await prisma.user.findUnique({
     where: { username },

@@ -109,6 +109,7 @@ export function UpdateProfileImageDialog({
           </div>
           <Dialog.Close asChild>
             <Button
+              isSquare
               variant='secondary'
               className='absolute right-2 top-2 bg-transparent'
             >
