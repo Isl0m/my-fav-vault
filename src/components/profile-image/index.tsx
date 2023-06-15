@@ -10,7 +10,7 @@ import { UpdateProfileImageDialog } from './update.dialog'
 
 type Props = {
   username: string
-  imageSrc: string
+  imageSrc?: string | null
   alt: string
 }
 

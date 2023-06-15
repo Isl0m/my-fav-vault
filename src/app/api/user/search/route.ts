@@ -43,7 +43,7 @@ export async function GET(request: Request) {
     return new Response('Users not found', { status: 404 })
   }
 
-  const filtredUsers = users.filter(user => {
+  const filteredUsers = users.filter(user => {
     const result = UserOptionSchema.safeParse(user)
     return (
       result.success &&
@@ -52,9 +52,9 @@ export async function GET(request: Request) {
     )
   })
 
-  if (!filtredUsers.length) {
+  if (!filteredUsers.length) {
     return new Response('Users not found', { status: 404 })
   }
 
-  return new Response(JSON.stringify(filtredUsers), { status: 200 })
+  return new Response(JSON.stringify(filteredUsers), { status: 200 })
 }

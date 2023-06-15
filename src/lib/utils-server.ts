@@ -7,19 +7,15 @@ import { authOptions } from '@/lib/auth'
 
 import { NotNullable } from './utils'
 
-type ValidatedUser = Required<NotNullable<Pick<User, 'image' | 'username'>>> &
-  Omit<User, 'image' | 'username'>
+type ValidatedUser = Required<NotNullable<Pick<User, 'username'>>> &
+  Omit<User, 'username'>
 
 type ValidatedSession = Session & {
   user: ValidatedUser
 }
 
 function validateSession(session: Session | null): session is ValidatedSession {
-  return (
-    session !== null &&
-    typeof session.user.username === 'string' &&
-    typeof session.user.image === 'string'
-  )
+  return session !== null && typeof session.user.username === 'string'
 }
 
 export async function getSessionOrRedirect(
