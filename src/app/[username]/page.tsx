@@ -11,7 +11,7 @@ type Props = {
 }
 export async function generateMetadata(
   { params }: Props,
-  parent?: ResolvingMetadata
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const username = decodeURIComponent(params.username).slice(1)
   const user = await prisma.user.findUnique({
