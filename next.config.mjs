@@ -8,7 +8,8 @@ const nextConfig = {
       'image.tmdb.org',
       'e-cdns-images.dzcdn.net',
       'books.google.com',
-      'kjakppwpxmchcacfwryo.supabase.co'
+      'kjakppwpxmchcacfwryo.supabase.co',
+      'avatars.githubusercontent.com'
     ],
   },
 }
