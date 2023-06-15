@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: SEO.title,
     description: SEO.description,
-    images: ['https://my-fav-vault.vercel.app/myfavvault.svg'],
+    images: ['https://my-fav-vault.vercel.app/OpenGraphImage.png'],
   },
 }
 

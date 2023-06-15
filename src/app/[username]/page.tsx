@@ -23,6 +23,7 @@ export async function generateMetadata(
   const openGraph = user?.image
     ? {
         siteName: SEO.title,
+        title: `${username} | MyFavVault`,
         description: SEO.description,
         images: [user.image],
       }
