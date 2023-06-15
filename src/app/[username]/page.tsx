@@ -5,6 +5,7 @@ import { ShareProfileButton } from '@/components/buttons'
 import { ImagePreview } from '@/components/image.preview'
 import { UserFav } from '@/components/user.fav'
 import prisma from '@/lib/prisma'
+import { SEO } from '@/lib/utils'
 
 type Props = {
   params: { username: string }
@@ -19,7 +20,13 @@ export async function generateMetadata(
     select: { image: true },
   })
 
-  const openGraph = user?.image ? { images: [user.image] } : null
+  const openGraph = user?.image
+    ? {
+        siteName: SEO.title,
+        description: SEO.description,
+        images: [user.image],
+      }
+    : null
 
   return {
     title: `${username} | MyFavVault`,

@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
 import Header from '@/components/header'
+import { SEO } from '@/lib/utils'
 
 import './globals.css'
 import { NextAuthProvider } from './providers'
@@ -14,9 +15,13 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'MyFavVault',
-  description:
-    'Create your account and personalize your profile by selecting your favorites and share with others.',
+  title: SEO.title,
+  description: SEO.description,
+  openGraph: {
+    siteName: SEO.title,
+    description: SEO.description,
+    images: ['https://my-fav-vault.vercel.app/myfavvault.svg'],
+  },
 }
 
 export default function RootLayout({

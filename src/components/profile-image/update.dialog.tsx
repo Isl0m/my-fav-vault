@@ -6,10 +6,8 @@ import { FaTimes } from 'react-icons/fa'
 import { useSession } from 'next-auth/react'
 
 import {
-  deleteFiles,
   deleteUnusedFile,
   getAvatarUrl,
-  listOfFiles,
   uploadFile,
 } from '@/lib/supabase'
 import { ImageUpdateRequest } from '@/schemas/user-image.schema'
