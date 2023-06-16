@@ -69,6 +69,7 @@ model VerificationToken {
 model UserMovie {
   id           String  @id @default(cuid())
   serviceId    String  @unique
+  serviceName  String?
   title        String
   subTitle     String?
   previewImage String?
@@ -83,6 +84,7 @@ model UserMovie {
 model UserMusic {
   id           String  @id @default(cuid())
   serviceId    String  @unique
+  serviceName  String?
   title        String
   subTitle     String?
   previewImage String?
@@ -97,6 +99,7 @@ model UserMusic {
 model UserBook {
   id           String  @id @default(cuid())
   serviceId    String  @unique
+  serviceName  String?
   title        String
   subTitle     String?
   previewImage String?

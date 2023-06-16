@@ -44,5 +44,5 @@ export const DeezerTrackSearchSchema = z.object({
   next: z.string().url(),
 })
 
-
+export type DeezerTrack = z.infer<typeof DeezerTrackSchema>
 export type DeezerTrackSearch = z.infer<typeof DeezerTrackSearchSchema>

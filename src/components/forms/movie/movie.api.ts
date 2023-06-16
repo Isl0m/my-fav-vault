@@ -7,7 +7,7 @@ import {
 
 export function getMovieOptions(query: string) {
   const payload: UserServiceSearchRequest = { query }
-  return fetch('/api/tmdb?' + new URLSearchParams(payload).toString())
+  return fetch('/api/movie?' + new URLSearchParams(payload).toString())
 }
 
 export function saveSelectedItem(

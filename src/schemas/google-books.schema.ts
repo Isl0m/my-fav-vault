@@ -62,6 +62,5 @@ export const GoogleBooksSearchSchema = z.object({
   items: z.array(GoogleBookSchema).optional(),
 })
 
-
+export type GoogleBook = z.infer<typeof GoogleBookSchema>
 export type GoogleBooksSearch = z.infer<typeof GoogleBooksSearchSchema>
-

@@ -7,7 +7,7 @@ import {
 
 export function getBookOptions(query: string) {
   const payload: UserServiceSearchRequest = { query }
-  return fetch('/api/google-books?' + new URLSearchParams(payload).toString())
+  return fetch('/api/book?' + new URLSearchParams(payload).toString())
 }
 
 export function saveSelectedItem(

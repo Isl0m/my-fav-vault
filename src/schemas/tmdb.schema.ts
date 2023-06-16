@@ -24,4 +24,5 @@ export const TmdbMovieSearchSchema = z.object({
   total_results: z.number(),
 })
 
+export type TmdbMovie = z.infer<typeof TmdbMovieSchema>
 export type TmdbMovieSearch = z.infer<typeof TmdbMovieSearchSchema>

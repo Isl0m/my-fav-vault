@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
 import Header from '@/components/header'
+import { env } from '@/env.mjs'
 import { SEO } from '@/lib/utils'
 
 import './globals.css'
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: SEO.title,
     description: SEO.description,
-    images: ['https://my-fav-vault.vercel.app/OpenGraphImage.png'],
+    images: [`${env.NEXT_PUBLIC_APP_URL}OpenGraphImage.png`],
   },
 }
 
