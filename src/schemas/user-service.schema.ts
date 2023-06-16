@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const userServiceSchema = z.object({
   serviceId: z.string(),
-  serviceName: z.string().optional(),
+  serviceName: z.string().nullable(),
   title: z.string(),
   subTitle: z.string().nullable(),
   previewImage: z.string().nullable(),

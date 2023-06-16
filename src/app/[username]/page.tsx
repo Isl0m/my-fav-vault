@@ -1,3 +1,5 @@
+import { UserMovie } from '@prisma/client'
+
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
