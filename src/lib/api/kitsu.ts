@@ -1,7 +1,7 @@
+import { SearchQueryPrams } from '.'
+
 import { KitsuAnime, KitsuManga } from '@/schemas/kitsu.schema'
 import { UserService } from '@/schemas/user-service.schema'
-
-import { SearchQueryPrams } from '../search-from-api'
 
 export const KITSU = {
   KITSU_BASE_URL: 'https://kitsu.io/api/edge',
