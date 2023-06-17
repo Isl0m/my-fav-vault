@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth'
 
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 
@@ -21,13 +22,17 @@ export async function MusicForm() {
   const musics = await getMusics()
 
   return (
-    <div>
-      <h3 className='mb-2 text-lg font-semibold'>Your 3 fav musics</h3>
-      <div className='flex flex-col gap-2 rounded-xl bg-slate-100 p-4'>
+    <Card>
+      <CardHeader>
+        <CardTitle className='mb-2 text-lg font-semibold'>
+          Your 3 fav musics
+        </CardTitle>
+      </CardHeader>
+      <CardContent className='flex flex-col gap-2'>
         <MusicInput userMusic={musics?.[0]} />
         <MusicInput userMusic={musics?.[1]} />
         <MusicInput userMusic={musics?.[2]} />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

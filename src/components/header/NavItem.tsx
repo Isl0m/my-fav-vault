@@ -1,15 +1,25 @@
 import Link, { LinkProps } from 'next/link'
+import { usePathname } from 'next/navigation'
+
+import { cn } from '@/lib/utils'
 
 type NavItemProps = LinkProps & {
   label: string
 }
 
-export function NavItem({ label, ...rest }: NavItemProps) {
+export function NavItem({ label, href, ...rest }: NavItemProps) {
+  const pathname = usePathname()
+  const isActive = pathname === href
   return (
-    <li>
-      <Link {...rest} className='hover:text-sky-500'>
-        {label}
-      </Link>
-    </li>
+    <Link
+      {...rest}
+      href={href}
+      className={cn(
+        'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+        isActive && 'text-primary'
+      )}
+    >
+      {label}
+    </Link>
   )
 }

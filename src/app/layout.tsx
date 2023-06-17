@@ -1,11 +1,11 @@
-import clsx from 'clsx'
-
 import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
+import clsx from 'clsx'
+
 import Header from '@/components/header'
 import { env } from '@/env.mjs'
-import { SEO } from '@/lib/utils'
+import { SEO, cn } from '@/lib/utils'
 
 import './globals.css'
 import { NextAuthProvider } from './providers'
@@ -32,7 +32,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={clsx(roboto.className, 'noise-bg text-slate-800')}>
+      <body
+        className={cn(
+          'noise-bg min-h-screen bg-background text-slate-800 antialiased',
+          roboto.className
+        )}
+      >
         <NextAuthProvider>
           <Header />
           {children}

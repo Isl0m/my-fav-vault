@@ -3,6 +3,8 @@ import { PropsWithChildren } from 'react'
 import { ImagePreview } from '@/components/image.preview'
 import { UserService } from '@/schemas/user-service.schema'
 
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+
 type UserFavProps = PropsWithChildren & {
   title: string
   data: UserService[]
@@ -10,19 +12,24 @@ type UserFavProps = PropsWithChildren & {
 
 export function UserFav({ title, data }: UserFavProps) {
   return (
-    <div>
-      <h2 className='mb-2 text-lg font-bold'>{title}</h2>
-      <ul className='flex flex-col gap-4 rounded-xl bg-slate-200 p-4'>
-        {data.map(item => (
-          <UserFavItem
-            key={item.id}
-            title={item.title}
-            subTitle={item.subTitle}
-            imageSrc={item.previewImage}
-          />
-        ))}
-      </ul>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <ul className='flex flex-col gap-4'>
+          {data.map(item => (
+            <UserFavItem
+              key={item.id}
+              title={item.title}
+              subTitle={item.subTitle}
+              imageSrc={item.previewImage}
+            />
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   )
 }
 

@@ -1,10 +1,10 @@
-import { UserMovie } from '@prisma/client'
-
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { ShareProfileButton } from '@/components/buttons'
+import { UserMovie } from '@prisma/client'
+
 import { ImagePreview } from '@/components/image.preview'
+import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user.fav'
 import prisma from '@/lib/prisma'
 import { SEO } from '@/lib/utils'
@@ -67,8 +67,10 @@ export default async function Username({ params }: Props) {
             alt={user.username || 'user image'}
           />
           <div>
-            <h2 className='text-2xl font-bold'>@{user.username}</h2>
-            <p className='text-sm text-slate-500'>{user.email}</p>
+            <h3 className='text-2xl font-semibold tracking-tight'>
+              @{user.username}
+            </h3>
+            <p className='leading-7'>{user.email}</p>
           </div>
         </div>
         <div className='flex gap-4'>

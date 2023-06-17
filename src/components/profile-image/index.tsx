@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { FiEdit } from 'react-icons/fi'
 
-import { Button } from '../buttons'
+import { Edit } from 'lucide-react'
+
 import { ImagePreview } from '../image.preview'
+import { Button } from '../ui/button'
 
 import { UpdateProfileImageDialog } from './update.dialog'
 
@@ -31,12 +32,11 @@ export function ProfileImage({ username, imageSrc, alt }: Props) {
       />
       <div className='w-full' onClick={() => setIsDialogOpen(true)}>
         <Button
-          isSquare
           variant='secondary'
           size='sm'
-          className='absolute right-2 top-2 rounded-[3px] opacity-70'
+          className='absolute right-2 top-2 rounded-[3px] p-2 opacity-70 backdrop-blur-md'
         >
-          <FiEdit />
+          <Edit size={20} />
         </Button>
       </div>
       <UpdateProfileImageDialog

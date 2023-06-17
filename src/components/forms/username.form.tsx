@@ -1,13 +1,14 @@
 'use client'
 
-import { User } from '@prisma/client'
-import { SubmitHandler, useForm } from 'react-hook-form'
-
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/buttons'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { User } from '@prisma/client'
+
 import { HookFormField } from '@/components/input'
+import { Button } from '@/components/ui/button'
 import { UsernameUpdateRequest } from '@/schemas/username.schema'
 
 export type UsernameForm = Pick<User, 'username'>

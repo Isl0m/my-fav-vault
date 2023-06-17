@@ -27,7 +27,7 @@ export async function listOfFiles(folder: string) {
 
 export async function deleteUnusedFile(username: string) {
   const { data } = await listOfFiles(username)
-  if (!data?.[0] || (data && data.length < 1)) return
+  if (!data?.[0] || (data && data.length < 2)) return
   return await deleteFiles([`${username}/${data[0].name}`])
 }
 

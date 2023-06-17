@@ -1,9 +1,7 @@
-import { useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-
-import { Button } from '@/components/buttons'
 import { DivImage } from '@/components/image.preview'
+import { Button } from '@/components/ui/button'
+
+import { Skeleton } from '../ui/skeleton'
 
 type Props = {
   imagePath: string | undefined
@@ -23,6 +21,6 @@ export function UploadedImagePreview({ imagePath, handleChangeImage }: Props) {
       </Button>
     </div>
   ) : (
-    <Skeleton width={100} height={100} borderRadius={6} />
+    <Skeleton className='h-24 w-24 rounded-md' />
   )
 }

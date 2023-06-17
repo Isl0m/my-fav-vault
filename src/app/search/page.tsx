@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 import Link from 'next/link'
 
+import { useEffect, useState } from 'react'
+
 import { ImagePreview } from '@/components/image.preview'
-import { TextField } from '@/components/input'
+import { Input } from '@/components/ui/input'
 import { SearchRequest } from '@/schemas/search.schema'
 import { UserOption } from '@/schemas/user-option.schema'
 
@@ -28,11 +28,11 @@ export default function Search() {
     <main className='hero-page-bg min-h-without-header py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <div>
-          <h2 className='mb-2 text-3xl font-bold md:text-5xl'>Search</h2>
-          <TextField
+          <h2 className='mb-2 text-3xl font-semibold tracking-tight'>Search</h2>
+          <Input
             value={query}
             onChange={e => setQuery(e.target.value)}
-            inputClassName='md:w-80'
+            className='bg-muted md:w-80'
           />
         </div>
         <ul className='flex flex-col gap-4'>

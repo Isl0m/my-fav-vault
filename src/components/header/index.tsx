@@ -1,15 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-import { FaBars, FaTimes } from 'react-icons/fa'
-
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { useState } from 'react'
+
+import { Menu, X } from 'lucide-react'
 
 import { HeaderAction } from '@/components/header/HeaderAction'
 import { NavItem } from '@/components/header/NavItem'
 
-import { Button } from '../buttons'
+import { Button } from '../ui/button'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,23 +22,19 @@ export default function Header() {
         <Link href='/' className='flex items-center justify-center gap-2'>
           <Image
             src='/myfavvault.svg'
-            height={54}
-            width={54}
-            style={{ width: 54, height: 54 }}
+            height={24}
+            width={24}
+            style={{ width: 24, height: 24 }}
             alt='links store logo'
           />
-          <span className='whitespace-nowrap text-xl md:text-3xl'>
-            MyFavVault
-          </span>
+          <span className='font-bold'>MyFavVault</span>
         </Link>
 
-        <nav className='hidden text-xl md:block'>
-          <ul className='flex space-x-8'>
-            <NavItem label='Home' href='/' />
-            <NavItem label='Search' href='/search' prefetch={false} />
-            <NavItem label='Profile' href='/profile' prefetch={false} />
-            <NavItem label='About us' href='/about' prefetch={false} />
-          </ul>
+        <nav className='hidden space-x-8 md:flex'>
+          <NavItem label='Home' href='/' />
+          <NavItem label='Search' href='/search' prefetch={false} />
+          <NavItem label='Profile' href='/profile' prefetch={false} />
+          <NavItem label='About us' href='/about' prefetch={false} />
         </nav>
         <div className='hidden md:block'>
           <HeaderAction />
@@ -47,19 +44,17 @@ export default function Header() {
           onClick={toggleMenu}
           aria-label='Toggle Menu'
         >
-          {isOpen ? <FaTimes /> : <FaBars />}
+          {isOpen ? <Menu /> : <X />}
         </Button>
       </div>
 
       {isOpen && (
-        <nav className='block text-xl md:hidden'>
-          <ul className='flex flex-col items-center gap-2'>
-            <NavItem label='Home' href='/' />
-            <NavItem label='Search' href='/search' prefetch={false} />
-            <NavItem label='Profile' href='/profile' prefetch={false} />
-            <NavItem label='About us' href='/about' prefetch={false} />
-            <HeaderAction />
-          </ul>
+        <nav className='flex flex-col items-center gap-2 md:hidden'>
+          <NavItem label='Home' href='/' />
+          <NavItem label='Search' href='/search' prefetch={false} />
+          <NavItem label='Profile' href='/profile' prefetch={false} />
+          <NavItem label='About us' href='/about' prefetch={false} />
+          <HeaderAction />
         </nav>
       )}
     </header>

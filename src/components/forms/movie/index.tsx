@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth'
 
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 
@@ -21,13 +22,17 @@ export async function MovieForm() {
   const movies = await getMovies()
 
   return (
-    <div>
-      <h3 className='mb-2 text-lg font-semibold'>Your 3 fav movies</h3>
-      <div className='flex flex-col gap-2 rounded-2xl bg-slate-100 p-4'>
+    <Card>
+      <CardHeader>
+        <CardTitle className='mb-2 text-lg font-semibold'>
+          Your 3 fav movies
+        </CardTitle>
+      </CardHeader>
+      <CardContent className='flex flex-col gap-2'>
         <MovieInput userMovie={movies?.[0]} />
         <MovieInput userMovie={movies?.[1]} />
         <MovieInput userMovie={movies?.[2]} />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

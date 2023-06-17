@@ -3,8 +3,9 @@ import { useState } from 'react'
 import { useInputQuery } from '@/components/forms/useInputQuery'
 import { useInputSelect } from '@/components/forms/useInputSelect'
 import { ImagePreviewMemo } from '@/components/image.preview'
-import { TextField } from '@/components/input'
 import { UserService } from '@/schemas/user-service.schema'
+
+import { Input } from '../ui/input'
 
 import { InputOption } from './InputOption'
 
@@ -50,7 +51,7 @@ export function ServiceInput<T extends UserService>({
           alt={selectedItem?.title}
         />
 
-        <TextField
+        <Input
           name={name}
           value={query}
           onFocus={() => setIsFocus(true)}
@@ -59,7 +60,7 @@ export function ServiceInput<T extends UserService>({
             resetInputOptions()
           }}
           onChange={e => handleSetQuery(e.target.value)}
-          isLoading={isLoading}
+          disabled={isLoading}
           className='grow'
         />
       </div>

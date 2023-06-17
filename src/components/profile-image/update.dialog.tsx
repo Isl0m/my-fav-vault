@@ -1,18 +1,16 @@
-import * as Dialog from '@radix-ui/react-dialog'
-import { ChangeEvent, useState } from 'react'
-import toast from 'react-hot-toast'
-import { FaTimes } from 'react-icons/fa'
-
 import { useSession } from 'next-auth/react'
 
-import {
-  deleteUnusedFile,
-  getAvatarUrl,
-  uploadFile,
-} from '@/lib/supabase'
+import { ChangeEvent, useState } from 'react'
+import toast from 'react-hot-toast'
+
+import * as Dialog from '@radix-ui/react-dialog'
+import { X } from 'lucide-react'
+
+import { deleteUnusedFile, getAvatarUrl, uploadFile } from '@/lib/supabase'
 import { ImageUpdateRequest } from '@/schemas/user-image.schema'
 
-import { Button } from '../buttons'
+import { Icons } from '../Icons'
+import { Button } from '../ui/button'
 
 import { FileInputArea } from './file.input'
 import { UploadedImagePreview } from './image.preview'
@@ -29,6 +27,7 @@ export function UpdateProfileImageDialog({
   updateProfileImage,
   ...dialog
 }: Props) {
+  const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState<string>()
   const [file, setFile] = useState<File>()
   const { update } = useSession()
@@ -61,7 +60,7 @@ export function UpdateProfileImageDialog({
 
   const handleUpdateImage = async () => {
     if (!imagePath) return
-    const toastId = toast.loading('Updating image...')
+    setIsLoading(true)
     const payload: ImageUpdateRequest = {
       image: imagePath,
       username,
@@ -70,16 +69,15 @@ export function UpdateProfileImageDialog({
       method: 'POST',
       body: JSON.stringify(payload),
     })
-    if (!updateImage.ok) {
-      toast.dismiss(toastId)
-      return
-    }
-    await update({ picture: imagePath })
+
+    if (!updateImage.ok) return
+    await update({ image: imagePath })
+
     updateProfileImage(imagePath)
     dialog.onOpenChange(false)
-    toast.dismiss(toastId)
 
     await deleteUnusedFile(username)
+    setIsLoading(false)
   }
 
   return (
@@ -103,17 +101,22 @@ export function UpdateProfileImageDialog({
           </div>
 
           <div className='mt-6 flex justify-end'>
-            <Button disabled={!imagePath} onClick={handleUpdateImage}>
+            <Button
+              disabled={!imagePath || isLoading}
+              onClick={handleUpdateImage}
+            >
+              {isLoading && (
+                <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
+              )}
               Save changes
             </Button>
           </div>
           <Dialog.Close asChild>
             <Button
-              isSquare
               variant='secondary'
-              className='absolute right-2 top-2 bg-transparent'
+              className='absolute right-2 top-2 bg-transparent p-2'
             >
-              <FaTimes />
+              <X />
             </Button>
           </Dialog.Close>
         </Dialog.Content>

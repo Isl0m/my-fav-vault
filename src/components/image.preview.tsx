@@ -1,8 +1,8 @@
 'use client'
 
-import { ComponentProps, memo } from 'react'
-
 import Image, { ImageProps } from 'next/image'
+
+import { ComponentProps, memo } from 'react'
 
 import { cn } from '@/lib/utils'
 

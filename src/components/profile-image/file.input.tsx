@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
-import { BsUpload } from 'react-icons/bs'
+
+import { Upload } from 'lucide-react'
 
 export function FileInputArea({
   handleFileChange,
@@ -13,7 +14,7 @@ export function FileInputArea({
               rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100'
     >
       <div className='flex flex-col items-center justify-center pb-6 pt-5'>
-        <BsUpload className='mb-3' size={30} />
+        <Upload className='mb-3' size={30} />
         <p className='mb-2 text-sm text-slate-500'>
           <span className='font-semibold'>Click to upload</span> or drag and
           drop
