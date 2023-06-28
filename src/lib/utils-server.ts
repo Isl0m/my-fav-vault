@@ -1,7 +1,7 @@
-import 'server-only'
-
 import { Session, User, getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+
+import 'server-only'
 
 import { authOptions } from '@/lib/auth'
 

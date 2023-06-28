@@ -83,8 +83,6 @@ export const authOptions: NextAuthOptions = {
           }
 
           if (authMethod === 'signup') {
-            if (!credentials.username) return null
-
             const salt = await genSalt(12)
 
             const newUser = await prismaAdapter.createUser({
@@ -96,11 +94,10 @@ export const authOptions: NextAuthOptions = {
               where: { email },
               data: {
                 password: await hash(password, salt),
-                username: credentials.username,
               },
             })
 
-            return { ...newUser, username: credentials.username } as User
+            return newUser as User
           }
 
           return null

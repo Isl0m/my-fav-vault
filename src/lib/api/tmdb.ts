@@ -11,10 +11,15 @@ export const TMDB = {
   },
 
   async getMovie({ query }: { query: string }) {
-    const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+    const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=&language=en-US&query=${query}&page=1&include_adult=false`
+    // const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
 
-    const response = await fetch(fetchUrl)
-    return response.json()
+    try {
+      const response = await fetch(fetchUrl)
+      return response.json()
+    } catch (error) {
+      return null
+    }
   },
 
   toUserService(movies: TmdbMovie[]): UserService[] {

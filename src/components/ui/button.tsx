@@ -30,6 +30,7 @@ const buttonVariants = cva(
         default: 'h-10 py-2 px-4',
         sm: 'h-9 px-3 rounded-md',
         lg: 'h-11 px-8 rounded-md',
+        icon: 'h-10 w-10',
       },
     },
 
@@ -63,7 +64,7 @@ export { Button, buttonVariants }
 
 export function SignOut() {
   return (
-    <Button variant='link' onClick={() => signOut({ callbackUrl: '/auth' })}>
+    <Button variant='link' onClick={() => signOut({ callbackUrl: '/signin' })}>
       Sign Out
     </Button>
   )

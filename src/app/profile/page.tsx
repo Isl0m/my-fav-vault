@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Profile() {
-  const session = await getSessionOrRedirect('/auth')
+  const session = await getSessionOrRedirect('/signin')
 
   return (
     <main className='base-page-bg mt-8 min-h-without-header md:pb-24'>

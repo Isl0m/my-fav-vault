@@ -13,17 +13,25 @@ export async function GET(request: Request) {
   }
 
   const limit = 3
-
-  const moviesResponse: [TmdbMovieSearch, KitsuAnimeSearch] = await Promise.all(
-    [TMDB.getMovie({ query }), KITSU.getAnime({ query, limit })]
-  )
+  const moviesResponse: [TmdbMovieSearch | null, KitsuAnimeSearch | null] =
+    await Promise.all([
+      TMDB.getMovie({ query }),
+      KITSU.getAnime({ query, limit }),
+    ])
 
   let movies: UserService[]
 
-  const tmdbResultCount = moviesResponse[0].total_results
-  const kitsuResultCount = moviesResponse[1].meta.count
+  const tmdbResultCount = moviesResponse[0]
+    ? moviesResponse[0].total_results
+    : 0
+  const kitsuResultCount = moviesResponse[1] ? moviesResponse[1].meta.count : 0
 
-  if (tmdbResultCount > 0 && kitsuResultCount > 0) {
+  if (
+    tmdbResultCount > 0 &&
+    kitsuResultCount > 0 &&
+    moviesResponse[0] &&
+    moviesResponse[1]
+  ) {
     const animeCount = tmdbResultCount >= 2 ? 1 : 2
     movies = [
       ...TMDB.toUserService(
@@ -31,11 +39,13 @@ export async function GET(request: Request) {
       ),
       ...KITSU.toUserService(moviesResponse[1].data.slice(0, animeCount)),
     ]
-  } else if (tmdbResultCount === 0) {
+  } else if (tmdbResultCount === 0 && moviesResponse[1]) {
     movies = KITSU.toUserService(moviesResponse[1].data)
-  } else {
+  } else if (kitsuResultCount === 0 && moviesResponse[0]) {
     movies = TMDB.toUserService(moviesResponse[0].results.slice(0, limit))
+  } else {
+    movies = []
   }
 
-  return new Response(JSON.stringify(movies || []), { status: 200 })
+  return new Response(JSON.stringify(movies), { status: 200 })
 }

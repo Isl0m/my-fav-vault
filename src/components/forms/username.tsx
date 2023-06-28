@@ -7,9 +7,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { User } from '@prisma/client'
 
-import { HookFormField } from '@/components/input'
 import { Button } from '@/components/ui/button'
 import { UsernameUpdateRequest } from '@/schemas/username.schema'
+
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 
 export type UsernameForm = Pick<User, 'username'>
 
@@ -51,17 +53,19 @@ export function UsernameForm() {
       className='flex w-96 flex-col gap-4'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <HookFormField<UsernameForm>
-        name='User Name'
+      <Input
         id='username'
         type='text'
-        register={register}
-        options={{
+        {...register('username', {
           required: { value: true, message: 'Username is required' },
-        }}
-        placeholder='@'
-        error={errors.username}
+        })}
+        placeholder='Enter username...'
       />
+      {errors.username && (
+        <p className='text-sm font-medium text-destructive'>
+          {errors.username.message}
+        </p>
+      )}
 
       <Button>Submit</Button>
     </form>

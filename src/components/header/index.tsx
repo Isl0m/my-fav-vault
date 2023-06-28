@@ -7,8 +7,8 @@ import { useState } from 'react'
 
 import { Menu, X } from 'lucide-react'
 
-import { HeaderAction } from '@/components/header/HeaderAction'
-import { NavItem } from '@/components/header/NavItem'
+import { HeaderAction } from '@/components/header/header-action'
+import { NavItem } from '@/components/header/nav-item'
 
 import { Button } from '../ui/button'
 
@@ -22,12 +22,14 @@ export default function Header() {
         <Link href='/' className='flex items-center justify-center gap-2'>
           <Image
             src='/myfavvault.svg'
-            height={24}
-            width={24}
-            style={{ width: 24, height: 24 }}
+            height={32}
+            width={32}
+            style={{ width: 32, height: 32 }}
             alt='links store logo'
           />
-          <span className='font-bold'>MyFavVault</span>
+          <span className='text-2xl font-semibold tracking-tight'>
+            MyFavVault
+          </span>
         </Link>
 
         <nav className='hidden space-x-8 md:flex'>
@@ -40,11 +42,11 @@ export default function Header() {
           <HeaderAction />
         </div>
         <Button
-          className='block px-2.5 transition duration-150 ease-in-out md:hidden'
+          className='block px-2 transition duration-150 ease-in-out md:hidden'
           onClick={toggleMenu}
           aria-label='Toggle Menu'
         >
-          {isOpen ? <Menu /> : <X />}
+          {isOpen ? <X /> : <Menu />}
         </Button>
       </div>
 

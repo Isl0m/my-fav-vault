@@ -11,10 +11,12 @@ export const KITSU = {
     const fetchUrl = `${
       this.KITSU_BASE_URL
     }/anime?filter[text]=${query}${this.formatLimitParam(limit)}`
-    console.log(fetchUrl)
-    const response = await fetch(fetchUrl)
-
-    return response.json()
+    try {
+      const response = await fetch(fetchUrl)
+      return response.json()
+    } catch (error) {
+      return null
+    }
   },
 
   async getManga({ query, limit }: SearchQueryPrams) {

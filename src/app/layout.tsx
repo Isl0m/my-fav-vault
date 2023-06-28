@@ -1,14 +1,12 @@
 import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-import clsx from 'clsx'
-
 import Header from '@/components/header'
 import { env } from '@/env.mjs'
 import { SEO, cn } from '@/lib/utils'
+import '@/styles/globals.css'
 
-import './globals.css'
-import { NextAuthProvider } from './providers'
+import { NextAuthProvider } from '../components/providers'
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],

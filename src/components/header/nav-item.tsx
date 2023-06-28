@@ -15,7 +15,7 @@ export function NavItem({ label, href, ...rest }: NavItemProps) {
       {...rest}
       href={href}
       className={cn(
-        'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+        'leading-7 text-muted-foreground transition-colors hover:text-primary',
         isActive && 'text-primary'
       )}
     >

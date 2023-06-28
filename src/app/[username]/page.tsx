@@ -1,8 +1,6 @@
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { UserMovie } from '@prisma/client'
-
 import { ImagePreview } from '@/components/image.preview'
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user.fav'
