@@ -1,8 +1,4 @@
-import { KITSU } from '@/lib/api'
 import { TMDB } from '@/lib/api'
-import { KitsuAnimeSearch } from '@/schemas/kitsu.schema'
-import { TmdbMovieSearch } from '@/schemas/tmdb.schema'
-import { UserService } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -13,39 +9,13 @@ export async function GET(request: Request) {
   }
 
   const limit = 3
-  const moviesResponse: [TmdbMovieSearch | null, KitsuAnimeSearch | null] =
-    await Promise.all([
-      TMDB.getMovie({ query }),
-      KITSU.getAnime({ query, limit }),
-    ])
+  const moviesResponse = await TMDB.getMovie({ query })
 
-  let movies: UserService[]
-
-  const tmdbResultCount = moviesResponse[0]
-    ? moviesResponse[0].total_results
-    : 0
-  const kitsuResultCount = moviesResponse[1] ? moviesResponse[1].meta.count : 0
-
-  if (
-    tmdbResultCount > 0 &&
-    kitsuResultCount > 0 &&
-    moviesResponse[0] &&
-    moviesResponse[1]
-  ) {
-    const animeCount = tmdbResultCount >= 2 ? 1 : 2
-    movies = [
-      ...TMDB.toUserService(
-        moviesResponse[0].results.slice(0, limit - animeCount)
-      ),
-      ...KITSU.toUserService(moviesResponse[1].data.slice(0, animeCount)),
-    ]
-  } else if (tmdbResultCount === 0 && moviesResponse[1]) {
-    movies = KITSU.toUserService(moviesResponse[1].data)
-  } else if (kitsuResultCount === 0 && moviesResponse[0]) {
-    movies = TMDB.toUserService(moviesResponse[0].results.slice(0, limit))
-  } else {
-    movies = []
+  if (moviesResponse === null || moviesResponse.total_results === 0) {
+    return new Response('Movie not found', { status: 404 })
   }
+
+  const movies = TMDB.toUserService(moviesResponse.results.slice(0, limit))
 
   return new Response(JSON.stringify(movies), { status: 200 })
 }

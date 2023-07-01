@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 
-import { BookForm } from '@/components/forms/book'
-import { MovieForm } from '@/components/forms/movie'
-import { MusicForm } from '@/components/forms/music'
-import { ProfileImage } from '@/components/profile-image'
+import { BookForm } from '@/components/forms/services/book'
+import { MovieForm } from '@/components/forms/services/movie'
+import { MusicForm } from '@/components/forms/services/music'
+import { ProfileImage } from '@/components/profile-image/profile-image'
 import { Button } from '@/components/ui/button'
+
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
@@ -36,7 +37,8 @@ export default async function Profile() {
             <Button>Preview profile</Button>{' '}
           </Link>
         </div>
-        <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
+        {/* <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'> */}
+        <div className='flex flex-wrap justify-center gap-8'>
           {/* @ts-expect-error Async Server Component */}
           <MovieForm />
           {/* @ts-expect-error Async Server Component */}

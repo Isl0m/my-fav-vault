@@ -10,6 +10,11 @@ export function getBookOptions(query: string) {
   return fetch('/api/book?' + new URLSearchParams(payload).toString())
 }
 
+export function getMangaOptions(query: string) {
+  const payload: UserServiceSearchRequest = { query }
+  return fetch('/api/manga?' + new URLSearchParams(payload).toString())
+}
+
 export function saveSelectedItem(
   selectedItem: UserBook | UserService,
   itemId?: string

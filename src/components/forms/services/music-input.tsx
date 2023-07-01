@@ -2,9 +2,8 @@
 
 import { UserMusic } from '@prisma/client'
 
-import { ServiceInput } from '@/components/forms/ServiceInput'
-
-import { getMusicOptions, saveSelectedItem } from './music.api'
+import { ServiceInput } from './ServiceInput'
+import { getMusicOptions, saveSelectedItem } from './music-api'
 
 type Props = {
   name?: string

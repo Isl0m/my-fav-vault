@@ -10,6 +10,11 @@ export function getMovieOptions(query: string) {
   return fetch('/api/movie?' + new URLSearchParams(payload).toString())
 }
 
+export function getAnimeOptions(query: string) {
+  const payload: UserServiceSearchRequest = { query }
+  return fetch('/api/anime?' + new URLSearchParams(payload).toString())
+}
+
 export function saveSelectedItem(
   selectedItem: UserMovie | UserService,
   itemId?: string

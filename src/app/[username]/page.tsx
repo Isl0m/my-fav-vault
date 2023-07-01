@@ -1,9 +1,9 @@
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { ImagePreview } from '@/components/image.preview'
+import { ImagePreview } from '@/components/image-preview'
 import { ShareProfileButton } from '@/components/ui/button'
-import { UserFav } from '@/components/user.fav'
+import { UserFav } from '@/components/user-fav'
 import prisma from '@/lib/prisma'
 import { SEO } from '@/lib/utils'
 

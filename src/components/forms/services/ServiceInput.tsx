@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { useInputQuery } from '@/components/forms/useInputQuery'
 import { useInputSelect } from '@/components/forms/useInputSelect'
-import { ImagePreviewMemo } from '@/components/image.preview'
-import { UserService } from '@/schemas/user-service.schema'
+import { ImagePreviewMemo } from '@/components/image-preview'
+import { Input } from '@/components/ui/input'
 
-import { Input } from '../ui/input'
+import { UserService } from '@/schemas/user-service.schema'
 
 import { InputOption } from './InputOption'
 
@@ -61,7 +61,7 @@ export function ServiceInput<T extends UserService>({
           }}
           onChange={e => handleSetQuery(e.target.value)}
           disabled={isLoading}
-          className='grow'
+          className='w-full'
         />
       </div>
       {!!inputOptions?.length && (

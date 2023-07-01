@@ -7,7 +7,7 @@ import { useState } from 'react'
 import * as React from 'react'
 import toast from 'react-hot-toast'
 
-import { Icons } from '@/components/Icons'
+import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 
 const oauthProviders = [
@@ -20,15 +20,16 @@ const oauthProviders = [
 }[]
 
 export function OAuthSignIn() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<OAuthProviderType | null>(null)
 
   const oauthSignIn = async (providerType: OAuthProviderType) => {
-    setIsLoading(true)
+    setIsLoading(providerType)
     const res = await signIn(providerType)
     if (res?.ok || !res?.error) {
-      setIsLoading(false)
+      setIsLoading(null)
       return
     }
+    setIsLoading(null)
     toast.error(res.error)
   }
 
@@ -36,17 +37,17 @@ export function OAuthSignIn() {
     <div className='grid grid-cols-2 gap-4'>
       {oauthProviders.map(provider => {
         const Icon = Icons[provider.icon]
-
+        const isButtonLoading = isLoading === provider.type
         return (
           <Button
             aria-label={`Sign in with ${provider.name}`}
             key={provider.name}
             variant='outline'
             type='button'
-            disabled={isLoading}
+            disabled={isButtonLoading}
             onClick={() => oauthSignIn(provider.type)}
           >
-            {isLoading ? (
+            {isButtonLoading ? (
               <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
             ) : (
               <Icon className='mr-2 h-4 w-4' />

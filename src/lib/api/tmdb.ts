@@ -1,5 +1,9 @@
 import { env } from '@/env.mjs'
-import { TmdbMovie } from '@/schemas/tmdb.schema'
+import {
+  TmdbMovie,
+  TmdbMovieSearch,
+  tmdbMovieErrorSchema,
+} from '@/schemas/tmdb.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const TMDB = {
@@ -10,14 +14,22 @@ export const TMDB = {
     return imagePath ? this.TMDB_IMAGE_BASE_URL + imagePath : null
   },
 
-  async getMovie({ query }: { query: string }) {
-    const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=&language=en-US&query=${query}&page=1&include_adult=false`
-    // const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+  async getMovie({
+    query,
+  }: {
+    query: string
+  }): Promise<TmdbMovieSearch | null> {
+    const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
 
     try {
-      const response = await fetch(fetchUrl)
-      return response.json()
-    } catch (error) {
+      const response = await (await fetch(fetchUrl)).json()
+
+      if (tmdbMovieErrorSchema.safeParse(response).success) {
+        return null
+      }
+
+      return response
+    } catch  {
       return null
     }
   },

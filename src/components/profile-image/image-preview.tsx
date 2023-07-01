@@ -1,4 +1,4 @@
-import { DivImage } from '@/components/image.preview'
+import { DivImage } from '@/components/image-preview'
 import { Button } from '@/components/ui/button'
 
 import { Skeleton } from '../ui/skeleton'

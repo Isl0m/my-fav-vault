@@ -1,16 +1,22 @@
 import { SearchQueryPrams } from '.'
 
-import { GoogleBook } from '@/schemas/google-books.schema'
+import { GoogleBook, GoogleBooksSearch } from '@/schemas/google-books.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const GOOGLE_BOOKS = {
   GOOGLE_BOOKS_BASE_URL: 'https://www.googleapis.com/books/v1/',
 
-  async getBooks({ query }: SearchQueryPrams) {
+  async getBooks({
+    query,
+  }: SearchQueryPrams): Promise<GoogleBooksSearch | null> {
     const fetchUrl = `${this.GOOGLE_BOOKS_BASE_URL}volumes?q=${query}`
 
-    const response = await fetch(fetchUrl)
-    return response.json()
+    try {
+      const response = await fetch(fetchUrl)
+      return response.json()
+    } catch {
+      return null
+    }
   },
 
   toUserService(books: GoogleBook[]): UserService[] {

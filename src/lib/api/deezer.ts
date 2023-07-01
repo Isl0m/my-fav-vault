@@ -1,6 +1,6 @@
 import { SearchQueryPrams } from '.'
 
-import { DeezerTrack } from '@/schemas/deezer.schema'
+import { DeezerTrack, DeezerTrackSearch } from '@/schemas/deezer.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const DEEZER = {
@@ -8,13 +8,20 @@ export const DEEZER = {
 
   formatLimitParam: (limit?: number) => (limit ? `&limit=${limit}` : ''),
 
-  async getTrack({ query, limit }: SearchQueryPrams) {
+  async getTrack({
+    query,
+    limit,
+  }: SearchQueryPrams): Promise<DeezerTrackSearch | null> {
     const fetchUrl = `${
       this.DEEZER_BASE_URL
     }search/track?q=${query}${this.formatLimitParam(limit)}`
 
-    const response = await fetch(fetchUrl)
-    return response.json()
+    try {
+      const response = await fetch(fetchUrl)
+      return response.json()
+    } catch {
+      return null
+    }
   },
 
   toUserService(tracks: DeezerTrack[]): UserService[] {

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function Username() {
   return (
-    <main className='min-h-screen py-12'>
+    <main className='base-page-bg min-h-screen py-12'>
       <div className='mx-auto  flex w-full flex-col justify-center space-y-6 sm:max-w-lg'>
         <Card>
           <CardHeader className='space-y-1 p-8 pb-2'>

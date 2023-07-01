@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { ImagePreview } from '@/components/image.preview'
+import { ImagePreview } from '@/components/image-preview'
 import { UserService } from '@/schemas/user-service.schema'
 
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'

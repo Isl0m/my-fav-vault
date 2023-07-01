@@ -1,5 +1,6 @@
-import { InputOptionItem } from '@/components/forms/InputOptionItem'
 import { UserService } from '@/schemas/user-service.schema'
+
+import { InputOptionItem } from './InputOptionItem'
 
 type Props = {
   data: UserService[]

@@ -1,18 +1,18 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
+import Link, { LinkProps } from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { useState } from 'react'
 
 import { Menu, X } from 'lucide-react'
 
-import { HeaderAction } from '@/components/header/header-action'
-import { NavItem } from '@/components/header/nav-item'
+import { HeaderAction } from '@/components/layout/header-action'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
-import { Button } from '../ui/button'
-
-export default function Header() {
+export function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(prev => !prev)
@@ -60,5 +60,26 @@ export default function Header() {
         </nav>
       )}
     </header>
+  )
+}
+
+type NavItemProps = LinkProps & {
+  label: string
+}
+
+function NavItem({ label, href, ...rest }: NavItemProps) {
+  const pathname = usePathname()
+  const isActive = pathname === href
+  return (
+    <Link
+      {...rest}
+      href={href}
+      className={cn(
+        'leading-7 text-muted-foreground transition-colors hover:text-primary',
+        isActive && 'text-primary'
+      )}
+    >
+      {label}
+    </Link>
   )
 }

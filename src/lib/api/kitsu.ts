@@ -1,32 +1,46 @@
 import { SearchQueryPrams } from '.'
 
-import { KitsuAnime, KitsuManga } from '@/schemas/kitsu.schema'
+import {
+  KitsuAnime,
+  KitsuAnimeSearch,
+  KitsuManga,
+  KitsuMangaSearch,
+} from '@/schemas/kitsu.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const KITSU = {
   KITSU_BASE_URL: 'https://kitsu.io/api/edge',
   formatLimitParam: (limit?: number) => (limit ? `&page[limit]=${limit}` : ''),
 
-  async getAnime({ query, limit }: SearchQueryPrams) {
+  async getAnime({
+    query,
+    limit,
+  }: SearchQueryPrams): Promise<KitsuAnimeSearch | null> {
     const fetchUrl = `${
       this.KITSU_BASE_URL
     }/anime?filter[text]=${query}${this.formatLimitParam(limit)}`
     try {
       const response = await fetch(fetchUrl)
       return response.json()
-    } catch (error) {
+    } catch {
       return null
     }
   },
 
-  async getManga({ query, limit }: SearchQueryPrams) {
+  async getManga({
+    query,
+    limit,
+  }: SearchQueryPrams): Promise<KitsuMangaSearch | null> {
     const fetchUrl = `${
       this.KITSU_BASE_URL
     }/manga?filter[text]=${query}${this.formatLimitParam(limit)}`
 
-    const response = await fetch(fetchUrl)
-
-    return response.json()
+    try {
+      const response = await fetch(fetchUrl)
+      return response.json()
+    } catch {
+      return null
+    }
   },
 
   toUserService(items: Array<KitsuAnime | KitsuManga>): UserService[] {

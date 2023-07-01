@@ -15,11 +15,11 @@ import {
 import { deleteUnusedFile, getAvatarUrl, uploadFile } from '@/lib/supabase'
 import { ImageUpdateRequest } from '@/schemas/user-image.schema'
 
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 import { Button } from '../ui/button'
 
-import { FileInputArea } from './file.input'
-import { UploadedImagePreview } from './image.preview'
+import { FileInputArea } from './file-input'
+import { UploadedImagePreview } from './image-preview'
 
 type Props = Required<
   Pick<DialogProps, 'open' | 'onOpenChange'> & {

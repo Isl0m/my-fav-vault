@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { useEffect, useState } from 'react'
 
-import { ImagePreview } from '@/components/image.preview'
+import { ImagePreview } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { SearchRequest } from '@/schemas/search.schema'
@@ -26,7 +26,7 @@ export default function Search() {
   }, [query])
 
   return (
-    <main className='hero-page-bg min-h-without-header py-12'>
+    <main className='base-page-bg min-h-without-header py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <div>
           <h1 className='mb-6 text-4xl font-extrabold tracking-tight lg:text-5xl'>
@@ -58,10 +58,10 @@ export default function Search() {
 
 function SearchOptionItem({ user }: { user: UserOption }) {
   return (
-    <li className='w-full cursor-pointer rounded-xl bg-slate-200 p-4 hover:bg-slate-300'>
+    <li className='w-full cursor-pointer rounded-md bg-slate-200 p-4 hover:bg-slate-300'>
       <Link
         href={`/@${user.username}`}
-        className='flex items-center gap-4 rounded-xl'
+        className='flex items-center gap-4 rounded-md'
       >
         <ImagePreview
           imageSrc={user.image}

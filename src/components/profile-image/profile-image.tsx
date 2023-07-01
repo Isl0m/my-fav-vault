@@ -4,10 +4,10 @@ import { useState } from 'react'
 
 import { Edit } from 'lucide-react'
 
-import { ImagePreview } from '../image.preview'
+import { ImagePreview } from '../image-preview'
 import { Button } from '../ui/button'
 
-import { UpdateProfileImageDialog } from './update.dialog'
+import { UpdateProfileImageDialog } from './update-dialog'
 
 type Props = {
   username: string

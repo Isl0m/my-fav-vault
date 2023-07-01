@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { Icons } from '@/components/Icons'
+import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import {
   Form,

@@ -1,16 +1,17 @@
 import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-import Header from '@/components/header'
-import { env } from '@/env.mjs'
-import { SEO, cn } from '@/lib/utils'
-import '@/styles/globals.css'
+import { Header } from '@/components/layout/header'
+import { NextAuthProvider } from '@/components/providers'
 
-import { NextAuthProvider } from '../components/providers'
+import { env } from '@/env.mjs'
+import { SEO } from '@/lib/utils'
+import '@/styles/globals.css'
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -29,13 +30,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
-      <body
-        className={cn(
-          'noise-bg min-h-screen bg-background text-slate-800 antialiased',
-          roboto.className
-        )}
-      >
+    <html lang='en' className={roboto.className}>
+      <body className='noise-bg min-h-screen bg-background text-slate-800 antialiased'>
         <NextAuthProvider>
           <Header />
           {children}
