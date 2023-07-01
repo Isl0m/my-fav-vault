@@ -17,10 +17,10 @@ export function InputOptionItem({
       className='flex cursor-pointer items-center gap-4 bg-slate-200 p-2 hover:bg-slate-300'
       onMouseDown={handleMouseDown}
     >
-      <ImagePreviewMemo imageSrc={imageSrc} alt={title} />
+      <ImagePreviewMemo className='shrink-0' imageSrc={imageSrc} alt={title} />
 
-      <div>
-        <h5 className='font-medium'>{title}</h5>
+      <div className='grow-0'>
+        <h5 className='line-clamp-2 font-medium'>{title}</h5>
         <p className='text-sm'>{subTitle} </p>
       </div>
     </li>
