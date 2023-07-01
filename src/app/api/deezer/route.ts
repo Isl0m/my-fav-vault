@@ -1,5 +1,4 @@
 import { DEEZER } from '@/lib/api'
-import { DeezerTrackSearch } from '@/schemas/deezer.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
@@ -10,10 +9,14 @@ export async function GET(request: Request) {
     return new Response('No query param', { status: 400 })
   }
 
-  const tracksResponse: DeezerTrackSearch = await DEEZER.getTrack({
+  const tracksResponse = await DEEZER.getTrack({
     query,
     limit: 3,
   })
+  
+  if(tracksResponse === null || tracksResponse.total === 0){
+      return new Response('Book not found', { status: 404 })
+  }
 
   const tracks: UserService[] = DEEZER.toUserService(tracksResponse.data)
 
