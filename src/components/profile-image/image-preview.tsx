@@ -16,7 +16,11 @@ export function UploadedImagePreview({ imagePath, handleChangeImage }: Props) {
         src={imagePath}
         alt={'Uploaded image'}
       />
-      <Button variant='secondary' onClick={handleChangeImage} className='mt-2'>
+      <Button
+        variant='secondary'
+        onClick={handleChangeImage}
+        className='mt-2 w-24'
+      >
         Change
       </Button>
     </div>

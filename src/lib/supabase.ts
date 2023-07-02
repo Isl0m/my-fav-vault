@@ -20,15 +20,24 @@ export async function deleteFiles(filePaths: string[]) {
 }
 
 export async function listOfFiles(folder: string) {
-  return await supabase.storage.from('avatars').list(folder, {
-    limit: 1,
-  })
+  return await supabase.storage
+    .from('avatars')
+    .list(folder, { sortBy: { column: 'created_at', order: 'desc' } })
 }
 
 export async function deleteUnusedFile(username: string) {
-  const { data } = await listOfFiles(username)
-  if (!data?.[0] || (data && data.length < 2)) return
-  return await deleteFiles([`${username}/${data[0].name}`])
+  try {
+    const { data } = await listOfFiles(username)
+    if (!data?.[0] || (data && data.length < 2)) return
+
+    const filesToRemove = data.slice(1)
+    filesToRemove.forEach(async file => {
+      await deleteFiles([`${username}/${file.name}`])
+    })
+    return
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export function getAvatarUrl(imagePath?: string) {

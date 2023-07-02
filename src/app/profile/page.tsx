@@ -7,6 +7,7 @@ import { MusicForm } from '@/components/forms/services/music'
 import { ProfileImage } from '@/components/profile-image/profile-image'
 import { Button } from '@/components/ui/button'
 
+import { listOfFiles } from '@/lib/supabase'
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function Profile() {
   const session = await getSessionOrRedirect('/signin')
-
+  console.log(await listOfFiles('lunico'))
   return (
     <main className='mt-8 min-h-without-header md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
