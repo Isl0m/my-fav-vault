@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation'
 import { ImagePreview } from '@/components/image-preview'
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user-fav'
+
 import prisma from '@/lib/prisma'
-import { SEO } from '@/lib/utils'
 
 type Props = {
   params: { username: string }
@@ -22,15 +22,13 @@ export async function generateMetadata(
 
   const openGraph = user?.image
     ? {
-        siteName: SEO.title,
-        title: `${username} | MyFavVault`,
-        description: SEO.description,
+        title: username,
         images: [user.image],
       }
-    : null
+    : undefined
 
   return {
-    title: `${username} | MyFavVault`,
+    title: username,
     openGraph,
   }
 }

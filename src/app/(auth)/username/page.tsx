@@ -5,13 +5,12 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
 
 export const metadata: Metadata = {
-  title: 'Username | MyFavVault',
+  title: 'Username',
 }
 
 export default async function Username() {

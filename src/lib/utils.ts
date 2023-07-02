@@ -12,9 +12,3 @@ export type NotNullable<T> = {
 export type Prettify<T> = {
   [K in keyof T]: T[K]
 }
-
-export const SEO = {
-  title: 'MyFavVault',
-  description:
-    'Create your account and personalize your profile by selecting your favorites and share with others.',
-}

@@ -12,13 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+
 import {
   checkSessionAndRedirect,
   checkUsernameAndRedirect,
 } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
-  title: 'Sing up | MyFavVault',
+  title: 'Sing up',
   description: 'Sign up to your account',
 }
 

@@ -4,7 +4,8 @@ import { DeezerTrack, DeezerTrackSearch } from '@/schemas/deezer.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const DEEZER = {
-  DEEZER_BASE_URL: 'https://api.deezer.com/',
+  serviceName: 'Deezer',
+  baseUrl: 'https://api.deezer.com/',
 
   formatLimitParam: (limit?: number) => (limit ? `&limit=${limit}` : ''),
 
@@ -13,7 +14,7 @@ export const DEEZER = {
     limit,
   }: SearchQueryPrams): Promise<DeezerTrackSearch | null> {
     const fetchUrl = `${
-      this.DEEZER_BASE_URL
+      this.baseUrl
     }search/track?q=${query}${this.formatLimitParam(limit)}`
 
     try {
@@ -27,7 +28,7 @@ export const DEEZER = {
   toUserService(tracks: DeezerTrack[]): UserService[] {
     return tracks.map(track => ({
       serviceId: track.id.toString(),
-      serviceName: 'DEEZER',
+      serviceName: this.serviceName,
       title: track.title,
       subTitle: track.artist.name,
       previewImage: track.album.cover_medium,

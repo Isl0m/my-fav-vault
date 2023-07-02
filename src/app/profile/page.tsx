@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
-  title: 'Profile | MyFavVault',
+  title: 'Profile',
 }
 
 export default async function Profile() {

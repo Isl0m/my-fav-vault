@@ -4,8 +4,7 @@ import { Roboto } from 'next/font/google'
 import { Header } from '@/components/layout/header'
 import { NextAuthProvider } from '@/components/providers'
 
-import { env } from '@/env.mjs'
-import { SEO } from '@/lib/utils'
+import { siteConfig } from '@/config/site'
 import '@/styles/globals.css'
 
 const roboto = Roboto({
@@ -15,12 +14,42 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: SEO.title,
-  description: SEO.description,
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    'Next.js',
+    'React',
+    'Tailwind CSS',
+    'Server Components',
+    'Server Actions',
+    'MyFavVault',
+    'Music',
+    'Movie',
+    'Book',
+    'Anime',
+    'Manga',
+  ],
+  authors: [
+    {
+      name: 'dev_islom',
+      url: 'https://github.com/Isl0m',
+    },
+  ],
+  creator: 'dev_islom',
   openGraph: {
-    siteName: SEO.title,
-    description: SEO.description,
-    images: [`${env.NEXT_PUBLIC_APP_URL}OpenGraphImage.png`],
+    type: 'website',
+    locale: 'en_US',
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [siteConfig.ogImage],
+  },
+  icons: {
+    icon: '/favicon.ico',
   },
 }
 

@@ -7,11 +7,12 @@ import {
 import { UserService } from '@/schemas/user-service.schema'
 
 export const TMDB = {
-  TMDB_BASE_URL: 'https://api.themoviedb.org/3',
-  TMDB_IMAGE_BASE_URL: 'https://image.tmdb.org/t/p/original',
+  serviceName: 'TMDB',
+  baseUrl: 'https://api.themoviedb.org/3',
+  imageBaseUrl: 'https://image.tmdb.org/t/p/original',
 
   getImageUrl(imagePath?: string | null) {
-    return imagePath ? this.TMDB_IMAGE_BASE_URL + imagePath : null
+    return imagePath ? this.imageBaseUrl + imagePath : null
   },
 
   async getMovie({
@@ -19,7 +20,7 @@ export const TMDB = {
   }: {
     query: string
   }): Promise<TmdbMovieSearch | null> {
-    const fetchUrl = `${this.TMDB_BASE_URL}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+    const fetchUrl = `${this.baseUrl}/search/movie?api_key=${env.TMDB_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
 
     try {
       const response = await (await fetch(fetchUrl)).json()
@@ -29,7 +30,7 @@ export const TMDB = {
       }
 
       return response
-    } catch  {
+    } catch {
       return null
     }
   },
@@ -37,7 +38,7 @@ export const TMDB = {
   toUserService(movies: TmdbMovie[]): UserService[] {
     return movies.map(movie => ({
       serviceId: movie.id.toString(),
-      serviceName: 'TMDB',
+      serviceName: this.serviceName,
       title: movie.title,
       subTitle: movie.release_date,
       previewImage: this.getImageUrl(movie.poster_path),
