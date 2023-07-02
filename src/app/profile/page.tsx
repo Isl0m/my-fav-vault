@@ -17,7 +17,7 @@ export default async function Profile() {
   const session = await getSessionOrRedirect('/signin')
 
   return (
-    <main className='base-page-bg mt-8 min-h-without-header md:pb-24'>
+    <main className='mt-8 min-h-without-header md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
         <div className='flex items-center justify-center gap-4'>
           <ProfileImage

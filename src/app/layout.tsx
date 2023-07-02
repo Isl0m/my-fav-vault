@@ -60,7 +60,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={roboto.className}>
-      <body className='noise-bg min-h-screen bg-background text-slate-800 antialiased'>
+      <body className='noise-bg page-bg min-h-screen bg-background text-slate-800 antialiased'>
         <NextAuthProvider>
           <Header />
           {children}

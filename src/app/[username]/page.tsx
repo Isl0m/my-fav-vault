@@ -54,7 +54,7 @@ export default async function Username({ params }: Props) {
   username = username.slice(1)
   const user = await getUserByUsername(username)
   return (
-    <main className='base-page-bg mt-8 min-h-screen md:pb-24'>
+    <main className='mt-8 min-h-screen md:pb-24'>
       <div className='mx-auto flex max-w-[95vw] flex-col items-center justify-between gap-8 md:max-w-2xl'>
         <div className='flex items-center justify-center gap-4'>
           <ImagePreview

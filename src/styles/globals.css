@@ -81,14 +81,13 @@
 }
 
 @layer utilities {
-  .hero-page-bg::before,
-  .base-page-bg::before {
+  .page-bg::before {
     content: '';
     position: absolute;
-    width: 80vw;
-    height: calc(100% - 20vh);
-    left: 10vw;
-    top: 20vh;
+    width: 90vw;
+    height: calc(100% - 10vh);
+    left: 5vw;
+    top: 10vh;
     background: linear-gradient(
       45deg,
       #ef4444 0%,
@@ -101,12 +100,15 @@
 
     z-index: -2;
   }
-
-  .base-page-bg::before {
-    opacity: 0.7;
+  @media (min-width: 768px) {
+    .page-bg::before {
+      width: 80vw;
+      top: 20vh;
+      left: 10vw;
+    }
   }
 
-  .noise-bg::before {
+  .noise-bg::after {
     content: '';
     position: fixed;
     top: 0;

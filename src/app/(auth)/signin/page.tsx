@@ -28,7 +28,7 @@ export default async function SignIn() {
   await checkSessionAndRedirect()
 
   return (
-    <main className='base-page-bg container flex h-without-header items-center justify-center'>
+    <main className='container flex h-without-header items-center justify-center'>
       <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:max-w-lg'>
         <Card>
           <CardHeader className='space-y-1 p-8 pb-2'>

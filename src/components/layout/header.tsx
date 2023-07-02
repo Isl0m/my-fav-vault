@@ -10,6 +10,7 @@ import { Menu, X } from 'lucide-react'
 
 import { HeaderAction } from '@/components/layout/header-action'
 import { Button } from '@/components/ui/button'
+
 import { cn } from '@/lib/utils'
 
 export function Header() {
@@ -51,7 +52,10 @@ export function Header() {
       </div>
 
       {isOpen && (
-        <nav className='flex flex-col items-center gap-2 md:hidden'>
+        <nav
+          className='items-centerj flex flex-col gap-2 md:hidden'
+          onClick={toggleMenu}
+        >
           <NavItem label='Home' href='/' />
           <NavItem label='Search' href='/search' prefetch={false} />
           <NavItem label='Profile' href='/profile' prefetch={false} />

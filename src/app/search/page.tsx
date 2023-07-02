@@ -26,7 +26,7 @@ export default function Search() {
   }, [query])
 
   return (
-    <main className='base-page-bg min-h-without-header py-12'>
+    <main className='min-h-without-header py-12'>
       <div className='mx-auto flex max-w-xl flex-col items-center justify-between gap-8 text-center'>
         <div>
           <h1 className='mb-6 text-4xl font-extrabold tracking-tight lg:text-5xl'>
