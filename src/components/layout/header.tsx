@@ -37,7 +37,7 @@ export function Header() {
           <NavItem label='Home' href='/' />
           <NavItem label='Search' href='/search' prefetch={false} />
           <NavItem label='Profile' href='/profile' prefetch={false} />
-          <NavItem label='About us' href='/about' prefetch={false} />
+          {/* <NavItem label='About us' href='/about' prefetch={false} /> */}
         </nav>
         <div className='hidden md:block'>
           <HeaderAction />
@@ -53,13 +53,13 @@ export function Header() {
 
       {isOpen && (
         <nav
-          className='items-centerj flex flex-col gap-2 md:hidden'
+          className='flex flex-col items-center gap-2 md:hidden'
           onClick={toggleMenu}
         >
           <NavItem label='Home' href='/' />
           <NavItem label='Search' href='/search' prefetch={false} />
           <NavItem label='Profile' href='/profile' prefetch={false} />
-          <NavItem label='About us' href='/about' prefetch={false} />
+          {/* <NavItem label='About us' href='/about' prefetch={false} /> */}
           <HeaderAction />
         </nav>
       )}
