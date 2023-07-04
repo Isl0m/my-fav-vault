@@ -40,7 +40,7 @@ export function SignUpForm() {
     const res = await signIn('credentials', {
       ...values,
       authMethod: 'signup',
-      callbackUrl: '/profile',
+      callbackUrl: '/usernaem',
       redirect: false,
     })
     if (res?.error) {
@@ -49,7 +49,7 @@ export function SignUpForm() {
       return
     }
     setIsLoading(false)
-    router.replace('/profile')
+    router.replace('/username')
     form.reset()
   }
 
