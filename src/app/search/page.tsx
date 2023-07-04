@@ -46,8 +46,8 @@ export default function Search() {
             ))
           ) : (
             <>
-              <Skeleton className='h-24 w-96 rounded-xl' />
-              <Skeleton className='h-24 w-96 rounded-xl' />
+              <Skeleton className='h-24 w-96 rounded-md' />
+              <Skeleton className='h-24 w-96 rounded-md' />
             </>
           )}
         </ul>
