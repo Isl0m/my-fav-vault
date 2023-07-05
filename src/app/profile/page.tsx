@@ -7,7 +7,6 @@ import { MusicForm } from '@/components/forms/services/music'
 import { ProfileImage } from '@/components/profile-image/profile-image'
 import { Button } from '@/components/ui/button'
 
-import { listOfFiles } from '@/lib/supabase'
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
