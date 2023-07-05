@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+
 import { signInSchema } from '@/lib/validators/auth'
 
 type Inputs = z.infer<typeof signInSchema>
@@ -31,6 +32,10 @@ export function SignInForm() {
   const form = useForm<Inputs>({
     mode: 'onChange',
     resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
   const router = useRouter()

@@ -19,7 +19,7 @@ const passwordSchema = z
 
 export const signUpSchema = z.object({
   email: emailSchema,
-  username: usernameSchema,
+  // username: usernameSchema,
   password: passwordSchema,
 })
 

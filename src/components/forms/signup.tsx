@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+
 import { signUpSchema } from '@/lib/validators/auth'
 
 type Inputs = z.infer<typeof signUpSchema>
@@ -31,6 +32,10 @@ export function SignUpForm() {
   const form = useForm<Inputs>({
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
   const router = useRouter()
@@ -40,7 +45,7 @@ export function SignUpForm() {
     const res = await signIn('credentials', {
       ...values,
       authMethod: 'signup',
-      callbackUrl: '/usernaem',
+      callbackUrl: '/username',
       redirect: false,
     })
     if (res?.error) {
