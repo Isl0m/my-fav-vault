@@ -12,7 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { deleteUnusedFile, getAvatarUrl, uploadFile } from '@/lib/supabase'
+
+import { SUPABASE } from '@/lib/supabase'
 import { ImageUpdateRequest } from '@/schemas/user-image.schema'
 
 import { Icons } from '../icons'
@@ -43,16 +44,14 @@ export function UpdateProfileImageDialog({
     setFile(undefined)
   }
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const uploadFile = (file: File) => {
     const maxAllowedSize = 3 * 1024 * 1024
 
     if (file.size < maxAllowedSize) {
       setFile(file)
-      uploadFile(file, username).then(res => {
+      SUPABASE.uploadFile(file, username).then(res => {
         if (!res.error) {
-          const imagePath = getAvatarUrl(res.data?.path)
+          const imagePath = SUPABASE.getAvatarUrl(res.data?.path)
           setImagePath(imagePath)
           return
         }
@@ -62,6 +61,7 @@ export function UpdateProfileImageDialog({
       return
     }
     toast.error('Image size must be less than 3 MB')
+    return
   }
 
   const handleUpdateImage = async () => {
@@ -82,7 +82,7 @@ export function UpdateProfileImageDialog({
     updateProfileImage(imagePath)
     dialog.onOpenChange(false)
 
-    await deleteUnusedFile(username)
+    await SUPABASE.deleteUnusedFile(username)
     setIsLoading(false)
   }
 
@@ -100,7 +100,7 @@ export function UpdateProfileImageDialog({
               handleChangeImage={handleChangeImage}
             />
           ) : (
-            <FileInputArea handleFileChange={handleFileChange} />
+            <FileInputArea uploadFile={uploadFile} />
           )}
         </div>
 

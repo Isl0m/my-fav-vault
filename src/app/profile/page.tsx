@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 
 export default async function Profile() {
   const session = await getSessionOrRedirect('/signin')
-  console.log(await listOfFiles('lunico'))
   return (
     <main className='mt-8 min-h-without-header md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
