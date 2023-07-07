@@ -1,19 +1,17 @@
-'use client'
-
-import { ChangeEvent, DragEvent, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, DragEvent, useCallback } from 'react'
 
 import { Upload } from 'lucide-react'
 
 export function FileInputArea({
-  uploadFile,
+  onFileChange,
 }: {
-  uploadFile: (file: File) => void
+  onFileChange: (file: File) => void
 }) {
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target
 
     if (files && files.length > 0) {
-      uploadFile(files[0])
+      onFileChange(files[0])
     }
   }
   const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
@@ -23,7 +21,7 @@ export function FileInputArea({
     const { files } = e.dataTransfer
 
     if (files && files.length > 0) {
-      uploadFile(files[0])
+      onFileChange(files[0])
     }
   }
 

@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { DialogProps } from '@radix-ui/react-dialog'
@@ -100,7 +100,7 @@ export function UpdateProfileImageDialog({
               handleChangeImage={handleChangeImage}
             />
           ) : (
-            <FileInputArea uploadFile={uploadFile} />
+            <FileInputArea onFileChange={uploadFile} />
           )}
         </div>
 

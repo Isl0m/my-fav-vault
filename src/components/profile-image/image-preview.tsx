@@ -25,6 +25,9 @@ export function UploadedImagePreview({ imagePath, handleChangeImage }: Props) {
       </Button>
     </div>
   ) : (
-    <Skeleton className='h-24 w-24 rounded-md' />
+    <>
+      <Skeleton className='h-24 w-24 rounded-md' />
+      <Skeleton className='mt-2 h-10 w-24 rounded-md' />
+    </>
   )
 }
