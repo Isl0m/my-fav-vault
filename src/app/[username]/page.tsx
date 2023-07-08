@@ -1,11 +1,60 @@
 import { Metadata, ResolvingMetadata } from 'next'
+import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types'
 import { notFound } from 'next/navigation'
+
+import { Prisma } from '@prisma/client'
 
 import { ImagePreview } from '@/components/image-preview'
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user-fav'
 
 import prisma from '@/lib/prisma'
+import { UserService } from '@/schemas/user-service.schema'
+
+async function getFullUser(username: string) {
+  return await prisma.user.findUnique({
+    where: { username },
+    include: {
+      userBook: true,
+      userMusic: true,
+      userMovie: true,
+    },
+  })
+}
+
+async function getUserByUsername(username: string) {
+  const user = await getFullUser(username)
+
+  if (!user) return notFound()
+
+  return user
+}
+
+type FullUser = Prisma.PromiseReturnType<typeof getFullUser>
+
+function getOpenGraph(user: FullUser): OpenGraph | undefined {
+  if (!user || !user.username) return
+  const { username, email, image, userBook, userMovie, userMusic } = user
+
+  const toString = (services: UserService[]) =>
+    services.map(item => item.title).join(', ')
+
+  const userMovieText = userMovie.length
+    ? `\nUser Movie: ${toString(userMovie)}`
+    : ''
+  const userMusicText = userMusic.length
+    ? `\nUser Music: ${toString(userMusic)}`
+    : ''
+  const userBookText = userBook.length
+    ? `\nUser Book: ${toString(userBook)}`
+    : ''
+
+  return {
+    title: username,
+    images: image ? [image] : undefined,
+    description: `Email: ${email}${userMovieText}${userMusicText}${userBookText}`,
+  }
+}
 
 type Props = {
   params: { username: string }
@@ -15,36 +64,12 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const username = decodeURIComponent(params.username).slice(1)
-  const user = await prisma.user.findUnique({
-    where: { username },
-    select: { image: true },
-  })
-
-  const openGraph = user?.image
-    ? {
-        title: username,
-        images: [user.image],
-      }
-    : undefined
+  const user = await getFullUser(username)
 
   return {
     title: username,
-    openGraph,
+    openGraph: getOpenGraph(user),
   }
-}
-async function getUserByUsername(username: string) {
-  const user = await prisma.user.findUnique({
-    where: { username },
-    include: {
-      userBook: true,
-      userMusic: true,
-      userMovie: true,
-    },
-  })
-
-  if (!user) return notFound()
-
-  return user
 }
 
 export default async function Username({ params }: Props) {
