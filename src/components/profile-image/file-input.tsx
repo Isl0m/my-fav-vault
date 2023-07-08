@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react'
 export function FileInputArea({
   onFileChange,
 }: {
-  onFileChange: (file: File) => void
+  onFileChange: (file: File) => Promise<void>
 }) {
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target

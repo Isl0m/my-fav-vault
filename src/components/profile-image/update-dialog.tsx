@@ -22,16 +22,23 @@ import { Button } from '../ui/button'
 import { FileInputArea } from './file-input'
 import { UploadedImagePreview } from './image-preview'
 
+async function updateUserImage(payload: ImageUpdateRequest) {
+  return await fetch('/api/user', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
 type Props = Required<
   Pick<DialogProps, 'open' | 'onOpenChange'> & {
     username: string
-    updateProfileImage: (src: string) => void
+    // updateProfileImage: (src: string) => void
   }
 >
 
 export function UpdateProfileImageDialog({
   username,
-  updateProfileImage,
+  // updateProfileImage,
   ...dialog
 }: Props) {
   const [isLoading, setIsLoading] = useState(false)
@@ -44,42 +51,38 @@ export function UpdateProfileImageDialog({
     setFile(undefined)
   }
 
-  const uploadFile = (file: File) => {
+  const uploadFile = async (file: File) => {
     const maxAllowedSize = 3 * 1024 * 1024
 
-    if (file.size < maxAllowedSize) {
-      setFile(file)
-      SUPABASE.uploadFile(file, username).then(res => {
-        if (!res.error) {
-          const imagePath = SUPABASE.getAvatarUrl(res.data?.path)
-          setImagePath(imagePath)
-          return
-        }
-        toast.error(res.error?.message)
-        setFile(undefined)
-      })
+    if (file.size > maxAllowedSize) {
+      toast.error('Image size must be less than 3 MB')
       return
     }
-    toast.error('Image size must be less than 3 MB')
+
+    setFile(file)
+    const res = await SUPABASE.uploadFile(file, username)
+
+    if (!res.error) {
+      const imagePath = SUPABASE.getAvatarUrl(res.data?.path)
+      setImagePath(imagePath)
+      return
+    }
+
+    toast.error(res.error?.message)
+    setFile(undefined)
     return
   }
 
   const handleUpdateImage = async () => {
     if (!imagePath) return
     setIsLoading(true)
-    const payload: ImageUpdateRequest = {
-      image: imagePath,
-      username,
-    }
-    const updateImage = await fetch('/api/user', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    })
+
+    const updateImage = await updateUserImage({ image: imagePath, username })
 
     if (!updateImage.ok) return
     await update({ image: imagePath })
 
-    updateProfileImage(imagePath)
+    // updateProfileImage(imagePath)
     dialog.onOpenChange(false)
 
     await SUPABASE.deleteUnusedFile(username)

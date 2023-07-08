@@ -4,33 +4,37 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 import { useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import { User } from '@prisma/client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 
+import { setUsernameSchema } from '@/lib/validators/auth'
 import { UsernameUpdateRequest } from '@/schemas/username.schema'
 
 import { Icons } from '../icons'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 
-export type UsernameForm = Pick<User, 'username'>
+type Inputs = z.infer<typeof setUsernameSchema>
 
 export function UsernameForm() {
   const [isLoading, setIsLoading] = useState(false)
 
   const { data: session, update } = useSession()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<UsernameForm>()
+  const form = useForm<Inputs>({
+    mode: 'onChange',
+    resolver: zodResolver(setUsernameSchema),
+    defaultValues: {
+      username: '',
+    },
+  })
 
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<UsernameForm> = async ({ username }) => {
+  const onSubmit = async ({ username }: Inputs) => {
     if (!username || !session?.user.email) {
       return null
     }
@@ -46,7 +50,7 @@ export function UsernameForm() {
 
     if (!req.ok) {
       setIsLoading(false)
-      setError('username', { message: req.statusText })
+      form.setError('username', { message: req.statusText })
       return null
     }
 
@@ -56,28 +60,29 @@ export function UsernameForm() {
   }
 
   return (
-    <form
-      className='flex w-96 flex-col gap-4'
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Input
-        id='username'
-        type='text'
-        {...register('username', {
-          required: { value: true, message: 'Username is required' },
-        })}
-        placeholder='Enter username...'
-      />
-      {errors.username && (
-        <p className='text-sm font-medium text-destructive'>
-          {errors.username.message}
-        </p>
-      )}
+    <Form {...form}>
+      <form
+        className='flex w-96 flex-col gap-4'
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <FormField
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder='Enter username...' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <Button disabled={isLoading}>
-        {isLoading && <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />}
-        Submit
-      </Button>
-    </form>
+        <Button disabled={isLoading}>
+          {isLoading && <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />}
+          Submit
+        </Button>
+      </form>
+    </Form>
   )
 }

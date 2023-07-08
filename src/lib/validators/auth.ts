@@ -4,6 +4,9 @@ const usernameSchema = z
   .string()
   .min(3, { message: 'Password must be at least 3 characters long' })
   .max(50)
+  .regex(/^[A-Za-z0-9]*$/, {
+    message: 'Username can not start with special character',
+  })
 
 const emailSchema = z.string().email({
   message: 'Please enter a valid email address',
@@ -26,4 +29,8 @@ export const signUpSchema = z.object({
 export const signInSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
+})
+
+export const setUsernameSchema = z.object({
+  username: usernameSchema,
 })
