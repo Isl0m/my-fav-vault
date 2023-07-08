@@ -40,13 +40,13 @@ function getOpenGraph(user: FullUser): OpenGraph | undefined {
     services.map(item => item.title).join(', ')
 
   const userMovieText = userMovie.length
-    ? `\nUser Movie: ${toString(userMovie)}`
+    ? `\nUser Movie: ${toString(userMovie)};`
     : ''
   const userMusicText = userMusic.length
-    ? `\nUser Music: ${toString(userMusic)}`
+    ? `\nUser Music: ${toString(userMusic)};`
     : ''
   const userBookText = userBook.length
-    ? `\nUser Book: ${toString(userBook)}`
+    ? `\nUser Book: ${toString(userBook)};`
     : ''
 
   return {
