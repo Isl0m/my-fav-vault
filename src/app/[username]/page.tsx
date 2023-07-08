@@ -66,9 +66,12 @@ export async function generateMetadata(
   const username = decodeURIComponent(params.username).slice(1)
   const user = await getFullUser(username)
 
+  const openGraph = getOpenGraph(user)
+
   return {
     title: username,
-    openGraph: getOpenGraph(user),
+    description: openGraph?.description,
+    openGraph,
   }
 }
 
