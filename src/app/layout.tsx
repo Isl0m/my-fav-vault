@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
+import { Provider } from 'react-wrap-balancer'
+
 import { Header } from '@/components/layout/header'
 import { NextAuthProvider } from '@/components/providers'
 
@@ -63,7 +65,7 @@ export default function RootLayout({
       <body className='noise-bg page-bg min-h-screen bg-background text-slate-800 antialiased'>
         <NextAuthProvider>
           <Header />
-          {children}
+          <Provider>{children}</Provider>
         </NextAuthProvider>
       </body>
     </html>
