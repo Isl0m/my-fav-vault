@@ -14,11 +14,11 @@ import {
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user-fav'
 
-import { UserService } from '@/schemas/user-service.schema'
 import prisma from '@/lib/prisma'
+import { UserService } from '@/schemas/user-service.schema'
 
-export const getFullUser = async (username: string) =>
-  await prisma.user.findUnique({
+async function getFullUser(username: string) {
+  return await prisma.user.findUnique({
     where: { username },
     include: {
       books: true,
@@ -26,7 +26,7 @@ export const getFullUser = async (username: string) =>
       movies: true,
     },
   })
-
+}
 
 async function getUserByUsername(username: string) {
   const user = await getFullUser(username)
