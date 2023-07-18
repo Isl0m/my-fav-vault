@@ -23,7 +23,7 @@ import { FileInputArea } from './file-input'
 import { UploadedImagePreview } from './image-preview'
 
 async function updateUserImage(payload: ImageUpdateRequest) {
-  return await fetch('/api/user', {
+  return await fetch('/api/user/image', {
     method: 'POST',
     body: JSON.stringify(payload),
   })

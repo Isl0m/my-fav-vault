@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -48,14 +47,12 @@ model User {
   emailVerified DateTime?
   image         String?
 
-  accounts  Account[]
-  sessions  Session[]
-  userMovie UserMovie[]
-  userMusic UserMusic[]
-  userBook  UserBook[]
+  accounts Account[]
+  sessions Session[]
 
-  @@fulltext([username])
-  @@fulltext([username, email])
+  movies Movie[]
+  musics Music[]
+  books  Book[]
 }
 
 model VerificationToken {
@@ -66,47 +63,35 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model UserMovie {
+model Movie {
   id           String  @id @default(cuid())
-  serviceId    String  
+  serviceId    String  @unique
   serviceName  String?
   title        String
   subTitle     String?
   previewImage String?
 
-  userId String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
+  user User[]
 }
 
-model UserMusic {
+model Music {
   id           String  @id @default(cuid())
-  serviceId    String  
+  serviceId    String  @unique
   serviceName  String?
   title        String
   subTitle     String?
   previewImage String?
 
-  userId String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
+  user User[]
 }
 
-model UserBook {
+model Book {
   id           String  @id @default(cuid())
-  serviceId    String  
+  serviceId    String  @unique
   serviceName  String?
   title        String
   subTitle     String?
   previewImage String?
 
-  userId String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
+  user User[]
 }

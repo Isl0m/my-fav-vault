@@ -1,4 +1,4 @@
-import { UserBook } from '@prisma/client'
+import { Book } from '@prisma/client'
 
 import {
   UserService,
@@ -16,7 +16,7 @@ export function getMangaOptions(query: string) {
 }
 
 export function saveSelectedItem(
-  selectedItem: UserBook | UserService,
+  selectedItem: Book | UserService,
   itemId?: string
 ) {
   const payload: UserService = { ...selectedItem, id: itemId }

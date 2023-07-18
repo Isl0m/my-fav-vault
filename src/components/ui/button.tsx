@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 
-import copyProfileUrl from '@/lib/copyProfileUrl'
+import copyProfileUrl from '@/lib/copy-profile-url'
 import { cn } from '@/lib/utils'
 
 import { Icons } from '../icons'

@@ -5,6 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export type Nullable<T> = {
+  [P in keyof T]: NonNullable<T[P]> | null
+}
+
 export type NotNullable<T> = {
   [P in keyof T]: NonNullable<T[P]>
 }

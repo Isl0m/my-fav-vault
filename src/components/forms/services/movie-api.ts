@@ -1,4 +1,4 @@
-import { UserMovie } from '@prisma/client'
+import { Movie } from '@prisma/client'
 
 import {
   UserService,
@@ -16,7 +16,7 @@ export function getAnimeOptions(query: string) {
 }
 
 export function saveSelectedItem(
-  selectedItem: UserMovie | UserService,
+  selectedItem: Movie | UserService,
   itemId?: string
 ) {
   const payload: UserService = { ...selectedItem, id: itemId }

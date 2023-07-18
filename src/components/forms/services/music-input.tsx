@@ -1,20 +1,20 @@
 'use client'
 
-import { UserMusic } from '@prisma/client'
+import { Music } from '@prisma/client'
 
 import { ServiceInput } from './ServiceInput'
 import { getMusicOptions, saveSelectedItem } from './music-api'
 
 type Props = {
   name?: string
-  userMusic?: UserMusic
+  music?: Music
 }
 
-export function MusicInput({ name, userMusic }: Props) {
+export function MusicInput({ name, music }: Props) {
   return (
-    <ServiceInput<UserMusic>
+    <ServiceInput<Music>
       name={name}
-      userService={userMusic}
+      userService={music}
       getInputOptions={getMusicOptions}
       saveSelectedItem={saveSelectedItem}
     />

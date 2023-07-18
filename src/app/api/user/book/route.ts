@@ -1,19 +1,19 @@
-import { getServerSession } from 'next-auth'
-
-import { authOptions } from '@/lib/auth'
+import { getServerSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { userServiceSchema } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session) {
     return new Response('No session', { status: 401 })
   }
 
-  const books = await prisma.userBook.findMany({
+  const books = await prisma.book.findMany({
     where: {
       user: {
-        id: session.user.id,
+        some: {
+          id: session.user.id,
+        },
       },
     },
   })
@@ -23,25 +23,36 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const req = await request.json()
-  const { id, ...book } = userServiceSchema.parse(req)
+  const book = userServiceSchema.parse(req)
 
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
+  console.log(session)
 
   if (!session) {
     return new Response('No session', { status: 401 })
   }
 
-  const existsBook =
-    id &&
-    (await prisma.userBook.findUnique({
-      where: { id },
-    }))
+  const { id } = session.user
+
+  const existsBook = await prisma.book.findUnique({
+    where: {
+      serviceId: book.serviceId,
+    },
+  })
 
   if (existsBook) {
     try {
-      const updatedBook = await prisma.userBook.update({
-        where: { id },
-        data: book,
+      const updatedBook = await prisma.book.update({
+        where: {
+          serviceId: book.serviceId,
+        },
+        data: {
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
       })
 
       return new Response(JSON.stringify(updatedBook), { status: 200 })
@@ -50,12 +61,12 @@ export async function POST(request: Request) {
     }
   }
 
-  const createdBook = await prisma.userBook.create({
+  const createdBook = await prisma.book.create({
     data: {
       ...book,
       user: {
         connect: {
-          id: session.user.id,
+          id,
         },
       },
     },

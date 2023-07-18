@@ -14,11 +14,17 @@ export default function ProfileLoading() {
         <div>
           <Skeleton className='h-10 w-32 rounded-md' />
         </div>
-        <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
-          <Skeleton className='h-[360px] w-80 rounded-lg' />
-          <Skeleton className='h-[360px] w-80 rounded-lg' />
-        </div>
+        <ProfileCardsLoading />
       </div>
     </main>
+  )
+}
+
+export function ProfileCardsLoading() {
+  return (
+    <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
+      <Skeleton className='h-[360px] w-80 rounded-lg' />
+      <Skeleton className='h-[360px] w-80 rounded-lg' />
+    </div>
   )
 }

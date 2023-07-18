@@ -1,4 +1,7 @@
-import { NextAuthOptions } from 'next-auth'
+import {
+  NextAuthOptions,
+  getServerSession as getNextAuthServerSession,
+} from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
@@ -120,3 +123,5 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 }
+
+export const getServerSession = () => getNextAuthServerSession(authOptions)

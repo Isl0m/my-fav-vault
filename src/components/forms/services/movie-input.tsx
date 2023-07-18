@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
-import { UserMovie } from '@prisma/client'
+import { Movie } from '@prisma/client'
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -14,29 +14,30 @@ import { getAnimeOptions, getMovieOptions, saveSelectedItem } from './movie-api'
 
 type Props = {
   name?: string
-  userMovie?: UserMovie
+  movie?: Movie
 }
 
-export function MovieInput({ name, userMovie }: Props) {
+export function MovieInput({ name, movie }: Props) {
+  const id = useId()
   const [isAnime, setIsAnime] = useState(
-    servicesConfig.anime === userMovie?.serviceName || false
+    servicesConfig.anime === movie?.serviceName || false
   )
   const handleSwitch = () => setIsAnime(prev => !prev)
   return (
     <div className='relative'>
-      <ServiceInput<UserMovie>
+      <ServiceInput<Movie>
         name={name}
-        userService={userMovie}
+        userService={movie}
         getInputOptions={isAnime ? getAnimeOptions : getMovieOptions}
         saveSelectedItem={saveSelectedItem}
       />
       <div className='absolute right-0 top-0 flex items-center gap-2'>
         <Checkbox
-          id='movie-type'
+          id={'movie-type' + id}
           checked={isAnime}
           onCheckedChange={handleSwitch}
         />
-        <Label className='text-xs font-normal' htmlFor='movie-type'>
+        <Label className='text-xs font-normal' htmlFor={'movie-type' + id}>
           Anime
         </Label>
       </div>

@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react'
 import { ImagePreview } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
+import { UserCard } from '@/components/user-card'
+
 import { SearchRequest } from '@/schemas/search.schema'
 import { UserOption } from '@/schemas/user-option.schema'
 
@@ -42,7 +44,12 @@ export default function Search() {
         <ul className='flex w-96 flex-col gap-4'>
           {userOptions.length ? (
             userOptions.map(user => (
-              <SearchOptionItem user={user} key={user.username} />
+              <UserCard
+                key={user.username}
+                username={user.username}
+                email={user.email}
+                image={user.image}
+              />
             ))
           ) : (
             <>
@@ -53,28 +60,5 @@ export default function Search() {
         </ul>
       </div>
     </main>
-  )
-}
-
-function SearchOptionItem({ user }: { user: UserOption }) {
-  return (
-    <li className='w-full cursor-pointer rounded-md bg-slate-200 p-4 hover:bg-slate-300'>
-      <Link
-        href={`/@${user.username}`}
-        className='flex items-center gap-4 rounded-md'
-      >
-        <ImagePreview
-          imageSrc={user.image}
-          alt={user.username}
-          className='aspect-square'
-        />
-        <div className='text-left'>
-          <h4 className='text-xl font-semibold tracking-tight'>
-            @{user.username}
-          </h4>
-          <p className='leading-7'>{user.email}</p>
-        </div>
-      </Link>
-    </li>
   )
 }

@@ -1,10 +1,9 @@
-import { Session, User, getServerSession } from 'next-auth'
+import { Session, User } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 import 'server-only'
 
-import { authOptions } from '@/lib/auth'
-
+import { getServerSession } from './auth'
 import { NotNullable } from './utils'
 
 type ValidatedUser = Required<NotNullable<Pick<User, 'username'>>> &
@@ -21,7 +20,7 @@ function validateSession(session: Session | null): session is ValidatedSession {
 export async function getSessionOrRedirect(
   redirectUrl = '/'
 ): Promise<ValidatedSession> {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
 
   if (validateSession(session)) {
     return session
@@ -30,11 +29,11 @@ export async function getSessionOrRedirect(
 }
 
 export async function checkUsernameAndRedirect() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (session && !session?.user.username) return redirect('/username')
 }
 
 export async function checkSessionAndRedirect() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!!session) return redirect('/profile')
 }

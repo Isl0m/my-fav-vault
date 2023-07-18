@@ -2,25 +2,31 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types'
 import { notFound } from 'next/navigation'
 
+import { Suspense } from 'react'
+
 import { Prisma } from '@prisma/client'
 
 import { ImagePreview } from '@/components/image-preview'
+import {
+  SimilarProfiles,
+  SimilarProfilesLoading,
+} from '@/components/similar-profiles'
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user-fav'
 
-import prisma from '@/lib/prisma'
 import { UserService } from '@/schemas/user-service.schema'
+import prisma from '@/lib/prisma'
 
-async function getFullUser(username: string) {
-  return await prisma.user.findUnique({
+export const getFullUser = async (username: string) =>
+  await prisma.user.findUnique({
     where: { username },
     include: {
-      userBook: true,
-      userMusic: true,
-      userMovie: true,
+      books: true,
+      musics: true,
+      movies: true,
     },
   })
-}
+
 
 async function getUserByUsername(username: string) {
   const user = await getFullUser(username)
@@ -34,25 +40,19 @@ type FullUser = Prisma.PromiseReturnType<typeof getFullUser>
 
 function getOpenGraph(user: FullUser): OpenGraph | undefined {
   if (!user || !user.username) return
-  const { username, email, image, userBook, userMovie, userMusic } = user
+  const { username, email, image, books, movies, musics } = user
 
   const toString = (services: UserService[]) =>
     services.map(item => item.title).join(', ')
 
-  const userMovieText = userMovie.length
-    ? `\nUser Movie: ${toString(userMovie)};`
-    : ''
-  const userMusicText = userMusic.length
-    ? `\nUser Music: ${toString(userMusic)};`
-    : ''
-  const userBookText = userBook.length
-    ? `\nUser Book: ${toString(userBook)};`
-    : ''
+  const movieText = movies.length ? `\nMovie: ${toString(movies)};` : ''
+  const musicText = musics.length ? `\nMusic: ${toString(musics)};` : ''
+  const bookText = books.length ? `\nBook: ${toString(books)};` : ''
 
   return {
     title: username,
     images: image ? [image] : undefined,
-    description: `Email: ${email}${userMovieText}${userMusicText}${userBookText}`,
+    description: `Email: ${email}${movieText}${musicText}${bookText}`,
   }
 }
 
@@ -101,15 +101,29 @@ export default async function Username({ params }: Props) {
           <ShareProfileButton username={username} />
         </div>
         <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'>
-          {!!user.userMovie.length && (
-            <UserFav title='User fav movies' data={user.userMovie} />
+          {!!user.movies.length && (
+            <UserFav title='User fav movies' data={user.movies} />
           )}
-          {!!user.userMusic.length && (
-            <UserFav title='User fav movies' data={user.userMusic} />
+          {!!user.musics.length && (
+            <UserFav title='User fav movies' data={user.musics} />
           )}
-          {!!user.userBook.length && (
-            <UserFav title='User fav movies' data={user.userBook} />
+          {!!user.books.length && (
+            <UserFav title='User fav movies' data={user.books} />
           )}
+        </div>
+        <div>
+          <h3 className='text-2xl font-semibold tracking-tight'>
+            Similar Profiles
+          </h3>
+          <Suspense fallback={<SimilarProfilesLoading />}>
+            {/* @ts-expect-error Async Server Component */}
+            <SimilarProfiles
+              id={user.id}
+              books={user.books}
+              musics={user.musics}
+              movies={user.movies}
+            />
+          </Suspense>
         </div>
       </div>
     </main>

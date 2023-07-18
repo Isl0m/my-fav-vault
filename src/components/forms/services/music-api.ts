@@ -1,4 +1,4 @@
-import { UserMusic } from '@prisma/client'
+import { Music } from '@prisma/client'
 
 import {
   UserService,
@@ -7,11 +7,11 @@ import {
 
 export function getMusicOptions(query: string) {
   const payload: UserServiceSearchRequest = { query }
-  return fetch('/api/deezer?' + new URLSearchParams(payload).toString())
+  return fetch('/api/music?' + new URLSearchParams(payload).toString())
 }
 
 export function saveSelectedItem(
-  selectedItem: UserMusic | UserService,
+  selectedItem: Music | UserService,
   itemId?: string
 ) {
   const payload: UserService = { ...selectedItem, id: itemId }

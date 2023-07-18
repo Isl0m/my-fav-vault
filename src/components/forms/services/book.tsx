@@ -1,19 +1,19 @@
-import { getServerSession } from 'next-auth'
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { authOptions } from '@/lib/auth'
+import { getServerSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 
 import { BookInput } from './book-input'
 
 async function getBooks() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session) return
-  return await prisma.userBook.findMany({
+  return await prisma.book.findMany({
     where: {
       user: {
-        id: session.user.id,
+        some: {
+          id: session.user.id,
+        },
       },
     },
   })
@@ -30,9 +30,9 @@ export async function BookForm() {
         </CardTitle>
       </CardHeader>
       <CardContent className='flex flex-col gap-2'>
-        <BookInput userBook={books?.[0]} />
-        <BookInput userBook={books?.[1]} />
-        <BookInput userBook={books?.[2]} />
+        <BookInput book={books?.[0]} />
+        <BookInput book={books?.[1]} />
+        <BookInput book={books?.[2]} />
       </CardContent>
     </Card>
   )

@@ -1,19 +1,19 @@
-import { getServerSession } from 'next-auth'
-
-import { authOptions } from '@/lib/auth'
+import { getServerSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { userServiceSchema } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session) {
     return new Response('No session', { status: 401 })
   }
 
-  const movies = await prisma.userMovie.findMany({
+  const movies = await prisma.movie.findMany({
     where: {
       user: {
-        id: session.user.id,
+        some: {
+          id: session.user.id,
+        },
       },
     },
   })
@@ -23,25 +23,32 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const req = await request.json()
-  const { id, ...movie } = userServiceSchema.parse(req)
+  const movie = userServiceSchema.parse(req)
 
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
 
   if (!session) {
     return new Response('No session', { status: 401 })
   }
+  const { id } = session.user
 
-  const existsMovie =
-    id &&
-    (await prisma.userMovie.findUnique({
-      where: { id },
-    }))
+  const existsMovie = await prisma.movie.findUnique({
+    where: {
+      serviceId: movie.serviceId,
+    },
+  })
 
   if (existsMovie) {
     try {
-      const updatedMovie = await prisma.userMovie.update({
-        where: { id },
-        data: movie,
+      const updatedMovie = await prisma.movie.update({
+        where: { serviceId: movie.serviceId },
+        data: {
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
       })
 
       return new Response(JSON.stringify(updatedMovie), { status: 200 })
@@ -50,12 +57,12 @@ export async function POST(request: Request) {
     }
   }
 
-  const createdMovie = await prisma.userMovie.create({
+  const createdMovie = await prisma.movie.create({
     data: {
       ...movie,
       user: {
         connect: {
-          id: session.user.id,
+          id,
         },
       },
     },

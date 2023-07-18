@@ -1,19 +1,19 @@
-import { getServerSession } from 'next-auth'
-
-import { authOptions } from '@/lib/auth'
+import { getServerSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { userServiceSchema } from '@/schemas/user-service.schema'
 
 export async function GET(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
   if (!session) {
     return new Response('No session', { status: 401 })
   }
 
-  const movies = await prisma.userMusic.findMany({
+  const movies = await prisma.music.findMany({
     where: {
       user: {
-        id: session.user.id,
+        some: {
+          id: session.user.id,
+        },
       },
     },
   })
@@ -23,25 +23,32 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const req = await request.json()
-  const { id, ...music } = userServiceSchema.parse(req)
+  const music = userServiceSchema.parse(req)
 
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession()
 
   if (!session) {
     return new Response('No session', { status: 401 })
   }
+  const { id } = session.user
 
-  const existsMusic =
-    id &&
-    (await prisma.userMusic.findUnique({
-      where: { id },
-    }))
+  const existsMusic = await prisma.music.findUnique({
+    where: {
+      serviceId: music.serviceId,
+    },
+  })
 
   if (existsMusic) {
     try {
-      const updatedMusic = await prisma.userMusic.update({
-        where: { id },
-        data: music,
+      const updatedMusic = await prisma.music.update({
+        where: { serviceId: music.serviceId },
+        data: {
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
       })
 
       return new Response(JSON.stringify(updatedMusic), { status: 200 })
@@ -50,12 +57,12 @@ export async function POST(request: Request) {
     }
   }
 
-  const createdMusic = await prisma.userMusic.create({
+  const createdMusic = await prisma.music.create({
     data: {
       ...music,
       user: {
         connect: {
-          id: session.user.id,
+          id,
         },
       },
     },
