@@ -16,6 +16,7 @@ export const env = createEnv({
     DEEZER_CLIENT_SECRET: z.string(),
   },
   client: {
+    NEXT_PUBLIC_APP_ENV: z.enum(['production', 'development']),
     NEXT_PUBLIC_APP_URL: z.string().url(),
     NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
     NEXT_PUBLIC_SUPABASE_KEY: z.string().min(1),
@@ -35,5 +36,6 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_KEY,
+    NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
   },
 })

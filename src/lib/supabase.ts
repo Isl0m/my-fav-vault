@@ -4,17 +4,27 @@ import { env } from '@/env.mjs'
 
 const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = env.NEXT_PUBLIC_SUPABASE_KEY
+const appEnv = env.NEXT_PUBLIC_APP_ENV
+
+type GetAvatarUrl = { username: string; fileBaseName: string }
 
 export const SUPABASE = {
   client: createClient(supabaseUrl, supabaseKey),
 
+  createAvatarUrl({ username, fileBaseName }: GetAvatarUrl) {
+    return `${appEnv}/${username}/${fileBaseName}_${Date.now().toString()}`
+  },
   async uploadFile(file: File, username: string) {
     return await this.client.storage
       .from('avatars')
-      .upload(`${username}/${file.name}_${Date.now()}`.toString(), file, {
-        cacheControl: '3600',
-        upsert: true,
-      })
+      .upload(
+        this.createAvatarUrl({ username, fileBaseName: file.name }),
+        file,
+        {
+          cacheControl: '3600',
+          upsert: true,
+        }
+      )
   },
   async deleteFiles(filePaths: string[]) {
     return await this.client.storage.from('avatars').remove(filePaths)
