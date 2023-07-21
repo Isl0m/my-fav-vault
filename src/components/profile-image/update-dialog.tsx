@@ -5,6 +5,8 @@ import toast from 'react-hot-toast'
 
 import { DialogProps } from '@radix-ui/react-dialog'
 
+import { Button } from '@ui/button'
+
 import {
   Dialog,
   DialogContent,
@@ -12,12 +14,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-
 import { SUPABASE } from '@/lib/supabase'
 import { ImageUpdateRequest } from '@/schemas/user-image.schema'
 
 import { Icons } from '../icons'
-import { Button } from '../ui/button'
 
 import { FileInputArea } from './file-input'
 import { UploadedImagePreview } from './image-preview'
@@ -32,22 +32,22 @@ async function updateUserImage(payload: ImageUpdateRequest) {
 type Props = Required<
   Pick<DialogProps, 'open' | 'onOpenChange'> & {
     username: string
-    // updateProfileImage: (src: string) => void
+    updateProfileImage: (src: string) => void
   }
 >
 
 export function UpdateProfileImageDialog({
   username,
-  // updateProfileImage,
+  updateProfileImage,
   ...dialog
 }: Props) {
   const [isLoading, setIsLoading] = useState(false)
-  const [imagePath, setImagePath] = useState<string>()
+  const [imageSrc, setImageSrc] = useState<string>()
   const [file, setFile] = useState<File>()
   const { update } = useSession()
 
-  const handleChangeImage = () => {
-    setImagePath(undefined)
+  const handleResetImage = () => {
+    setImageSrc(undefined)
     setFile(undefined)
   }
 
@@ -63,26 +63,24 @@ export function UpdateProfileImageDialog({
     const res = await SUPABASE.uploadFile(file, username)
 
     if (!res.error) {
-      const imagePath = SUPABASE.getAvatarUrl(res.data?.path)
-      setImagePath(imagePath)
-      return
+      const imageSrc = SUPABASE.getAvatarUrl(res.data?.path)
+      setImageSrc(imageSrc)
+    } else {
+      toast.error(res.error?.message)
+      setFile(undefined)
     }
-
-    toast.error(res.error?.message)
-    setFile(undefined)
-    return
   }
 
   const handleUpdateImage = async () => {
-    if (!imagePath) return
+    if (!imageSrc) return
     setIsLoading(true)
 
-    const updateImage = await updateUserImage({ image: imagePath, username })
+    const updateImage = await updateUserImage({ image: imageSrc, username })
 
     if (!updateImage.ok) return
-    await update({ image: imagePath })
+    await update({ image: imageSrc })
 
-    // updateProfileImage(imagePath)
+    updateProfileImage(imageSrc)
     dialog.onOpenChange(false)
 
     await SUPABASE.deleteUnusedFile(username)
@@ -99,8 +97,8 @@ export function UpdateProfileImageDialog({
         <div className='mt-5 flex w-full items-center justify-center'>
           {!!file ? (
             <UploadedImagePreview
-              imagePath={imagePath}
-              handleChangeImage={handleChangeImage}
+              imageSrc={imageSrc}
+              handleResetImage={handleResetImage}
             />
           ) : (
             <FileInputArea onFileChange={uploadFile} />
@@ -108,10 +106,7 @@ export function UpdateProfileImageDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            disabled={!imagePath || isLoading}
-            onClick={handleUpdateImage}
-          >
+          <Button disabled={!imageSrc || isLoading} onClick={handleUpdateImage}>
             {isLoading && (
               <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
             )}

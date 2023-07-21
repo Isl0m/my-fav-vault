@@ -49,8 +49,7 @@ export const SUPABASE = {
       console.error(e)
     }
   },
-  getAvatarUrl(imagePath?: string) {
-    if (!imagePath) return
-    return `${supabaseUrl}/storage/v1/object/public/avatars/${imagePath}`
+  getAvatarUrl(imageSrc: string) {
+    return `${supabaseUrl}/storage/v1/object/public/avatars/${imageSrc}`
   },
 }

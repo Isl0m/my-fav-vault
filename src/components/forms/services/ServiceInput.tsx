@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useInputQuery } from '@/components/forms/useInputQuery'
 import { useInputSelect } from '@/components/forms/useInputSelect'
-import { ImagePreviewMemo } from '@/components/image-preview'
+import { ImageOrBlankMemo } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
 
 import { UserService } from '@/schemas/user-service.schema'
@@ -45,7 +45,7 @@ export function ServiceInput<T extends UserService>({
   return (
     <div>
       <div className='flex items-center gap-4'>
-        <ImagePreviewMemo
+        <ImageOrBlankMemo
           className='shrink-0'
           imageSrc={selectedItem?.previewImage}
           alt={selectedItem?.title}

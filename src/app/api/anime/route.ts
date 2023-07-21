@@ -9,13 +9,11 @@ export async function GET(request: Request) {
   }
 
   const limit = 3
-  const animesResponse = await KITSU.getAnime({ query, limit })
+  const animes = await KITSU.getAnime({ query, limit })
 
-  if (animesResponse === null || animesResponse.meta.count === 0) {
+  if (!animes?.length) {
     return new Response('Anime not found', { status: 404 })
   }
-
-  const animes = KITSU.toUserService(animesResponse.data)
 
   return new Response(JSON.stringify(animes), { status: 200 })
 }

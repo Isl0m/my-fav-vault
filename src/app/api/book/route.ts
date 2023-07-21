@@ -9,17 +9,11 @@ export async function GET(request: Request) {
   }
   const limit = 3
 
-  const booksResponse = await GOOGLE_BOOKS.getBooks({ query })
+  const books = await GOOGLE_BOOKS.getBooks({ query })
 
-  if (
-    booksResponse === null ||
-    !booksResponse.items ||
-    booksResponse.totalItems === 0
-  ) {
+  if (!books?.length) {
     return new Response('Book not found', { status: 404 })
   }
 
-  const books = GOOGLE_BOOKS.toUserService(booksResponse.items.slice(0, limit))
-
-  return new Response(JSON.stringify(books), { status: 200 })
+  return new Response(JSON.stringify(books.slice(0, limit)), { status: 200 })
 }

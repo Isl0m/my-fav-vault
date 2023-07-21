@@ -9,13 +9,11 @@ export async function GET(request: Request) {
   }
   const limit = 3
 
-  const mangasResponse = await KITSU.getManga({ query, limit })
+  const mangas = await KITSU.getManga({ query, limit })
 
-  if (mangasResponse === null || mangasResponse.meta.count === 0) {
+  if (!mangas?.length) {
     return new Response('Book not found', { status: 404 })
   }
-
-  const mangas = KITSU.toUserService(mangasResponse.data)
 
   return new Response(JSON.stringify(mangas), { status: 200 })
 }

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { ImagePreview } from './image-preview'
+import { ImageOrBlank } from './image-preview'
 
 export type UserCardProps = {
   username: string
@@ -15,7 +15,7 @@ export function UserCard({ username, email, image }: UserCardProps) {
         href={`/@${username}`}
         className='flex items-center gap-4 rounded-md'
       >
-        <ImagePreview
+        <ImageOrBlank
           imageSrc={image}
           alt={username}
           className='aspect-square'

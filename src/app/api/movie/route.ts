@@ -9,13 +9,11 @@ export async function GET(request: Request) {
   }
 
   const limit = 3
-  const moviesResponse = await TMDB.getMovie({ query })
+  const movies = await TMDB.getMovie({ query })
 
-  if (moviesResponse === null || moviesResponse.total_results === 0) {
+  if (!movies?.length) {
     return new Response('Movie not found', { status: 404 })
   }
 
-  const movies = TMDB.toUserService(moviesResponse.results.slice(0, limit))
-
-  return new Response(JSON.stringify(movies), { status: 200 })
+  return new Response(JSON.stringify(movies.slice(0, limit)), { status: 200 })
 }

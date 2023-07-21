@@ -1,11 +1,6 @@
 import { SearchQueryPrams } from '.'
 
-import {
-  KitsuAnime,
-  KitsuAnimeSearch,
-  KitsuManga,
-  KitsuMangaSearch,
-} from '@/schemas/kitsu.schema'
+import { KitsuSearchSchema } from '@/schemas/kitsu.schema'
 import { UserService } from '@/schemas/user-service.schema'
 
 export const KITSU = {
@@ -16,13 +11,13 @@ export const KITSU = {
   async getAnime({
     query,
     limit,
-  }: SearchQueryPrams): Promise<KitsuAnimeSearch | null> {
+  }: SearchQueryPrams): Promise<UserService[] | null> {
     const fetchUrl = `${
       this.baseUrl
     }/anime?filter[text]=${query}${this.formatLimitParam(limit)}`
     try {
       const response = await fetch(fetchUrl)
-      return response.json()
+      return KitsuSearchSchema.parse(response.json())
     } catch {
       return null
     }
@@ -31,30 +26,16 @@ export const KITSU = {
   async getManga({
     query,
     limit,
-  }: SearchQueryPrams): Promise<KitsuMangaSearch | null> {
+  }: SearchQueryPrams): Promise<UserService[] | null> {
     const fetchUrl = `${
       this.baseUrl
     }/manga?filter[text]=${query}${this.formatLimitParam(limit)}`
 
     try {
       const response = await fetch(fetchUrl)
-      return response.json()
+      return KitsuSearchSchema.parse(response.json())
     } catch {
       return null
     }
-  },
-
-  toUserService(items: Array<KitsuAnime | KitsuManga>): UserService[] {
-    return items.map(item => ({
-      serviceId: item.id.toString(),
-      serviceName: this.serviceName,
-      title:
-        item.attributes.titles.en ||
-        item.attributes.titles.en_jp ||
-        item.attributes.titles.ja_jp ||
-        item.attributes.canonicalTitle,
-      subTitle: item.attributes.startDate,
-      previewImage: item.attributes.posterImage.original,
-    }))
   },
 }

@@ -6,8 +6,7 @@ import { Suspense } from 'react'
 import { BookForm } from '@/components/forms/services/book'
 import { MovieForm } from '@/components/forms/services/movie'
 import { MusicForm } from '@/components/forms/services/music'
-import { ImagePreview } from '@/components/image-preview'
-import { EditControls } from '@/components/profile-image/edit-controls'
+import ProfileImage from '@/components/profile-image/profile-image'
 import { ProfileCardsLoading } from '@/components/profile-loading'
 import { Button } from '@/components/ui/button'
 
@@ -23,14 +22,10 @@ export default async function Profile() {
     <main className='mt-8 min-h-without-header md:pb-24'>
       <div className='mx-auto flex max-w-3xl flex-col items-center justify-between gap-8'>
         <div className='flex items-center justify-center gap-4'>
-          <div className='relative'>
-            <ImagePreview
-              imageSrc={session.user.image}
-              alt={session.user.username}
-              className='aspect-square w-24'
-            />
-            <EditControls username={session.user.username} />
-          </div>
+          <ProfileImage
+            username={session.user.username}
+            imageSrc={session.user.image}
+          />
 
           <div>
             <h3 className='text-2xl font-semibold tracking-tight'>

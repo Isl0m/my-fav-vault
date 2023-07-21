@@ -1,8 +1,9 @@
 import { Book, Movie, Music, User } from '@prisma/client'
 
+import { Skeleton } from '@ui/skeleton'
+
 import prisma from '@/lib/prisma'
 
-import { Skeleton } from './ui/skeleton'
 import { UserCard } from './user-card'
 
 function getServiceIds(service: (Book | Movie | Music)[]) {

@@ -1,10 +1,7 @@
 'use client'
 
-import Link from 'next/link'
-
 import { useEffect, useState } from 'react'
 
-import { ImagePreview } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserCard } from '@/components/user-card'

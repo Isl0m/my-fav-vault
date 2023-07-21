@@ -1,24 +1,25 @@
-import { DivImage } from '@/components/image-preview'
+import { Skeleton } from '@ui/skeleton'
+
 import { Button } from '@/components/ui/button'
 
-import { Skeleton } from '../ui/skeleton'
+import { Image } from '../image-preview'
 
 type Props = {
-  imagePath: string | undefined
-  handleChangeImage: () => void
+  imageSrc: string | undefined
+  handleResetImage: () => void
 }
 
-export function UploadedImagePreview({ imagePath, handleChangeImage }: Props) {
-  return !!imagePath ? (
+export function UploadedImagePreview({ imageSrc, handleResetImage }: Props) {
+  return imageSrc ? (
     <div>
-      <DivImage
+      <Image
         className='aspect-square w-24'
-        src={imagePath}
+        src={imageSrc}
         alt={'Uploaded image'}
       />
       <Button
         variant='secondary'
-        onClick={handleChangeImage}
+        onClick={handleResetImage}
         className='mt-2 w-24'
       >
         Change

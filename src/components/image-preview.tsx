@@ -1,26 +1,26 @@
 'use client'
 
-import Image, { ImageProps } from 'next/image'
+import NextImage, { ImageProps as NextImageProps } from 'next/image'
 
 import { ComponentProps, memo } from 'react'
 
 import { cn } from '@/lib/utils'
 
-type ImagePreviewProps = ComponentProps<'div'> & {
+type ImageOrBlankProps = ComponentProps<'div'> & {
   imageSrc?: string | null
   alt?: string
   className?: string
 }
-export function ImagePreview({
+export function ImageOrBlank({
   imageSrc,
   alt,
   className,
   ...rest
-}: ImagePreviewProps) {
+}: ImageOrBlankProps) {
   return (
     <>
       {imageSrc && alt ? (
-        <DivImage src={imageSrc} alt={alt} className={className} />
+        <Image src={imageSrc} alt={alt} className={className} />
       ) : (
         <div
           className={cn(
@@ -34,10 +34,10 @@ export function ImagePreview({
   )
 }
 
-type DivImageProps = ImageProps & {
+type ImageProps = NextImageProps & {
   className?: string
 }
-export function DivImage({ className, alt, ...rest }: DivImageProps) {
+export function Image({ className, alt, ...rest }: ImageProps) {
   return (
     <div
       className={cn(
@@ -45,7 +45,7 @@ export function DivImage({ className, alt, ...rest }: DivImageProps) {
         className
       )}
     >
-      <Image
+      <NextImage
         {...rest}
         fill
         style={{ objectFit: 'cover' }}
@@ -56,4 +56,4 @@ export function DivImage({ className, alt, ...rest }: DivImageProps) {
   )
 }
 
-export const ImagePreviewMemo = memo(ImagePreview)
+export const ImageOrBlankMemo = memo(ImageOrBlank)

@@ -9,14 +9,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@ui/form'
+import { Input } from '@ui/input'
 
+import { Button } from '@/components/ui/button'
 import { setUsernameSchema } from '@/lib/validators/auth'
 import { UsernameUpdateRequest } from '@/schemas/username.schema'
 
 import { Icons } from '../icons'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
 
 type Inputs = z.infer<typeof setUsernameSchema>
 

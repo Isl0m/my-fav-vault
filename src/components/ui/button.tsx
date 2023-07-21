@@ -73,7 +73,7 @@ export function GoogleSignInButton() {
   const [isLoading, setIsLoading] = useState(false)
   const handleClick = async () => {
     setIsLoading(true)
-    const res = await signIn('github')
+    const res = await signIn('google', { redirect: false })
     if (res?.ok || !res?.error) {
       setIsLoading(false)
       return
@@ -101,7 +101,7 @@ export function GithubSignInButton() {
   const [isLoading, setIsLoading] = useState(false)
   const handleClick = async () => {
     setIsLoading(true)
-    const res = await signIn('github')
+    const res = await signIn('github', { redirect: false })
     if (res?.ok || !res?.error) {
       setIsLoading(false)
       return

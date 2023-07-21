@@ -6,14 +6,15 @@ import { Suspense } from 'react'
 
 import { Prisma } from '@prisma/client'
 
-import { ImagePreview } from '@/components/image-preview'
+import { Sheet } from '@ui/sheet'
+
+import { ImageOrBlank } from '@/components/image-preview'
 import {
   SimilarProfiles,
   SimilarProfilesLoading,
 } from '@/components/similar-profiles'
 import { ShareProfileButton } from '@/components/ui/button'
 import { UserFav } from '@/components/user-fav'
-
 import prisma from '@/lib/prisma'
 import { UserService } from '@/schemas/user-service.schema'
 
@@ -85,7 +86,7 @@ export default async function Username({ params }: Props) {
     <main className='mt-8 min-h-screen md:pb-24'>
       <div className='mx-auto flex max-w-[95vw] flex-col items-center justify-between gap-8 md:max-w-2xl'>
         <div className='flex items-center justify-center gap-4'>
-          <ImagePreview
+          <ImageOrBlank
             imageSrc={user.image}
             className='aspect-square w-24'
             alt={user.username || 'user image'}
