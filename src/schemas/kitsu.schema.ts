@@ -6,9 +6,9 @@ export const KitsuSchema = z.object({
   id: z.string(),
   attributes: z.object({
     titles: z.object({
-      en: z.string().nullable(),
-      en_jp: z.string().nullable(),
-      ja_jp: z.string().nullable(),
+      en: z.string().nullable().optional(),
+      en_jp: z.string().nullable().optional(),
+      ja_jp: z.string().nullable().optional(),
     }),
     canonicalTitle: z.string(),
     startDate: z.string(),
@@ -18,14 +18,14 @@ export const KitsuSchema = z.object({
       small: z.string(),
       medium: z.string(),
       original: z.string(),
-      meta: z.object({
-        dimensions: z.object({
-          tiny: z.object({ width: z.number(), height: z.number() }),
-          large: z.object({ width: z.number(), height: z.number() }),
-          small: z.object({ width: z.number(), height: z.number() }),
-          medium: z.object({ width: z.number(), height: z.number() }),
-        }),
-      }),
+      // meta: z.object({
+      //   dimensions: z.object({
+      //     tiny: z.object({ width: z.number(), height: z.number() }),
+      //     large: z.object({ width: z.number(), height: z.number() }),
+      //     small: z.object({ width: z.number(), height: z.number() }),
+      //     medium: z.object({ width: z.number(), height: z.number() }),
+      //   }),
+      // }),
     }),
   }),
 })

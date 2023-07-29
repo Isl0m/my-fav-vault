@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     })
 
     if (!tracks?.length) {
-      return new Response('Book not found', { status: 404 })
+      return new Response('Music not found', { status: 404 })
     }
 
     return new Response(JSON.stringify(tracks), { status: 200 })

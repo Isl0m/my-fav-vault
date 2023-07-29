@@ -26,7 +26,6 @@ export async function POST(request: Request) {
   const book = userServiceSchema.parse(req)
 
   const session = await getServerSession()
-  console.log(session)
 
   if (!session) {
     return new Response('No session', { status: 401 })

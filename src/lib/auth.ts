@@ -105,7 +105,6 @@ export const authOptions: NextAuthOptions = {
 
           return null
         } catch (e) {
-          console.log(e)
           return null
         }
       },
