@@ -7,14 +7,14 @@ export const GOOGLE_BOOKS = {
   serviceName: 'Google Books',
   baseUrl: 'https://www.googleapis.com/books/v1/',
 
-  async getBooks({ query }: SearchQueryPrams): Promise<UserService[] | null> {
+  async getBooks({
+    query,
+  }: SearchQueryPrams): Promise<UserService[] | undefined> {
     const fetchUrl = `${this.baseUrl}volumes?q=${query}`
 
-    try {
-      const response = await fetch(fetchUrl)
-      return GoogleBooksSearchSchema.parse(response.json())
-    } catch {
-      return null
-    }
+    const response = await fetch(fetchUrl)
+    const data = await response.json()
+
+    return GoogleBooksSearchSchema.parse(data)
   },
 }

@@ -14,7 +14,9 @@ export default function ProfileLoading() {
         <div>
           <Skeleton className='h-10 w-32 rounded-md' />
         </div>
-        <ProfileCardsLoading />
+        <div className=''>
+          <Skeleton className='h-[300px] w-[500px] rounded-lg' />
+        </div>
       </div>
     </main>
   )

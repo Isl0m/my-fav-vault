@@ -14,12 +14,12 @@ type UserFavProps = PropsWithChildren & {
 export function UserFav({ title, data }: UserFavProps) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='px-6'>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <ul className='flex flex-col gap-4'>
+      <CardContent className='p-6 pb-4 pt-0'>
+        <ul className='flex flex-col gap-4 sm:flex-row'>
           {data.map(item => (
             <UserFavItem
               key={item.id}
@@ -42,13 +42,11 @@ type UserFavItemProps = {
 
 function UserFavItem({ title, subTitle, imageSrc }: UserFavItemProps) {
   return (
-    <li className='max-w-sm'>
-      <div className='flex items-center gap-4'>
-        <ImageOrBlank className='shrink-0' imageSrc={imageSrc} alt={title} />
-        <div>
-          <h4 className='line-clamp-1 font-semibold'>{title}</h4>
-          <p className='line-clamp-1 text-sm text-slate-400'>{subTitle}</p>
-        </div>
+    <li className='w-48 sm:w-40'>
+      <ImageOrBlank className='w-48 sm:w-40' imageSrc={imageSrc} alt={title} />
+      <div>
+        <h4 className='line-clamp-1 font-semibold'>{title}</h4>
+        <p className='line-clamp-1 text-sm text-slate-400'>{subTitle}</p>
       </div>
     </li>
   )

@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 import { KITSU } from '@/lib/api'
 
 export async function GET(request: Request) {
@@ -9,11 +11,18 @@ export async function GET(request: Request) {
   }
 
   const limit = 3
-  const animes = await KITSU.getAnime({ query, limit })
+  try {
+    const animes = await KITSU.getAnime({ query, limit })
 
-  if (!animes?.length) {
-    return new Response('Anime not found', { status: 404 })
+    if (!animes?.length) {
+      return new Response('Anime not found', { status: 404 })
+    }
+
+    return new Response(JSON.stringify(animes), { status: 200 })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(error.message, { status: 404 })
+    }
+    return new Response(null, { status: 404 })
   }
-
-  return new Response(JSON.stringify(animes), { status: 200 })
 }

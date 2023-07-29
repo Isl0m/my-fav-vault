@@ -70,9 +70,19 @@ async function getSimilarUsers(
   return getResult()
 }
 
-type Props = { id: string; books: Book[]; movies: Movie[]; musics: Music[] }
+export type SimilarProfilesProps = {
+  id: string
+  books: Book[]
+  movies: Movie[]
+  musics: Music[]
+}
 
-export async function SimilarProfiles({ id, books, movies, musics }: Props) {
+export async function SimilarProfiles({
+  id,
+  books,
+  movies,
+  musics,
+}: SimilarProfilesProps) {
   const similarUsers = await getSimilarUsers(
     id,
     getServiceIds(books),
@@ -85,9 +95,9 @@ export async function SimilarProfiles({ id, books, movies, musics }: Props) {
   }
 
   return (
-    <ul className='mt-4 flex w-96 flex-col gap-4'>
+    <ul className='mt-4 flex w-80 flex-col gap-4'>
       {similarUsers.map(user => (
-        <UserCard key={user.username} {...user} />
+        <UserCard className='p-2 md:p-4' key={user.username} {...user} />
       ))}
     </ul>
   )
@@ -96,8 +106,8 @@ export async function SimilarProfiles({ id, books, movies, musics }: Props) {
 export function SimilarProfilesLoading() {
   return (
     <ul className='mt-4 flex flex-col gap-4'>
-      <Skeleton className='h-24 w-96 rounded-md' />
-      <Skeleton className='h-24 w-96 rounded-md' />
+      <Skeleton className='h-24 w-80 rounded-md' />
+      <Skeleton className='h-24 w-80 rounded-md' />
     </ul>
   )
 }

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-
 import { getServerSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 
@@ -26,7 +25,7 @@ export async function MusicForm() {
     <Card className='w-80'>
       <CardHeader>
         <CardTitle className='mb-2 text-lg font-semibold'>
-          Your 3 fav musics
+          Your 3 musics
         </CardTitle>
       </CardHeader>
       <CardContent className='flex flex-col gap-2'>

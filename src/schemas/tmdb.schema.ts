@@ -17,11 +17,11 @@ export const tmdbMovieErrorSchema = z.object({
 
 export const tmdbMovieSearchSchema = z
   .object({
-    results: z.array(tmdbMovieSchema),
-    total_results: z.number(),
+    results: z.array(tmdbMovieSchema).optional(),
+    total_results: z.number().optional(),
   })
-  .transform(result =>
-    result.results.map(item => ({
+  .transform(data =>
+    data.results?.map(item => ({
       serviceId: item.id.toString(),
       serviceName: TMDB.serviceName,
       title: item.title,

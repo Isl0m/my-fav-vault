@@ -1,6 +1,6 @@
 import { UserService } from '@/schemas/user-service.schema'
 
-import { InputOptionItem } from './InputOptionItem'
+import { InputOptionItem } from './input-option-item'
 
 type Props = {
   data: UserService[]

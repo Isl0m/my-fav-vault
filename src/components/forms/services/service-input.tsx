@@ -1,13 +1,12 @@
 import { useState } from 'react'
 
-import { useInputQuery } from '@/components/forms/useInputQuery'
-import { useInputSelect } from '@/components/forms/useInputSelect'
+import { useInputQuery } from '@/components/forms/hooks/useInputQuery'
+import { useInputSelect } from '@/components/forms/hooks/useInputSelect'
 import { ImageOrBlankMemo } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
-
 import { UserService } from '@/schemas/user-service.schema'
 
-import { InputOption } from './InputOption'
+import { InputOption } from './input-option'
 
 export type ServiceInputProps<T> = {
   name?: string

@@ -5,20 +5,22 @@ import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserCard } from '@/components/user-card'
-
 import { SearchRequest } from '@/schemas/search.schema'
 import { UserOption } from '@/schemas/user-option.schema'
 
 export default function Search() {
+  const [isLoading, setIsLoading] = useState(false)
   const [query, setQuery] = useState('')
   const [userOptions, setUserOptions] = useState<UserOption[]>([])
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      setIsLoading(true)
       const payload: SearchRequest = { query }
       fetch('/api/user/search?' + new URLSearchParams(payload).toString())
         .then(res => (res.ok ? res.json() : []))
         .then(setUserOptions)
+        .then(() => setIsLoading(false))
     }, 1000)
 
     return () => clearTimeout(timeoutId)
@@ -33,6 +35,7 @@ export default function Search() {
           </h1>
           <Input
             value={query}
+            disabled={isLoading}
             onChange={e => setQuery(e.target.value)}
             className='bg-muted md:w-96'
             placeholder='Enter query...'

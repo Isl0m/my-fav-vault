@@ -6,11 +6,10 @@ import { Book } from '@prisma/client'
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-
 import { servicesConfig } from '@/config/services'
 
-import { ServiceInput } from './ServiceInput'
 import { getBookOptions, getMangaOptions, saveSelectedItem } from './book-api'
+import { ServiceInput } from './service-input'
 
 type Props = {
   name?: string

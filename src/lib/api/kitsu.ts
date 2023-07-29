@@ -8,34 +8,25 @@ export const KITSU = {
   baseUrl: 'https://kitsu.io/api/edge',
   formatLimitParam: (limit?: number) => (limit ? `&page[limit]=${limit}` : ''),
 
-  async getAnime({
-    query,
-    limit,
-  }: SearchQueryPrams): Promise<UserService[] | null> {
+  async getAnime({ query, limit }: SearchQueryPrams): Promise<UserService[]> {
     const fetchUrl = `${
       this.baseUrl
     }/anime?filter[text]=${query}${this.formatLimitParam(limit)}`
-    try {
-      const response = await fetch(fetchUrl)
-      return KitsuSearchSchema.parse(response.json())
-    } catch {
-      return null
-    }
+
+    const response = await fetch(fetchUrl)
+    const data = await response.json()
+
+    return KitsuSearchSchema.parse(data)
   },
 
-  async getManga({
-    query,
-    limit,
-  }: SearchQueryPrams): Promise<UserService[] | null> {
+  async getManga({ query, limit }: SearchQueryPrams): Promise<UserService[]> {
     const fetchUrl = `${
       this.baseUrl
     }/manga?filter[text]=${query}${this.formatLimitParam(limit)}`
 
-    try {
-      const response = await fetch(fetchUrl)
-      return KitsuSearchSchema.parse(response.json())
-    } catch {
-      return null
-    }
+    const response = await fetch(fetchUrl)
+    const data = await response.json()
+
+    return KitsuSearchSchema.parse(data)
   },
 }

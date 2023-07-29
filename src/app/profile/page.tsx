@@ -9,7 +9,6 @@ import { MusicForm } from '@/components/forms/services/music'
 import ProfileImage from '@/components/profile-image/profile-image'
 import { ProfileCardsLoading } from '@/components/profile-loading'
 import { Button } from '@/components/ui/button'
-
 import { getSessionOrRedirect } from '@/lib/utils-server'
 
 export const metadata: Metadata = {
@@ -40,7 +39,6 @@ export default async function Profile() {
           </Link>
         </div>
         <Suspense fallback={<ProfileCardsLoading />}>
-          {/* <div className='grid grid-cols-1 justify-center gap-8 md:grid-cols-2'> */}
           <div className='flex flex-wrap justify-center gap-8'>
             {/* @ts-expect-error Async Server Component */}
             <MovieForm />
