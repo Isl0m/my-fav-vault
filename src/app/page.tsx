@@ -91,7 +91,7 @@ export default function Home() {
           </ul>
         </div>
       </section>
-      <section className='mt-16 flex min-h-[80vh] flex-col items-center lg:mt-0'>
+      <section className='my-16 flex min-h-[80vh] flex-col items-center lg:mt-0'>
         <div className='mx-auto w-11/12 md:max-w-5xl'>
           <h2 className='text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
             How it works
