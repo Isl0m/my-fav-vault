@@ -5,7 +5,6 @@ import { Provider } from 'react-wrap-balancer'
 
 import { Header } from '@/components/layout/header'
 import { NextAuthProvider } from '@/components/providers'
-
 import { siteConfig } from '@/config/site'
 import '@/styles/globals.css'
 
