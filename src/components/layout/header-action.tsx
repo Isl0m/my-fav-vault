@@ -1,14 +1,22 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
-import { Button, SignOut } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 
 export function HeaderAction() {
   const { status } = useSession()
 
-  if (status === 'authenticated') return <SignOut />
+  if (status === 'authenticated')
+    return (
+      <Button
+        variant='link'
+        onClick={() => signOut({ callbackUrl: '/signin' })}
+      >
+        Sign Out
+      </Button>
+    )
 
   return (
     <Button variant='link' className='text-base'>

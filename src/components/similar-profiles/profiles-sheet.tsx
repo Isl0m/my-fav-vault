@@ -10,10 +10,10 @@ import {
 } from '@ui/sheet'
 
 import {
-  SimilarProfiles,
+  SimilarProfilesList,
   SimilarProfilesLoading,
   SimilarProfilesProps,
-} from './similar-profiles'
+} from './profiles-list'
 
 export function SimilarProfilesSheet(props: SimilarProfilesProps) {
   return (
@@ -29,7 +29,7 @@ export function SimilarProfilesSheet(props: SimilarProfilesProps) {
         </SheetHeader>
         <Suspense fallback={<SimilarProfilesLoading />}>
           {/* @ts-expect-error Async Server Component */}
-          <SimilarProfiles {...props} />
+          <SimilarProfilesList {...props} />
         </Suspense>
       </SheetContent>
     </Sheet>

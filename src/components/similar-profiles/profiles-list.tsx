@@ -4,7 +4,7 @@ import { Skeleton } from '@ui/skeleton'
 
 import prisma from '@/lib/prisma'
 
-import { UserCard } from './user-card'
+import { UserCard } from '../user-card'
 
 function getServiceIds(service: (Book | Movie | Music)[]) {
   return service.map(s => s.id)
@@ -77,7 +77,7 @@ export type SimilarProfilesProps = {
   musics: Music[]
 }
 
-export async function SimilarProfiles({
+export async function SimilarProfilesList({
   id,
   books,
   movies,

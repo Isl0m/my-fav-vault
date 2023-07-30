@@ -1,18 +1,11 @@
 'use client'
 
-import { signIn, signOut } from 'next-auth/react'
-
 import * as React from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
 
 import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 
-import copyProfileUrl from '@/lib/copy-profile-url'
 import { cn } from '@/lib/utils'
-
-import { Icons } from '../icons'
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
@@ -61,82 +54,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }
-
-export function SignOut() {
-  return (
-    <Button variant='link' onClick={() => signOut({ callbackUrl: '/signin' })}>
-      Sign Out
-    </Button>
-  )
-}
-export function GoogleSignInButton() {
-  const [isLoading, setIsLoading] = useState(false)
-  const handleClick = async () => {
-    setIsLoading(true)
-    const res = await signIn('google', { redirect: false })
-    if (res?.ok || !res?.error) {
-      setIsLoading(false)
-      return
-    }
-    toast.error(res.error)
-  }
-  return (
-    <Button
-      variant='outline'
-      type='button'
-      disabled={isLoading}
-      onClick={handleClick}
-    >
-      {isLoading ? (
-        <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
-      ) : (
-        <Icons.google className='mr-2 h-4 w-4' />
-      )}{' '}
-      Google
-    </Button>
-  )
-}
-
-export function GithubSignInButton() {
-  const [isLoading, setIsLoading] = useState(false)
-  const handleClick = async () => {
-    setIsLoading(true)
-    const res = await signIn('github', { redirect: false })
-    if (res?.ok || !res?.error) {
-      setIsLoading(false)
-      return
-    }
-    toast.error(res.error)
-  }
-  return (
-    <Button
-      variant='outline'
-      type='button'
-      disabled={isLoading}
-      onClick={handleClick}
-    >
-      {isLoading ? (
-        <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
-      ) : (
-        <Icons.gitHub className='mr-2 h-4 w-4' />
-      )}{' '}
-      Github
-    </Button>
-  )
-}
-
-export const SignInButton = () => {
-  return (
-    <Button variant='secondary' onClick={() => signIn()}>
-      Sign In
-    </Button>
-  )
-}
-
-export const ShareProfileButton = ({ username }: { username: string }) => {
-  const handleClick = async () => {
-    const isSuccess = await copyProfileUrl(username)
-    isSuccess && toast.success('Copied to clipboard')
-  }
-  return <Button onClick={handleClick}>Share Profile</Button>
-}

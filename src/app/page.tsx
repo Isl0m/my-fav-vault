@@ -49,7 +49,7 @@ export default function Home() {
           </Button>
         </div>
       </main>
-      <section className='flex min-h-screen  flex-col items-center justify-center'>
+      <section className='flex min-h-screen  flex-col items-center'>
         <div className='mx-auto w-11/12 md:max-w-5xl'>
           <h2 className='text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
             Features

@@ -4,9 +4,9 @@ import { notFound } from 'next/navigation'
 
 import { Prisma } from '@prisma/client'
 
+import { ShareProfileButton } from '@/components/copy-button'
 import { ImageOrBlank } from '@/components/image-preview'
-import { SimilarProfilesSheet } from '@/components/similar-profiles-sheet'
-import { ShareProfileButton } from '@/components/ui/button'
+import { SimilarProfilesSheet } from '@/components/similar-profiles/profiles-sheet'
 import { UserFav } from '@/components/user-fav'
 import prisma from '@/lib/prisma'
 import { UserService } from '@/schemas/user-service.schema'

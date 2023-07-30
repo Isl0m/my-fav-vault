@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { useInputQuery } from '@/components/forms/hooks/useInputQuery'
-import { useInputSelect } from '@/components/forms/hooks/useInputSelect'
+import { useInputQuery } from '@/components/forms/hooks/use-input-query'
+import { useInputSelect } from '@/components/forms/hooks/use-input-select'
 import { ImageOrBlankMemo } from '@/components/image-preview'
 import { Input } from '@/components/ui/input'
 import { UserService } from '@/schemas/user-service.schema'
