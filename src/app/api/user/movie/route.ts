@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const req = await request.json()
-  const movie = userServiceSchema.parse(req)
+  const { id: movieId, ...movie } = userServiceSchema.parse(req)
 
   const session = await getServerSession()
 
@@ -51,6 +51,17 @@ export async function POST(request: Request) {
         },
       })
 
+      await prisma.movie.update({
+        where: { id: movieId },
+        data: {
+          user: {
+            disconnect: {
+              id,
+            },
+          },
+        },
+      })
+
       return new Response(JSON.stringify(updatedMovie), { status: 200 })
     } catch (e) {
       return new Response(JSON.stringify(e), { status: 400 })
@@ -62,6 +73,17 @@ export async function POST(request: Request) {
       ...movie,
       user: {
         connect: {
+          id,
+        },
+      },
+    },
+  })
+
+  await prisma.movie.update({
+    where: { id: movieId },
+    data: {
+      user: {
+        disconnect: {
           id,
         },
       },

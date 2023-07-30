@@ -4,7 +4,7 @@ import { TMDB } from '@/lib/api'
 
 const tmdbMovieSchema = z.object({
   id: z.number(),
-  poster_path: z.string(),
+  poster_path: z.string().nullable(),
   release_date: z.string(),
   title: z.string(),
 })

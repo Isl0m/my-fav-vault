@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const req = await request.json()
-  const book = userServiceSchema.parse(req)
+  const { id: bookId, ...book } = userServiceSchema.parse(req)
 
   const session = await getServerSession()
 
@@ -54,6 +54,17 @@ export async function POST(request: Request) {
         },
       })
 
+      await prisma.book.update({
+        where: { id: bookId },
+        data: {
+          user: {
+            disconnect: {
+              id,
+            },
+          },
+        },
+      })
+
       return new Response(JSON.stringify(updatedBook), { status: 200 })
     } catch (e) {
       return new Response(JSON.stringify(e), { status: 400 })
@@ -65,6 +76,17 @@ export async function POST(request: Request) {
       ...book,
       user: {
         connect: {
+          id,
+        },
+      },
+    },
+  })
+
+  await prisma.book.update({
+    where: { id: bookId },
+    data: {
+      user: {
+        disconnect: {
           id,
         },
       },

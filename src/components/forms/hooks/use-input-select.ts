@@ -36,14 +36,14 @@ export function useInputSelect<T extends UserService>({
         .then(res => {
           if (res.ok) {
             onSelectBook(selectedItem.title)
+            return res.json()
           }
-          return res.json()
         })
         .then(res => {
-          if (res.id) {
+          if (res?.id) {
             setItemId(res.id)
-            setLoading(false)
           }
+          setLoading(false)
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
