@@ -13,19 +13,11 @@ export const KitsuSchema = z.object({
     canonicalTitle: z.string(),
     startDate: z.string(),
     posterImage: z.object({
-      tiny: z.string(),
-      large: z.string(),
-      small: z.string(),
-      medium: z.string(),
+      tiny: z.string().optional(),
+      large: z.string().optional(),
+      small: z.string().optional(),
+      medium: z.string().optional(),
       original: z.string(),
-      // meta: z.object({
-      //   dimensions: z.object({
-      //     tiny: z.object({ width: z.number(), height: z.number() }),
-      //     large: z.object({ width: z.number(), height: z.number() }),
-      //     small: z.object({ width: z.number(), height: z.number() }),
-      //     medium: z.object({ width: z.number(), height: z.number() }),
-      //   }),
-      // }),
     }),
   }),
 })
